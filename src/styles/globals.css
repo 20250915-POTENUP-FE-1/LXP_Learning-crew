@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+* {
+  font-family: "Pretendard";
+}
+
+body {
+  margin: 0px;
+}
