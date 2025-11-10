@@ -6,7 +6,7 @@ const buttonStyle = tv({
     variant: {
       primary:
         "border-blue-500 hover:bg-blue-500 hover:text-white text-blue-500",
-      secondary: "text-gray-600 hover:bg-gray-100",
+      default: "text-gray-600 hover:bg-gray-100",
     },
   },
   defaultVariants: {

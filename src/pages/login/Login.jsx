@@ -1,8 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Input from "../../components/Input";
 import Button from "../../components/Button";
-import useFormData from "./hooks/useFormData";
+
 import LoginForm from "./components/LoginForm";
 
 function Login() {
@@ -20,7 +17,7 @@ function Login() {
 
         <Button
           type="button"
-          variant="secondary"
+          variant="default"
           // onClick={() => navigate("/register")}
         >
           회원가입
