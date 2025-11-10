@@ -1,4 +1,7 @@
 import React from "react";
+import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button/Button";
 
 const LogoIcon = () => (
   <svg
@@ -30,13 +33,9 @@ const NavLink = ({ href, children, isActive = false }) => (
   </a>
 );
 
-const AuthButton = ({ children }) => (
-  <button className="rounded-lg border border-[#b2b2b2] bg-white px-4 py-1.5 text-[11px] font-semibold text-black">
-    {children}
-  </button>
-);
-
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header className="flex h-16 w-[1061px] items-center justify-between">
       <div className="flex items-center gap-[72px]">
@@ -48,13 +47,12 @@ const Header = () => {
             강의
           </NavLink>
           <NavLink href="/mypage">마이페이지</NavLink>
-          <NavLink href="/admin">관리자</NavLink>
         </nav>
       </div>
       <div className="flex items-center gap-2">
-        <AuthButton>회원가입</AuthButton>
-        <AuthButton>로그아웃</AuthButton>
-        <AuthButton>로그인</AuthButton>
+        <Button variant="default" onClick={() => navigate("/login")}>
+          로그인
+        </Button>
       </div>
     </header>
   );
