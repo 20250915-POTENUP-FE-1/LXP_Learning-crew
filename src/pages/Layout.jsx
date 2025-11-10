@@ -1,14 +1,23 @@
 import React from "react";
-import Login from "./login/Login";
-import { Route, Routes } from "react-router-dom";
+import Header from "../layouts/Header";
+import Footer from "../layouts/Footer";
+import Main from "./main/Main";
 import Register from "./register/Register";
-
+import { Route, Routes } from "react-router-dom";
 const Layout = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
+    <div className="flex min-h-screen flex-col items-center">
+      {/* 1. Header 삽입 */}
+      <Header />
+
+      <main className="w-full max-w-7xl grow">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
+
+      <Footer />
     </div>
   );
 };
