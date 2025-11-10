@@ -1,15 +1,24 @@
-import React from "react";
+import { tv } from "tailwind-variants";
 
-const Button = ({ children, type, className, onClick }) => {
+const buttonStyle = tv({
+  base: "h-12 w-[520px] rounded-lg border py-3 font-semibold  transition-all",
+  variants: {
+    variant: {
+      primary:
+        "border-blue-500 hover:bg-blue-500 hover:text-white text-blue-500",
+      default: "text-gray-600 hover:bg-gray-100",
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
+  },
+});
+
+// variant props에 primary를 입력하면 위 buttonStyle의 primary의 디자인이 나옴.
+const Button = ({ variant, children, ...props }) => {
   return (
-    <button
-      type={type}
-      className={`group box-border flex items-center justify-center rounded-xl border border-blue-700 p-3 px-7 transition duration-200 hover:bg-blue-700 ${className} `}
-      onClick={onClick}
-    >
-      <span className="text-base font-semibold text-blue-700 transition duration-200 group-hover:text-white">
-        {children}
-      </span>
+    <button className={buttonStyle({ variant })} {...props}>
+      {children}
     </button>
   );
 };
