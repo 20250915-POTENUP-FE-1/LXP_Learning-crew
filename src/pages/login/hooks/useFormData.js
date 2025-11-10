@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 const useFormData = () => {
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    alert("로그인 성공(힝 속았징?)");
+  };
+  const handleRegisterClick = () => {
+    // TODO: 로그인 클릭 로직
   };
 
-  return { handleLogin };
+  return { handleLogin, handleRegisterClick };
 };
 
 export default useFormData;
