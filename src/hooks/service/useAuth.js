@@ -18,7 +18,7 @@ const useAuth = () => {
 
       return {
         success: true,
-        uid: data.user.uid,
+        userId: data.user.uid,
       };
     } catch (error) {
       return { success: false, error: error.message };
@@ -31,7 +31,7 @@ const useAuth = () => {
 
       return {
         success: true,
-        uid: data.user.uid,
+        userId: data.user.uid,
       };
     } catch (error) {
       return { success: false, error: error.message };

@@ -13,6 +13,10 @@ const RegisterForm = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   const handleUserTypeChange = (e) => {
     const newUserType = e.target.value;
     setFormData((prev) => ({

@@ -1,5 +1,3 @@
-import React from "react";
-import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button/Button";
 

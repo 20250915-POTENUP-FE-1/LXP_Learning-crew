@@ -1,14 +1,9 @@
-import { useState } from "react";
 import useFormData from "../hooks/useFormData";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button/Button";
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const { handleLogin } = useFormData();
+  const { handleLogin, formData, setFormData } = useFormData();
 
   return (
     <form className="flex flex-col gap-15" onSubmit={handleLogin}>

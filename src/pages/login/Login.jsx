@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 import LoginForm from "./components/LoginForm";
 import useFormData from "./hooks/useFormData";
 
 function Login() {
-  const navigate = useNavigate();
   const { handleRegisterClick } = useFormData();
 
   return (
@@ -18,13 +16,7 @@ function Login() {
       <div className="flex flex-col gap-4">
         <LoginForm />
 
-        <Button
-          type="button"
-          variant="default"
-          onClick={() => {
-            navigate("/register");
-          }}
-        >
+        <Button type="button" variant="default" onClick={handleRegisterClick}>
           회원가입
         </Button>
       </div>
