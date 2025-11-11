@@ -1,8 +1,16 @@
+import { useEffect } from "react";
+import useAuth from "../../hooks/service/useAuth";
 import LectureCard from "./components/lecture/LectureCard";
 import LectureList from "./components/lecture/LectureList";
 import OnboardingMessage from "./components/onboarding/OnboardingMessage";
 
 const Main = () => {
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+  });
+
   return (
     <div className="flex flex-col items-center">
       <div className="my-18">
