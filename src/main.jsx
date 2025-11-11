@@ -8,9 +8,9 @@ import "./styles/fonts.css";
 import Layout from "./pages/Layout";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
-  </StrictMode>,
+  // <StrictMode>
+  <BrowserRouter>
+    <Layout />
+  </BrowserRouter>,
+  // </StrictMode>,
 );

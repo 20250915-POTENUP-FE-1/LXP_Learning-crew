@@ -1,7 +1,53 @@
 import { postFetchRegister, postFetchLogin } from "../../apis/auth/_index";
 import postFetchUser from "../../apis/users/postFetchUser";
+import postFetchLogout from "../../apis/auth/postFetchLogout";
+import getFetchAuthState from "../../apis/auth/getFetchAuthState";
 
 const useAuth = () => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(() => {
+  //   const savedAuthState = localStorage.getItem("isLoggedIn");
+  //   return savedAuthState === "true";
+  // });
+
+  // const [user, setUser] = useState(() => {
+  //   const savedUser = localStorage.getItem("user");
+  //   return savedUser ? JSON.parse(savedUser) : null;
+  // });
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     if (currentUser) {
+  //       // 로그인 상태
+  //       setIsLoggedIn(true);
+  //       setUser(currentUser);
+  //       localStorage.setItem("isLoggedIn", "true");
+  //       localStorage.setItem(
+  //         "user",
+  //         JSON.stringify({
+  //           uid: currentUser.uid,
+  //           email: currentUser.email,
+  //           displayName: currentUser.displayName,
+  //         }),
+  //       );
+  //     } else {
+  //       // 로그아웃 상태
+  //       setIsLoggedIn(false);
+  //       setUser(null);
+  //       localStorage.setItem("isLoggedIn", "false");
+  //       localStorage.removeItem("user");
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+  // const user = useMemo(() => {
+  //   const unsubscribe = getFetchAuthState().then((userId) => {
+  //     return userId;
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
+
   /**
    * 새로운 계정을 생성합니다.
    * @param {string} email 계정이 사용할 이메일
@@ -38,7 +84,19 @@ const useAuth = () => {
     }
   };
 
-  return { register, login };
+  const logout = async () => {
+    try {
+      const result = await postFetchLogout();
+
+      console.log(result);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  const isLoggedIn = getFetchAuthState() ? true : false;
+
+  return { register, login, isLoggedIn, logout };
 };
 
 export default useAuth;
