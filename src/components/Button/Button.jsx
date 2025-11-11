@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
 const buttonStyle = tv({
-  base: "transition-all cursor-pointer",
+  base: "tpx-4 py-1.5 text-sm rounded-lg border transition-all font-semibold cursor-pointer",
   variants: {
     variant: {
       primary:
