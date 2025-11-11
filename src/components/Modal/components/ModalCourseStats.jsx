@@ -1,4 +1,4 @@
-const ModalCard = () => {
+const ModalCourseStats = () => {
   const cards = [
     { value: "2,457", label: "수강중인 인원" },
     { value: "2시간", label: "강의 시간" },
@@ -20,4 +20,4 @@ const ModalCard = () => {
   );
 };
 
-export default ModalCard;
+export default ModalCourseStats;

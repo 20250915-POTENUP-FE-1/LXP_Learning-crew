@@ -1,25 +1,25 @@
-import ModalButton from "../ModalButton";
-import ModalCard from "./components/ModalCard";
-import ModalContent from "./components/ModalContent";
-import ModalList from "./components/ModalList";
+import ModalCourseStats from "./components/ModalCourseStats";
+import ModalHeaderContent from "./components/ModalHeaderContent";
+import ModalCurriculumList from "./components/ModalCurriculumList";
+import Button from "../Button";
 
 const Modal = () => {
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="relative flex max-h-[90vh] w-[895px] flex-col rounded-3xl bg-white p-8 shadow-2xl">
-        <ModalButton type="button" variant="modal">
+        <Button type="button" variant="closer">
           X
-        </ModalButton>
+        </Button>
         <div className="flex-1 overflow-y-auto pr-2">
-          <ModalContent />
-          <ModalCard />
-          <ModalList />
+          <ModalHeaderContent />
+          <ModalCourseStats />
+          <ModalCurriculumList />
         </div>
 
-        <div className="mt-4 flex justify-end pt-4">
-          <ModalButton type="button" variant="modalEdit">
+        <div className="mt-4 flex justify-end pt-4 pr-8">
+          <Button type="button" variant="edit">
             수정하기
-          </ModalButton>
+          </Button>
         </div>
       </div>
     </div>

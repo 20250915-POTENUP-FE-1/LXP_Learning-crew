@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ModalList = () => {
+const ModalCurriculumList = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleList = () => {
@@ -79,4 +79,4 @@ const ModalList = () => {
   );
 };
 
-export default ModalList;
+export default ModalCurriculumList;

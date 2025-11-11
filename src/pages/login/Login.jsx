@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LoginButton from "../../components/LoginButton";
+import Button from "../../components/Button";
 
 import LoginForm from "./components/LoginForm";
 import useFormData from "./hooks/useFormData";
@@ -16,7 +16,7 @@ function Login() {
       <div className="flex flex-col gap-4">
         <LoginForm />
 
-        <LoginButton
+        <Button
           type="button"
           variant="default"
           onClick={() => {
@@ -24,7 +24,7 @@ function Login() {
           }}
         >
           회원가입
-        </LoginButton>
+        </Button>
       </div>
     </div>
   );
