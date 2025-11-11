@@ -1,15 +1,23 @@
 import React from "react";
-import Login from "./login/Login";
+import Main from "./main/Main";
 import { Route, Routes } from "react-router-dom";
-
-import Modal from "../components/Modal/Modal";
+import Header from "../layouts/Header";
+import Footer from "../layouts/Footer";
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const Layout = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Modal />} />
-      </Routes>
+    <div className="flex w-full justify-center">
+      <div className="flex max-w-[1100px] flex-col">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   );
 };

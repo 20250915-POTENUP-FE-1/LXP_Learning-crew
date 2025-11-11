@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
 const buttonStyle = tv({
@@ -14,14 +15,17 @@ const buttonStyle = tv({
     },
   },
   defaultVariants: {
-    variant: "primary",
+    variant: "default",
   },
 });
 
-// variant props에 primary를 입력하면 위 buttonStyle의 primary의 디자인이 나옴.
-const Button = ({ variant, children, ...props }) => {
+const Button = ({ className, variant, children, onClick, ...props }) => {
   return (
-    <button className={buttonStyle({ variant })} {...props}>
+    <button
+      className={clsx(buttonStyle({ variant }), className)}
+      onClick={onClick}
+      {...props}
+    >
       {children}
     </button>
   );
