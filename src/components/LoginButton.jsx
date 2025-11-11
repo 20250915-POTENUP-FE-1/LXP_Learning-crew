@@ -15,7 +15,7 @@ const buttonStyle = tv({
 });
 
 // variant props에 primary를 입력하면 위 buttonStyle의 primary의 디자인이 나옴.
-const Button = ({ variant, children, ...props }) => {
+const LoginButton = ({ variant, children, ...props }) => {
   return (
     <button className={buttonStyle({ variant })} {...props}>
       {children}
@@ -23,4 +23,4 @@ const Button = ({ variant, children, ...props }) => {
   );
 };
 
-export default Button;
+export default LoginButton;

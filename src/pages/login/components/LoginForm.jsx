@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useFormData from "../hooks/useFormData";
 import Input from "../../../components/Input";
-import Button from "../../../components/Button";
+import LoginButton from "../../../components/LoginButton";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -34,9 +34,9 @@ const LoginForm = () => {
         />
       </div>
 
-      <Button type="submit" variant="primary">
+      <LoginButton type="submit" variant="primary">
         로그인
-      </Button>
+      </LoginButton>
     </form>
   );
 };

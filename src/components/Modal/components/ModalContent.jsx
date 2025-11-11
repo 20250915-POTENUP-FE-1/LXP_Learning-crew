@@ -1,5 +1,5 @@
 import image from "../../../assets/img/image.png";
-const ModalFrame = () => {
+const ModalContent = () => {
   return (
     <div className="flex w-[800px] flex-row">
       <img
@@ -28,4 +28,4 @@ const ModalFrame = () => {
   );
 };
 
-export default ModalFrame;
+export default ModalContent;
