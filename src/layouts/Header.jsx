@@ -47,7 +47,7 @@ const Header = () => {
           <NavLink href="/lectures" isActive>
             강의
           </NavLink>
-          <NavLink href="/mypage">마이페이지</NavLink>
+          <NavLink href="/my">마이페이지</NavLink>
           <NavLink href="/admin">관리자</NavLink>
         </nav>
       </div>
