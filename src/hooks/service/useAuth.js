@@ -1,9 +1,27 @@
 import { postFetchRegister, postFetchLogin } from "../../apis/auth/_index";
 import postFetchUser from "../../apis/users/postFetchUser";
 import postFetchLogout from "../../apis/auth/postFetchLogout";
-import getFetchAuthState from "../../apis/auth/getFetchAuthState";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../constants/firebase";
 
 const useAuth = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const authState = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
+
+      setIsLoggedIn(!!authState);
+    })();
+  }, []);
+
   /**
    * 새로운 계정을 생성합니다.
    * @param {string} email 계정이 사용할 이메일
@@ -42,15 +60,11 @@ const useAuth = () => {
 
   const logout = async () => {
     try {
-      const result = await postFetchLogout();
-
-      console.log(result);
+      await postFetchLogout();
     } catch (error) {
       throw new Error(error.message);
     }
   };
-
-  const isLoggedIn = getFetchAuthState() ? true : false;
 
   return { register, login, isLoggedIn, logout };
 };

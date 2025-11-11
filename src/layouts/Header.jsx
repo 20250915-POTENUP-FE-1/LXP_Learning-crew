@@ -32,9 +32,7 @@ const Header = () => {
           <LogoIcon />
         </Link>
         <nav className="flex items-center gap-8">
-          <Link to="/lectures" isActive>
-            강의
-          </Link>
+          <Link to="/lectures">강의</Link>
           <Link to="/mypage">마이페이지</Link>
         </nav>
       </div>
