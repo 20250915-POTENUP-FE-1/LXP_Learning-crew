@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-// 💡 함수명을 generateInstructorCode로 수정하여 임포트합니다.
-// import { generateInstructorCode as runCodeGenerator } from "./generateInstructorCode";
+import runCodeGenerator, {
+  saveCodeToFirestore,
+} from "./generateInstructorCode";
+import { auth } from "../../../utils/firebase";
 
 const CodeGenerate = () => {
   // 1. 코드 상태 및 로딩 상태 관리
@@ -13,27 +15,27 @@ const CodeGenerate = () => {
     setIsLoading(true);
     setIssuedCode("...생성 중...");
 
-    // try {
-    // 💥 함수명 수정 반영: runCodeGenerator (임포트 시 이름 변경) 호출
-    // const newCode = await runCodeGenerator();
+    try {
+      // 💥 함수명 수정 반영: runCodeGenerator (임포트 시 이름 변경) 호출
+      const newCode = await runCodeGenerator();
 
-    // if (newCode) {
-    //   setIssuedCode(newCode); // 6자리 난수 노출
+      if (newCode) {
+        setIssuedCode(newCode); // 6자리 난수 노출
 
-    //   // 클립보드에 복사
-    //   await navigator.clipboard.writeText(newCode);
+        // 클립보드에 복사
+        await navigator.clipboard.writeText(newCode);
 
-    // 알림창 표시
-    //     alert(`6자리 코드 [${newCode}]가 클립보드에 복사되었습니다.`);
-    //   } else {
-    //     setIssuedCode("발급 실패");
-    //     alert("코드 발급에 실패했습니다. (DB 중복 또는 서버 오류)");
-    //   }
-    // } catch (error) {
-    //   console.error("코드 발급 중 오류 발생:", error);
-    //   setIssuedCode("오류 발생");
-    //   alert("오류가 발생하여 코드를 발급할 수 없습니다.");
-    // }
+        // 알림창 표시
+        alert(`6자리 코드 [${newCode}]가 클립보드에 복사되었습니다.`);
+      } else {
+        setIssuedCode("발급 실패");
+        alert("코드 발급에 실패했습니다. (DB 중복 또는 서버 오류)");
+      }
+    } catch (error) {
+      console.error("코드 발급 중 오류 발생:", error);
+      setIssuedCode("오류 발생");
+      alert("오류가 발생하여 코드를 발급할 수 없습니다.");
+    }
 
     setIsLoading(false);
   };
