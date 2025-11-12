@@ -14,11 +14,11 @@ const CodeGenerate = () => {
       </div>
 
       {/* 코드 표시 및 버튼 영역 */}
-      <div className="flex items-center space-x-4">
-        <div className="border-b-2 border-indigo-600 px-1 pb-1 font-mono text-3xl">
-          000000
-        </div>
-        <button className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white transition duration-150 hover:bg-indigo-700">
+
+      <div className="flex w-60 items-center justify-center space-x-4 rounded-2xl bg-[#f8f8f8] p-4">
+        <div className="text-xl font-semibold text-[#005EEB]">000000</div>
+
+        <button className="rounded-lg border border-[#B2B2B2] bg-white px-4 py-2 text-xs font-semibold text-black">
           코드 발급하기
         </button>
       </div>
