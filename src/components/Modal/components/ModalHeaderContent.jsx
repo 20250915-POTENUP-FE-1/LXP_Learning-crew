@@ -1,31 +1,35 @@
 import image from "../../../assets/img/image.png";
-const ModalHeaderContent = () => {
-  return (
-    <div className="flex w-[800px] flex-row">
-      <img
-        src={image}
-        alt="강의사진"
-        className="h-[286px] w-[431px] rounded-2xl"
-      />
+import Badge from "../../Badge";
 
-      <div className="p-8">
-        <div className="flex h-[23px] w-9 items-center justify-center rounded-lg bg-blue-100 text-sm font-medium text-blue-500 uppercase">
-          개발
+const ModalHeader = ({
+  type = { text: "개발", variant: "blue" },
+  title = "리액트 애플리케이션 OAuth2.0 구현하기",
+  description = "리액트 애플리케이션 인가 코드 승인 리액트 쿼리 구조와 동작원리를 분석해보기",
+  price = "99,000원",
+}) => {
+  return (
+    <div className="flex h-full">
+      <div className="aspect-4/2.5 w-full">
+        <img
+          src={image}
+          alt="강의사진"
+          className="h-full w-full rounded-2xl object-cover"
+        />
+      </div>
+
+      <div className="flex flex-col justify-center gap-4 p-6">
+        <div className="flex flex-col gap-2">
+          <Badge text={type.text} variant={type.variant} />
+
+          <h2 className="text-2xl font-medium text-gray-900">{title}</h2>
         </div>
 
-        <h2 className="mt-2 h-[100px] w-[290px] text-3xl font-medium text-gray-900">
-          리액트 애플리케이션 QAuth2.0 구현하기
-        </h2>
+        <p className="text-sm text-gray-500">{description}</p>
 
-        <p className="w-[280px] text-gray-500">
-          리액트 애플리케이션 인가 코드 승인 리액트 쿼리 구조와 동작원리를
-          분석해보기
-        </p>
-
-        <p className="mt-2 text-lg font-semibold text-gray-900">99,000원</p>
+        <p className="text-lg font-semibold text-gray-900">{price}</p>
       </div>
     </div>
   );
 };
 
-export default ModalHeaderContent;
+export default ModalHeader;

@@ -5,8 +5,17 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Login from "./login/Login";
 import Register from "./register/Register";
+import Modal from "../components/Modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal } from "../store/modal/modalReducer";
 
 const Layout = () => {
+  const modalContent = useSelector((state) => state.modal.modalContent.content);
+  const bottomContainer = useSelector(
+    (state) => state.modal.modalContent.bottomContainer,
+  );
+  const dispatch = useDispatch();
+
   return (
     <div className="flex w-full justify-center">
       <div className="flex max-w-[1100px] flex-col">
@@ -18,6 +27,12 @@ const Layout = () => {
         </Routes>
         <Footer />
       </div>
+
+      <Modal
+        onHide={() => dispatch(hideModal())}
+        content={modalContent}
+        bottomContainer={bottomContainer}
+      />
     </div>
   );
 };

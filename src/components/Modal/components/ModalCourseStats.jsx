@@ -1,22 +1,33 @@
-const ModalCourseStats = () => {
-  const cards = [
-    { value: "2,457", label: "수강중인 인원" },
-    { value: "2시간", label: "강의 시간" },
-    { value: "4.5", label: "평점" },
-    { value: "초급", label: "난이도" },
-  ];
+import { hover, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
+
+const ModalCourseStats = ({
+  value = "2457",
+  description = "수강중인 인원",
+}) => {
   return (
-    <div className="mt-4 grid grid-cols-4 gap-6 text-gray-600">
-      {cards.map(({ value, label }) => (
-        <div
-          key={label}
-          className="flex h-[65px] w-[182px] flex-col justify-center rounded-md bg-gray-100 pl-4 text-[20px] font-bold"
-        >
-          {value}
-          <span className="text-[10px] font-normal">{label}</span>
-        </div>
-      ))}
-    </div>
+    <motion.div
+      className="flex h-16 w-44 cursor-default flex-col gap-1 rounded-2xl px-4 py-2"
+      style={{
+        backgroundColor: "#F5F5F5",
+      }}
+    >
+      <motion.div
+        className="font-semibold"
+        style={{
+          fontSize: "18px",
+        }}
+      >
+        {value}
+      </motion.div>
+      <motion.div
+        className="text-[#757575]"
+        style={{
+          fontSize: "11px",
+        }}
+      >
+        {description}
+      </motion.div>
+    </motion.div>
   );
 };
 
