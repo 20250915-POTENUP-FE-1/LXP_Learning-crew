@@ -33,7 +33,7 @@ const Header = () => {
         </Link>
         <nav className="flex items-center gap-8">
           <Link to="/lectures">강의</Link>
-          <Link to="/mypage">마이페이지</Link>
+          <Link to="/my">마이페이지</Link>
         </nav>
       </div>
       <div className="flex items-center gap-2">
