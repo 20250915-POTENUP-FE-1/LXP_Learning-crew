@@ -8,7 +8,7 @@ import Register from "./register/Register";
 import MyPage from "./my/MyPage";
 import My from "./my/sections/My";
 import Profile from "./my/sections/Profile";
-import CodeGenerate from "./my/sections/CodeGenerate";
+// import CodeGenerate from "./my/sections/CodeGenerate";
 import Modal from "../components/Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal } from "../store/modal/modalReducer";
@@ -31,7 +31,7 @@ const Layout = () => {
           <Route path="/my" element={<MyPage />}>
             <Route index element={<My />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="code" element={<CodeGenerate />} />
+            {/* <Route path="code" element={<CodeGenerate />} /> */}
           </Route>
         </Routes>
         <Footer />
