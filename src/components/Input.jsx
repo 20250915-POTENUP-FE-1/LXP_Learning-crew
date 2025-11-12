@@ -7,7 +7,7 @@ const Input = ({ title, placeholder, onChange, value, type }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="h-12 w-[520px] rounded-lg border border-gray-300 px-4 py-3 text-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+        className="${externalClass || ''}` h-12 w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-400 focus:outline-none"
         required
       />
     </div>
