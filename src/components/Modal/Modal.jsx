@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import overlayAnimation from "./animation/overlay";
 import modalAnimation from "./animation/modal";
 
-const Modal = ({ children, onHide }) => {
+const Modal = ({ content, onHide, bottomContainer }) => {
   const isShow = useSelector((state) => state.modal.isModalShow);
 
   useEffect(() => {
@@ -47,15 +47,14 @@ const Modal = ({ children, onHide }) => {
             <CloseButton onClick={onHide} />
 
             <div className="flex h-full w-full flex-col overflow-scroll scroll-auto p-4 px-9 pt-12">
-              {children}
+              {content}
             </div>
 
-            <div className="flex justify-end gap-2 px-9 pt-2 pb-6">
-              <Button className="px-10 py-2">삭제하기</Button>
-              <Button className="px-10 py-2" variant={"primary"}>
-                수정하기
-              </Button>
-            </div>
+            {bottomContainer && (
+              <div className="flex justify-end gap-2 px-9 pt-2 pb-6">
+                {bottomContainer}
+              </div>
+            )}
           </motion.div>
         </div>
       )}

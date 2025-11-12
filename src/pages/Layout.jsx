@@ -6,11 +6,14 @@ import Footer from "../layouts/Footer";
 import Login from "./login/Login";
 import Register from "./register/Register";
 import Modal from "../components/Modal/Modal";
-import LectureDetail from "../components/Modal/contents/LectureDetail";
-import { useDispatch } from "react-redux";
-import { hideModal, showModal } from "../store/modal/modalReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal } from "../store/modal/modalReducer";
 
 const Layout = () => {
+  const modalContent = useSelector((state) => state.modal.modalContent.content);
+  const bottomContainer = useSelector(
+    (state) => state.modal.modalContent.bottomContainer,
+  );
   const dispatch = useDispatch();
 
   return (
@@ -27,10 +30,9 @@ const Layout = () => {
 
       <Modal
         onHide={() => dispatch(hideModal())}
-        onShow={() => dispatch(showModal())}
-      >
-        <LectureDetail />
-      </Modal>
+        content={modalContent}
+        bottomContainer={bottomContainer}
+      />
     </div>
   );
 };
