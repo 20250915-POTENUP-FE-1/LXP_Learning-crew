@@ -5,7 +5,6 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Login from "./login/Login";
 import Register from "./register/Register";
-import ModalCurriculumListAdd from "../components/Modal/ModalCurriculumListAdd";
 
 const Layout = () => {
   return (
@@ -13,7 +12,7 @@ const Layout = () => {
       <div className="flex max-w-[1100px] flex-col">
         <Header />
         <Routes>
-          <Route path="/" element={<ModalCurriculumListAdd />} />
+          <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

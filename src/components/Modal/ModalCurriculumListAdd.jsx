@@ -55,6 +55,7 @@ const ModalCurriculumListAdd = () => {
                       type="button"
                       variant="delete"
                       onClick={() => deleteMainUnit(mainIndex)}
+                      className="mr-8"
                     >
                       삭제
                     </Button>
