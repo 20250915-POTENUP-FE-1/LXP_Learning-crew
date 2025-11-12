@@ -1,28 +1,65 @@
-import ModalCourseStats from "./components/ModalCourseStats";
-import ModalHeaderContent from "./components/ModalHeaderContent";
-import ModalCurriculumList from "./components/ModalCurriculumList";
-import Button from "../Button";
+import { AnimatePresence, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
+import CloseButton from "./components/CloseButton";
+import { useEffect } from "react";
+import Button from "../Button/Button";
+import { useSelector } from "react-redux";
+import overlayAnimation from "./animation/overlay";
+import modalAnimation from "./animation/modal";
 
-const Modal = () => {
+const Modal = ({ children, onHide }) => {
+  const isShow = useSelector((state) => state.modal.isModalShow);
+
+  useEffect(() => {
+    if (isShow) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isShow]);
+
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="relative flex max-h-[90vh] w-[895px] flex-col rounded-3xl bg-white p-8 shadow-2xl">
-        <Button type="button" variant="closer">
-          X
-        </Button>
-        <div className="flex-1 overflow-y-auto pr-2">
-          <ModalHeaderContent />
-          <ModalCourseStats />
-          <ModalCurriculumList />
-        </div>
+    <AnimatePresence>
+      {isShow && (
+        <div className="fixed h-full w-full">
+          {/* 배경 오버레이 */}
+          <motion.div
+            style={overlayAnimation.style}
+            initial={overlayAnimation.initial}
+            animate={overlayAnimation.animate}
+            exit={overlayAnimation.exit}
+            transition={overlayAnimation.transition}
+            onClick={onHide}
+          />
 
-        <div className="mt-4 flex justify-end pt-4 pr-8">
-          <Button type="button" variant="edit">
-            수정하기
-          </Button>
+          {/* 모달 컨텐츠 */}
+          <motion.div
+            className="flex flex-col"
+            style={modalAnimation.style}
+            initial={modalAnimation.initial}
+            animate={modalAnimation.animate}
+            exit={modalAnimation.exit}
+            transition={modalAnimation.transition}
+          >
+            <CloseButton onClick={onHide} />
+
+            <div className="flex h-full w-full flex-col overflow-scroll scroll-auto p-4 px-9 pt-12">
+              {children}
+            </div>
+
+            <div className="flex justify-end gap-2 px-9 pt-2 pb-6">
+              <Button className="px-10 py-2">삭제하기</Button>
+              <Button className="px-10 py-2" variant={"primary"}>
+                수정하기
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 
