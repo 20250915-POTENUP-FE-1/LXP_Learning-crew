@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
 const buttonStyle = tv({
-  base: "tpx-4 py-1.5 text-sm rounded-lg border transition-all font-semibold cursor-pointer",
+  base: "tpx-4 py-1.5 text-sm rounded-lg border transition-all font-semibold cursor-pointe",
   variants: {
     variant: {
       primary:
@@ -13,7 +13,7 @@ const buttonStyle = tv({
         "absolute top-4 right-7 h-10 w-10 rounded-4xl bg-gray-100 text-xl font-semibold hover:bg-gray-200",
       edit: "w-[140px] h-12 rounded-lg border font-semibold border-blue-500 hover:bg-blue-500 hover:text-white text-blue-500",
       delete:
-        "cursor-pointer text-lg text-gray-400 hover:text-black border-none",
+        "mr-8 cursor-pointer text-lg text-gray-400 hover:text-black border-none",
     },
   },
   defaultVariants: {
