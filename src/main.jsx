@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import "./styles/globals.css";
 import "./styles/fonts.css";
 
-import Main from "./pages/main/Main";
 import Layout from "./pages/Layout";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 import MyPageLayout from "./pages/my/MyPage";
 import MyPageMain from "./pages/my/MyPageMain";
@@ -16,9 +17,11 @@ import MypageCode from "./pages/my/MypageCode";
 const root = document.getElementById("root");
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <Layout />
     </BrowserRouter>
-  </StrictMode>,
+  </Provider>,
+  // </StrictMode>,
 );

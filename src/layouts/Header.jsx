@@ -1,4 +1,6 @@
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button/Button";
+import useAuth from "../hooks/service/useAuth";
 
 const LogoIcon = () => (
   <svg
@@ -19,42 +21,31 @@ const LogoIcon = () => (
   </svg>
 );
 
-const NavLink = ({ href, children, isActive = false }) => (
-  <a
-    href={href}
-    className={`text-[15px] ${
-      isActive ? "font-semibold text-black" : "text-[#757575]"
-    }`}
-  >
-    {children}
-  </a>
-);
-
-const AuthButton = ({ children }) => (
-  <button className="rounded-lg border border-[#b2b2b2] bg-white px-4 py-1.5 text-[11px] font-semibold text-black">
-    {children}
-  </button>
-);
-
 const Header = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn, logout } = useAuth();
+
   return (
     <header className="flex h-16 w-[1061px] items-center justify-between">
       <div className="flex items-center gap-[72px]">
-        <a href="/" aria-label="Home">
+        <Link to="/">
           <LogoIcon />
-        </a>
+        </Link>
         <nav className="flex items-center gap-8">
-          <NavLink href="/lectures" isActive>
-            강의
-          </NavLink>
-          <NavLink href="/my">마이페이지</NavLink>
-          <NavLink href="/admin">관리자</NavLink>
+          <Link to="/lectures">강의</Link>
+          <Link to="/mypage">마이페이지</Link>
         </nav>
       </div>
       <div className="flex items-center gap-2">
-        <AuthButton>회원가입</AuthButton>
-        <AuthButton>로그아웃</AuthButton>
-        <AuthButton>로그인</AuthButton>
+        {isLoggedIn ? (
+          <Button variant="default" onClick={logout}>
+            로그아웃
+          </Button>
+        ) : (
+          <Button variant="default" onClick={() => navigate("/login")}>
+            로그인
+          </Button>
+        )}
       </div>
     </header>
   );
