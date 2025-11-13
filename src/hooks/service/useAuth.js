@@ -2,45 +2,49 @@ import { postFetchRegister, postFetchLogin } from "../../apis/auth/_index";
 import postFetchUser from "../../apis/users/postFetchUser";
 import postFetchLogout from "../../apis/auth/postFetchLogout";
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import { auth } from "../../constants/firebase";
+// import { updateProfile } from "firebase/auth"; // 💡 상단에 import 추가
 
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      const authState = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      });
+    // onAuthStateChanged 리스너 등록 및 해제 로직 (정상)
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+      setIsLoading(false);
+    });
 
-      setIsLoggedIn(!!authState);
-    })();
+    return () => unsubscribe();
   }, []);
 
-  /**
-   * 새로운 계정을 생성합니다.
-   * @param {string} email 계정이 사용할 이메일
-   * @param {string} password 계정이 사용할 비밀번호
-   * @param {string} displayName 계정이 사용할 사용자 이름
-   * @param {"user" | "creator"} role 계정의 역할
-   * @returns
-   */
   const register = async (email, password, displayName, role) => {
     try {
+      // 1. Auth 계정 생성
       const data = await postFetchRegister(email, password);
+      const user = data.user;
+      await updateProfile(user, {
+        displayName: displayName,
+      });
 
-      await postFetchUser(data.user.uid, displayName, role);
+      console.log("Auth 등록 성공, UID:", user.uid);
+      console.log("Firestore에 저장할 데이터:", displayName, role); 
+
+      // 2. 💥 유저 정보 DB 저장 (핵심 로직 복구)
+await postFetchUser(user.uid, displayName, role);
 
       return {
         success: true,
-        userId: data.user.uid,
+        userId: user.uid,
       };
     } catch (error) {
+      console.error("회원가입 오류:", error);
       return { success: false, error: error.message };
     }
   };
@@ -51,9 +55,10 @@ const useAuth = () => {
 
       return {
         success: true,
-        userId: data.user.uid,
+        userId: user.uid,
       };
     } catch (error) {
+      console.error("로그인 시도 오류:", error);
       return { success: false, error: error.message };
     }
   };
@@ -66,7 +71,7 @@ const useAuth = () => {
     }
   };
 
-  return { register, login, isLoggedIn, logout };
+  return { register, login, isLoggedIn, logout, isLoading };
 };
 
 export default useAuth;

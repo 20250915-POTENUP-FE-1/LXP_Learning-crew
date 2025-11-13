@@ -1,50 +1,57 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button/Button";
-import useAuth from "../hooks/service/useAuth";
-
-const LogoIcon = () => (
-  <svg
-    width={22}
-    height={31}
-    viewBox="0 0 22 31"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M10.7332 1.3999H6.06657C4.82889 1.3999 3.64191 1.89157 2.76674 2.76674C1.89157 3.64191 1.3999 4.82889 1.3999 6.06657C1.3999 7.30425 1.89157 8.49123 2.76674 9.3664C3.64191 10.2416 4.82889 10.7332 6.06657 10.7332M10.7332 1.3999V10.7332M10.7332 1.3999H15.3999C16.0127 1.3999 16.6196 1.52061 17.1858 1.75513C17.7519 1.98965 18.2664 2.3334 18.6997 2.76674C19.1331 3.20008 19.4768 3.71453 19.7113 4.28071C19.9459 4.8469 20.0666 5.45373 20.0666 6.06657C20.0666 6.6794 19.9459 7.28624 19.7113 7.85243C19.4768 8.41861 19.1331 8.93306 18.6997 9.3664C18.2664 9.79974 17.7519 10.1435 17.1858 10.378C16.6196 10.6125 16.0127 10.7332 15.3999 10.7332M10.7332 10.7332H6.06657M10.7332 10.7332H15.3999M10.7332 10.7332V20.0666M6.06657 10.7332C4.82889 10.7332 3.64191 11.2249 2.76674 12.1001C1.89157 12.9752 1.3999 14.1622 1.3999 15.3999C1.3999 16.6376 1.89157 17.8246 2.76674 18.6997C3.64191 19.5749 4.82889 20.0666 6.06657 20.0666M15.3999 10.7332C14.7871 10.7332 14.1802 10.8539 13.614 11.0885C13.0479 11.323 12.5334 11.6667 12.1001 12.1001C11.6667 12.5334 11.323 13.0479 11.0885 13.614C10.8539 14.1802 10.7332 14.7871 10.7332 15.3999C10.7332 16.0127 10.8539 16.6196 11.0885 17.1858C11.323 17.7519 11.6667 18.2664 12.1001 18.6997C12.5334 19.1331 13.0479 19.4768 13.614 19.7113C14.1802 19.9459 14.7871 20.0666 15.3999 20.0666C16.0127 20.0666 16.6196 19.9459 17.1858 19.7113C17.7519 19.4768 18.2664 19.1331 18.6997 18.6997C19.1331 18.2664 19.4768 17.7519 19.7113 17.1858C19.9459 16.6196 20.0666 16.0127 20.0666 15.3999C20.0666 14.7871 19.9459 14.1802 19.7113 13.614C19.4768 13.0479 19.1331 12.5334 18.6997 12.1001C18.2664 11.6667 17.7519 11.323 17.1858 11.0885C16.6196 10.8539 16.0127 10.7332 15.3999 10.7332ZM6.06657 20.0666C4.82889 20.0666 3.64191 20.5582 2.76674 21.4334C1.89157 22.3086 1.3999 23.4956 1.3999 24.7332C1.3999 25.9709 1.89157 27.1579 2.76674 28.0331C3.64191 28.9082 4.82889 29.3999 6.06657 29.3999C7.30425 29.3999 8.49123 28.9082 9.3664 28.0331C10.2416 27.1579 10.7332 25.9709 10.7332 24.7332V20.0666M6.06657 20.0666H10.7332"
-      stroke="#1E1E1E"
-      strokeWidth="2.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+import useAuth from "../hooks/service/useAuth"; // 💡 경로는 프로젝트 구조에 따라 다를 수 있습니다.
+import LogoIcon from "../components/LogoIcon/LogoIcon.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, logout } = useAuth();
+  // 💡 Hook에서 isLoggedIn과 logout 함수를 가져옵니다.
+  const { isLoggedIn, logout, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <header>인증 정보 확인 중...</header>; // 💡 로딩 중 처리
+  }
 
   return (
-    <header className="flex h-16 w-[1061px] items-center justify-between">
+    // 💡 GNB의 너비는 mx-auto로 중앙정렬을 위해 max-w를 사용하거나,
+    //    Layout에서 너비를 고정하는 것이 좋습니다. w-[1061px] 대신 w-full max-w-7xl 등을 고려해 보세요.
+    <header className="z-20 flex h-16 w-full items-center justify-between bg-white/90 px-4 backdrop-blur-xs">
       <div className="flex items-center gap-[72px]">
         <Link to="/">
           <LogoIcon />
         </Link>
         <nav className="flex items-center gap-8">
           <Link to="/lectures">강의</Link>
-          <Link to="/mypage">마이페이지</Link>
+          <Link to="/my">마이페이지</Link>
         </nav>
       </div>
       <div className="flex items-center gap-2">
         {isLoggedIn ? (
-          <Button variant="default" onClick={logout}>
+          // 💡 1번 오류 수정: 비동기 로그아웃 처리
+          <Button
+            variant="default"
+            onClick={async () => {
+              try {
+                await logout();
+                navigate("/login");
+              } catch (error) {
+                console.error("로그아웃 오류:", error);
+                alert("로그아웃 중 오류가 발생했습니다.");
+              }
+            }}
+          >
             로그아웃
           </Button>
         ) : (
-          <Button variant="default" onClick={() => navigate("/login")}>
-            로그인
-          </Button>
+          <>
+            {/* 💡 회원가입 버튼 추가 */}
+            <Button variant="default" onClick={() => navigate("/register")}>
+              회원가입
+            </Button>
+            <Button variant="default" onClick={() => navigate("/login")}>
+              로그인
+            </Button>
+          </>
         )}
       </div>
     </header>
