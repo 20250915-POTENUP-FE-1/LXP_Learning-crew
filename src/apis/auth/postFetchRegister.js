@@ -11,7 +11,7 @@ const postFetchRegister = async (email, password) => {
   try {
     return await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
-    console.log("Error creating user:", error);
+    return { error };
   }
 };
 

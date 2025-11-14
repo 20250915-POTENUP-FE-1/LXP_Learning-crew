@@ -1,13 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 import CloseButton from "./components/CloseButton";
 import { useEffect } from "react";
-import Button from "../Button/Button";
-import { useSelector } from "react-redux";
 import overlayAnimation from "./animation/overlay";
 import modalAnimation from "./animation/modal";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal } from "../../store/modal/modalReducer";
 
-const Modal = ({ content, onHide, bottomContainer }) => {
+// mode: "read" | "edit"
+const Modal = () => {
   const isShow = useSelector((state) => state.modal.isModalShow);
+  const { modalContent } = useSelector((state) => state.modal.modalContent);
+  const { bottomContainer } = useSelector((state) => state.modal.modalContent);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isShow) {
@@ -32,7 +36,7 @@ const Modal = ({ content, onHide, bottomContainer }) => {
             animate={overlayAnimation.animate}
             exit={overlayAnimation.exit}
             transition={overlayAnimation.transition}
-            onClick={onHide}
+            onClick={() => dispatch(hideModal())}
           />
 
           {/* 모달 컨텐츠 */}
@@ -44,16 +48,18 @@ const Modal = ({ content, onHide, bottomContainer }) => {
             exit={modalAnimation.exit}
             transition={modalAnimation.transition}
           >
-            <CloseButton onClick={onHide} />
+            <CloseButton onClick={() => dispatch(hideModal())} />
 
             <div className="flex h-full w-full flex-col overflow-scroll scroll-auto p-4 px-9 pt-12">
-              {content}
+              {modalContent}
             </div>
 
-            {bottomContainer && (
+            {bottomContainer ? (
               <div className="flex justify-end gap-2 px-9 pt-2 pb-6">
                 {bottomContainer}
               </div>
+            ) : (
+              <></>
             )}
           </motion.div>
         </div>

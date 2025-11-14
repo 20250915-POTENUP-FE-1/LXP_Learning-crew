@@ -13,6 +13,7 @@ import MyPageLayout from "./pages/my/MyPage";
 import MyPageMain from "./pages/my/MyPageMain";
 import MypageProfile from "./pages/my/MypageProfile";
 import MypageCode from "./pages/my/MypageCode";
+import ModalProvider from "./components/Modal/components/ModalProvider";
 
 const root = document.getElementById("root");
 
@@ -20,7 +21,9 @@ createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <Layout />
+      <ModalProvider>
+        <Layout />
+      </ModalProvider>
     </BrowserRouter>
   </Provider>,
   // </StrictMode>,

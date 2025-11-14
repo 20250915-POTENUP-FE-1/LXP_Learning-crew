@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
 const badgeStyles = tv({
@@ -18,7 +19,7 @@ const badgeStyles = tv({
 });
 
 const Badge = ({ text, variant }) => {
-  return <div className={badgeStyles({ variant })}>{text}</div>;
+  return <div className={clsx(badgeStyles({ variant }))}>{text}</div>;
 };
 
 export default Badge;

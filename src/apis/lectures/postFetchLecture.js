@@ -13,7 +13,7 @@ import { API_ROUTES, db } from "../../constants/_index";
  * @param {Array<Object>} curriculum 강의 커리큘럼 배열
  * @returns {Promise<import("firebase/firestore").DocumentReference>} Firestore에 추가된 lectures 컬렉션의 문서 참조 정보
  */
-const postFetchLecture = async (
+const postFetchLecture = async ({
   title,
   description,
   imageUrl = "",
@@ -21,15 +21,15 @@ const postFetchLecture = async (
   level,
   price,
   curriculums,
-) => {
-  return addDoc(collection(db, API_ROUTES.LECTURES), {
-    title: title,
-    description: description,
-    imageUrl: imageUrl,
-    tag: tag,
-    level: level,
-    price: price,
-    curriculums: curriculums,
+}) => {
+  return await addDoc(collection(db, API_ROUTES.LECTURES), {
+    title: title || "제목 없음",
+    description: description || "설명 없음",
+    imageUrl: imageUrl || "",
+    tag: tag || "기타",
+    level: level || "초급",
+    price: price || 0,
+    curriculums: curriculums || [],
 
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),

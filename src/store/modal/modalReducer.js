@@ -20,8 +20,13 @@ const modalReducer = createSlice({
     hideModal: (state) => {
       state.isModalShow = false;
     },
+
+    getCurriculums: (state) => {
+      return state.curriculums;
+    },
   },
 });
 
-export const { showModal, hideModal } = modalReducer.actions;
+export const { showModal, hideModal, isModalVisible, getCurriculums } =
+  modalReducer.actions;
 export default modalReducer.reducer;

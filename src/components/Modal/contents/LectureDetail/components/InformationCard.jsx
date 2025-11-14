@@ -1,9 +1,6 @@
 import { hover, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 
-const ModalCourseStats = ({
-  value = "2457",
-  description = "수강중인 인원",
-}) => {
+const InformationCard = ({ value = "2457", description = "수강중인 인원" }) => {
   return (
     <motion.div
       className="flex h-16 w-44 cursor-default flex-col gap-1 rounded-2xl px-4 py-2"
@@ -31,4 +28,4 @@ const ModalCourseStats = ({
   );
 };
 
-export default ModalCourseStats;
+export default InformationCard;

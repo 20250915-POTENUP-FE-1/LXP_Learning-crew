@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Main from "./main/Main";
 import { Route, Routes } from "react-router-dom";
 import Header from "../layouts/Header";
@@ -10,15 +10,14 @@ import My from "./my/sections/My";
 import Profile from "./my/sections/Profile";
 // import CodeGenerate from "./my/sections/CodeGenerate";
 import Modal from "../components/Modal/Modal";
-import { useDispatch, useSelector } from "react-redux";
-import { hideModal } from "../store/modal/modalReducer";
+import { ModalContext } from "../components/Modal/components/ModalProvider";
 
 const Layout = () => {
-  const modalContent = useSelector((state) => state.modal.modalContent.content);
-  const bottomContainer = useSelector(
-    (state) => state.modal.modalContent.bottomContainer,
-  );
-  const dispatch = useDispatch();
+  // const modalContent = useSelector((state) => state.modal.modalContent.content);
+  // const bottomContainer = useSelector(
+  //   (state) => state.modal.modalContent.bottomContainer,
+  // );
+  const { modalContent, bottomContainer, hideModal } = useContext(ModalContext);
 
   return (
     <div className="flex w-full justify-center">
@@ -38,7 +37,7 @@ const Layout = () => {
       </div>
 
       <Modal
-        onHide={() => dispatch(hideModal())}
+        onHide={() => hideModal()}
         content={modalContent}
         bottomContainer={bottomContainer}
       />

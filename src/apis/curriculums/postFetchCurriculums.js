@@ -6,10 +6,10 @@ import { API_ROUTES, db } from "../../constants/_index";
  * @param {Array<Object>} curriculums 강의 커리큘럼 배열
  * @returns {Promise<import("firebase/firestore").DocumentReference>} Firestore에 추가된 lectureCurriculums 문서 참조 정보
  */
-const postFetchLectureCurriculums = async (curriculums) => {
+const postFetchCurriculums = async (curriculums) => {
   return await addDoc(collection(db, API_ROUTES.LECTURE_CURRICULUMS), {
     curriculums: curriculums,
   });
 };
 
-export default postFetchLectureCurriculums;
+export default postFetchCurriculums;
