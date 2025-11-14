@@ -8,7 +8,9 @@ import Register from "./register/Register";
 import MyPage from "./my/MyPage";
 import My from "./my/sections/My";
 import Profile from "./my/sections/Profile";
+
 // import CodeGenerate from "./my/sections/CodeGenerate";
+
 import Modal from "../components/Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal } from "../store/modal/modalReducer";
@@ -19,11 +21,16 @@ const Layout = () => {
     (state) => state.modal.modalContent.bottomContainer,
   );
   const dispatch = useDispatch();
+  const GNB_HEIGHT_CLASS = "pt-16";
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex max-w-[1100px] flex-col">
+    <div className="flex min-h-screen w-full flex-col items-center overflow-y-scroll">
+      <div className="fixed top-0 z-10 flex w-full max-w-[1100px] flex-col">
         <Header />
+      </div>
+
+      {/* 2. Main Content 영역  */}
+      <main className={`w-full max-w-[1100px] grow pt-16`}>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
@@ -34,6 +41,10 @@ const Layout = () => {
             {/* <Route path="code" element={<CodeGenerate />} /> */}
           </Route>
         </Routes>
+      </main>
+
+      {/* 3. Footer 영역 (오류 수정: 닫는 꺾쇠괄호 > 추가) */}
+      <div className="w-full max-w-[1100px] shrink-0">
         <Footer />
       </div>
 
