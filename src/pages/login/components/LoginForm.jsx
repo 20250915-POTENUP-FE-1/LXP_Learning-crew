@@ -6,7 +6,7 @@ const LoginForm = () => {
   const { handleLogin, formData, setFormData } = useFormData();
 
   return (
-    <form className="flex flex-col gap-15" onSubmit={handleLogin}>
+    <form className="flex flex-col gap-16" onSubmit={handleLogin}>
       <div className="flex flex-col gap-6">
         <Input
           value={formData.email}

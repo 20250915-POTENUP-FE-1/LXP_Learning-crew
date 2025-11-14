@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../../components/Input";
+import useUser from "../../../hooks/service/useUser";
 
-// const fetchUserData = async () => {
+import { getAuth } from "firebase/auth";
+// import deleteUserAccount from "../../../apis/users/deleteFetchUser";
 
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve({
-//         name: "홍길동",
-//         email: "",
-
-// }
+const auth = getAuth();
 
 const Profile = () => {
+  const { userData, isLoading } = useUser();
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    console.log(userData);
+    if (userData) {
+      setProfile({
+        // 💡 Firestore에 displayName이 존재하면 사용, 없으면 name 필드 (fallback) 사용
+        name: userData.displayName || "",
+        email: userData.email || "",
+        role: userData.role || "일반",
+        address: userData.address || "없음",
+        code: userData.code || null,
+      });
+    }
+  }, [userData]);
+
+  // ... (회원 탈퇴 및 로딩 처리 로직 생략) ...
+  const handleWithdrawal = async () => {
+    /* ... */
+  };
+
+  if (isLoading) {
+    /* ... */
+  }
+  if (!isLoading && !userData) {
+    /* ... */
+  }
+
   return (
     <div>
       <h1 className="mb-2 text-xl font-semibold text-gray-900">프로필</h1>
@@ -19,39 +44,42 @@ const Profile = () => {
 
       <div className="grid grid-cols-2 gap-6">
         <Input
-          title="사용자 이름"
+          title="이름"
           id="name"
-          value={"김석환"}
+          value={profile.name}
           // onChange={handleChange}
         />
 
         <Input
           title="이메일 주소"
           id="email"
-          value={"test02@example.com"}
+          value={profile.email}
           disabled={true}
         />
 
-        <Input title="역할" id="role" value={"강사"} disabled={true} />
+        <Input title="역할" id="role" value={profile.role} disabled={true} />
 
         <Input
           title="주소"
           id="address"
-          value={"충청남도 논산군 연산면 대조리 50-4"}
+          value={profile.address || ""}
           // disabled={true}
         />
 
         <div className="col-span-1">
           <Input
-            title="나의 강사 코드"
+            title="강사코드"
             id="code"
-            value={844744}
+            value={profile.code || "미발급"}
             // disabled={true}
           />
         </div>
       </div>
 
-      <button className="mt-8 rounded-lg border border-red-500 px-6 py-3 font-semibold text-red-500 transition duration-150 hover:bg-red-50">
+      <button
+        onClick={handleWithdrawal}
+        className="mt-8 rounded-lg border border-red-500 px-6 py-3 font-semibold text-red-500 transition duration-150 hover:bg-red-50"
+      >
         회원 탈퇴
       </button>
     </div>
