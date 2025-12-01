@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "storybook": "storybook dev -p 6006",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
