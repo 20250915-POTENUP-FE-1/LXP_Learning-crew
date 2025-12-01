@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import ActionButton from "./ActionButton.js";
+import ActionButton from "./ActionButton.tsx";
 
 const meta = {
   component: ActionButton,
