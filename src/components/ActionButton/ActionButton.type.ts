@@ -11,4 +11,4 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "medium" | "large";
 }
 
-export type { ActionButtonVariant, ActionButtonProps };
+export type { ActionButtonProps };
