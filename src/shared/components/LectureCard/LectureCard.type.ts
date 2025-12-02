@@ -1,4 +1,4 @@
-import type { ChipProps } from "../Chip/Chip.type.js";
+import type { ChipProps } from "../Badge/Badge.type.js";
 
 type LectureCardSize = "small" | "medium" | "large";
 

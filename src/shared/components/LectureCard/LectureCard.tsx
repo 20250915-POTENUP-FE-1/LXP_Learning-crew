@@ -5,7 +5,7 @@ import {
 } from "./LectureCard.style.js";
 import Thumbnail from "./Thumbnail.js";
 import type { LectureCardProps } from "./LectureCard.type.js";
-import Chip from "../Chip/Chip.js";
+import Chip from "../Badge/Badge.js";
 
 const LectureCard = ({ title, subtitle, tags, size }: LectureCardProps) => {
   return (

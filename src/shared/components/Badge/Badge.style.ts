@@ -1,7 +1,6 @@
-import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
-const chipStyle = tv({
+const badgeStyle = tv({
   base: "text-xs rounded-sm px-2 py-1 inline-block",
   variants: {
     variant: {
@@ -57,4 +56,4 @@ const chipStyle = tv({
   },
 });
 
-export { chipStyle };
+export { badgeStyle };
