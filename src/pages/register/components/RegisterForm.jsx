@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import InputField from "../../../components/InputField";
 import RadioButton from "../../../components/Radiobutton";
-import Button from "../../../components/Button";
+import Button from "../../../components/Button/Button";
 import useFormData from "../hooks/useFormData";
 
 const RegisterForm = () => {
@@ -12,6 +12,10 @@ const RegisterForm = () => {
       setFormData((prev) => ({ ...prev, userType: "일반" }));
     }
   }, []);
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   const handleUserTypeChange = (e) => {
     const newUserType = e.target.value;

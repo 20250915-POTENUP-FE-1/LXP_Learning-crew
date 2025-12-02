@@ -1,21 +1,37 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/service/useAuth";
 
-const useFormData=()=>{
-  const navigate = useNavigate()
+const useFormData = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     validatePassword: "",
     displayName: "",
-    role: "",
-  })
+    role: "user",
+  });
 
-  const handleRegisterSubmit = ()=>{
-    console.log(formData)
-  }
+  const { register } = useAuth();
 
-  return {handleRegisterSubmit,setFormData,formData}
-}
+  const handleRegisterSubmit = () => {
+    // TODO: password validate
 
-export default useFormData
+    register(
+      formData.email,
+      formData.password,
+      formData.displayName,
+      formData.role,
+    ).then((data) => {
+      if (data.success) {
+        navigate("/");
+      } else {
+        alert("회원가입 실패");
+      }
+    });
+  };
+
+  return { handleRegisterSubmit, setFormData, formData };
+};
+
+export default useFormData;

@@ -1,7 +1,7 @@
 import { tv } from "tailwind-variants";
 
 const badgeStyles = tv({
-  base: "inline-block rounded-full px-2 py-1 text-xs font-medium",
+  base: "inline-block rounded-full px-2 py-1 text-xs font-medium w-fit",
   variants: {
     variant: {
       solid:
