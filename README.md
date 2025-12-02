@@ -1,39 +1,36 @@
-# LXP 프로젝트 "Leaning Crew"
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-### Project Rules
+## Getting Started
 
-본 프로젝트의 규칙은 [이 곳](./.github/instructions/rules.instructions.md)에서 확인하실 수 있습니다.
+First, run the development server:
 
-### Project Resources
-
-| 구분   | 링크                                                                                                                                                  |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 피그마 | [링크](https://www.figma.com/design/EePxWNARDaPowPnvkjv1pg/2%ED%8C%80---LXP-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=77-271&t=43mpEwv8j8FR0u2m-1) |
-| 서버   | -                                                                                                                                                     |
-
-### Project Archetecture
-
-```
-leaning-crew
-├── .examples
-├── public
-├── src
-│   ├── apis
-│   ├── assets
-│   ├── components
-│   ├── layouts
-│   ├── pages
-│   │	├── main
-│   │	├── login
-│   │	└── other domains....
-│   ├── styles
-│   ├── utils
-│   └── main.jsx
-└── .env
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### Engineers
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-| <center>[박종원](https://github.com/monegit)</center>                                          | <center>[최성규](https://github.com/sutain-png)</center>                                        | <center>[김지환](https://github.com/KIM-JI-HWAN-bot)</center>                                   |
-| ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| <div style="width: 75px">![박종원](https://avatars.githubusercontent.com/u/26660534?v=4)</div> | <div style="width: 75px">![최성규](https://avatars.githubusercontent.com/u/232324207?v=4)</div> | <div style="width: 75px">![김지환](https://avatars.githubusercontent.com/u/232306269?v=4)</div> |
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
