@@ -1,3 +1,0 @@
-const LECTURE_LIST_LIMIT = 20;
-
-export { LECTURE_LIST_LIMIT };

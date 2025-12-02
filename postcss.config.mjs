@@ -1,7 +1,7 @@
-// postcss.config.mjs
-
-export default {
+const config = {
   plugins: {
-    "@tailwindcss/vite": {},
+    "@tailwindcss/postcss": {},
   },
 };
+
+export default config;
