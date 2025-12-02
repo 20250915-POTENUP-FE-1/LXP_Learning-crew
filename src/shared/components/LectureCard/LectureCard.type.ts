@@ -1,4 +1,4 @@
-import type { ChipProps } from "../Badge/Badge.type.js";
+import type { BadgeProps } from "../Badge/Badge.type.js";
 
 type LectureCardSize = "small" | "medium" | "large";
 
@@ -6,7 +6,7 @@ interface LectureCardProps {
   title: string;
   subtitle: string;
 
-  tags: Pick<ChipProps, "content" | "color" | "variant">[];
+  tags: Pick<BadgeProps, "content" | "color" | "variant">[];
 
   size?: LectureCardSize;
 }
