@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import Chip from "./Chip";
+import Badge from "./Badge";
 
 const meta = {
-  component: Chip,
+  component: Badge,
   tags: ["autodocs"],
-} satisfies Meta<typeof Chip>;
+} satisfies Meta<typeof Badge>;
 export default meta;
 
 type Story = StoryObj<typeof meta>;

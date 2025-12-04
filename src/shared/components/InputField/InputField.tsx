@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef } from "react";
-import type { InputFieldProps } from "./InputField.type.js";
-import { inputStyle } from "./InputField.style.js";
+import type { InputFieldProps } from "./InputField.type";
+import { inputStyle } from "./InputField.style";
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ title, defaultValue, placeholder, variant, ...rest }, ref) => {
