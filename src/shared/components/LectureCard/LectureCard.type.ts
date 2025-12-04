@@ -7,7 +7,7 @@ type LectureCardSize = "large";
 interface LectureCardProps {
   title: string;
   subtitle: string;
-  imageUrl?: string | StaticImageData;
+  thumbnailImageUrl?: string | StaticImageData;
 
   tags: Pick<BadgeProps, "content" | "color" | "variant">[];
 

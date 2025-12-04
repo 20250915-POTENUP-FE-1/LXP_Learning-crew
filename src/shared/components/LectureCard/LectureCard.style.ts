@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 
 const lectureCardStyle = tv({
   base: clsx(
-    "flex cursor-pointer flex-col gap-2.5 overflow-hidden rounded-2xl border border-[#EDEDED] shadow-sm",
+    "flex shrink-0 cursor-pointer flex-col gap-2.5 overflow-hidden rounded-2xl border border-[#EDEDED] shadow-sm",
   ),
   variants: {
     size: {
@@ -17,7 +17,7 @@ const lectureCardStyle = tv({
 });
 
 const titleStyle = tv({
-  base: "line-clamp-1 overflow-hidden font-semibold text-ellipsis text-black",
+  base: "line-clamp-1 overflow-hidden text-ellipsis font-semibold text-black",
   variants: {
     size: {
       small: "text-md",
