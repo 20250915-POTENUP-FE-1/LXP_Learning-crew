@@ -1,9 +1,9 @@
+import { LectureCardProps } from "@/shared/components/LectureCard/LectureCard.type";
 import { ReactNode } from "react";
 
-interface MainPageProps {}
-
-interface MainLayoutProps {
-  children: ReactNode;
+interface LectureListProps {
+  name: string;
+  lectures?: LectureCardProps[];
 }
 
-export type { MainPageProps, MainLayoutProps };
+export type { LectureListProps };
