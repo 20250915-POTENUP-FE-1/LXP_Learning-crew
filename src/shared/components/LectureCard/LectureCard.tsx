@@ -16,7 +16,7 @@ const LectureCard = ({
 }: LectureCardProps) => {
   return (
     <div className={lectureCardStyle({ size })}>
-      <Thumbnail title={title} imageUrl={imageUrl} size="medium" />
+      <Thumbnail title={title} imageUrl={thumbnailImageUrl} size="medium" />
 
       <div className="flex flex-col gap-1 px-2 pb-2">
         <h2 className={titleStyle({ size })}>{title}</h2>
