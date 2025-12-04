@@ -1,5 +1,7 @@
+import { ActionButton } from "@/shared/components/ActionButton";
+
 const MainPage = () => {
-  return <div>MainPage</div>;
+  return <div className="">MainPage</div>;
 };
 
 export default MainPage;
