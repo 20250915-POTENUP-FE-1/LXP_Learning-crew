@@ -1,5 +1,5 @@
-import { StaticImageData } from "next/image.js";
-import type { BadgeProps } from "../Badge/Badge.type.js";
+import { StaticImageData } from "next/image";
+import type { BadgeProps } from "../Badge/Badge.type";
 
 // type LectureCardSize = "small" | "large";
 type LectureCardSize = "large";

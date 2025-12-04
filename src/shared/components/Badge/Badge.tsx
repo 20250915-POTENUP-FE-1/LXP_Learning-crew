@@ -1,6 +1,6 @@
 import React from "react";
-import type { BadgeProps } from "./Badge.type.js";
-import { badgeStyle } from "./Badge.style.js";
+import type { BadgeProps } from "./Badge.type";
+import { badgeStyle } from "./Badge.style";
 
 const Badge = ({ content, color, variant }: BadgeProps) => {
   return (

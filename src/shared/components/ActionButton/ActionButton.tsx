@@ -1,6 +1,6 @@
 import React from "react";
-import type { ActionButtonProps } from "./ActionButton.type.js";
-import actionButtonStyle from "./ActionButton.style.js";
+import type { ActionButtonProps } from "./ActionButton.type";
+import actionButtonStyle from "./ActionButton.style";
 
 const ActionButton = ({
   value,
