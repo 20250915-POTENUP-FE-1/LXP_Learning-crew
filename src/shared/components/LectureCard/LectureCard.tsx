@@ -12,7 +12,7 @@ const LectureCard = ({
   subtitle,
   tags,
   size,
-  imageUrl,
+  thumbnailImageUrl,
 }: LectureCardProps) => {
   return (
     <div className={lectureCardStyle({ size })}>
