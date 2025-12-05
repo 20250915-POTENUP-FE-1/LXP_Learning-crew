@@ -30,7 +30,7 @@ const titleStyle = tv({
 });
 
 const subtitleStyle = tv({
-  base: "line-clamp-2 h-12 overflow-hidden text-ellipsis",
+  base: "line-clamp-2 h-10 overflow-hidden text-ellipsis",
   variants: {
     size: {
       // small: "text-xs",
