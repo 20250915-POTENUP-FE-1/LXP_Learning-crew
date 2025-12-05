@@ -1,6 +1,8 @@
 import React from "react";
 import { LectureListProps } from "../../model/page.type";
 import LectureCard from "@/shared/components/LectureCard/LectureCard";
+import Link from "next/link";
+import APP_ROUTES from "@/shared/constants/routes";
 
 const LectureList = ({ name, lectures }: LectureListProps) => {
   return (
@@ -14,14 +16,19 @@ const LectureList = ({ name, lectures }: LectureListProps) => {
 
       <div className="grid grid-cols-4 gap-8 py-4">
         {lectures?.map((lecture, index) => (
-          <LectureCard
+          <Link
             key={index}
-            lectureId={index} // FIXME: 임시 lectureId
-            title={lecture.title}
-            subtitle={lecture.subtitle}
-            tags={lecture.tags}
-            thumbnailImageUrl={lecture.thumbnailImageUrl}
-          />
+            href={`${APP_ROUTES.MAIN.LECTURE_DETAIL}/${lecture.lectureId}`}
+          >
+            <LectureCard
+              key={index}
+              lectureId={index} // FIXME: 임시 lectureId
+              title={lecture.title}
+              subtitle={lecture.subtitle}
+              tags={lecture.tags}
+              thumbnailImageUrl={lecture.thumbnailImageUrl}
+            />
+          </Link>
         ))}
       </div>
     </div>
