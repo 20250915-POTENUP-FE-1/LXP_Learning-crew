@@ -12,11 +12,12 @@ type Stroy = StoryObj<typeof meta>;
 
 export const Primary: Stroy = {
   args: {
+    lectureId: 0,
     size: "large",
     title: "Lecture Card qfwef qwef",
     subtitle:
       "Lecture Card Subtitle fqwefqwefq wfeqwf qwefeqw fqewfewq fweqfweqrqwe rweqtgwqhwqwefawefwa fwefqwe fweqf ewqfewrweq rewqfwe",
-    imageUrl: ThumbnailImage,
+    thumbnailImageUrl: ThumbnailImage,
     tags: [
       { content: "Tag1", color: "green", variant: "solid" },
       { content: "Tag2", color: "blue", variant: "solid" },
