@@ -1,22 +1,32 @@
 import LectureList from "@/features/main/components/LectureList/LectureList";
 import RecommendedLecture from "@/features/main/components/RecommendedLecture/RecommendedLecture";
-import { ActionButton } from "@/shared/components/ActionButton";
-import LectureCard from "@/shared/components/LectureCard/LectureCard";
 import { LectureCardProps } from "@/shared/components/LectureCard/LectureCard.type";
-import Link from "next/link";
 import ThumbnailImage from "../../../public/thumbnail.png";
 
 const LECTURE_DUMMY = [
   {
+    lectureId: 1,
     title: "리액트 기초부터 심화까지",
     subtitle: "초보자를 위한 리액트 강의",
     tags: [
       { content: "React", color: "blue" },
       { content: "JavaScript", color: "orange" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
+      { content: "Programming", color: "green" },
     ],
     thumbnailImageUrl: ThumbnailImage,
   },
   {
+    lectureId: 1,
     title: "타입스크립트 완전 정복",
     subtitle: "타입스크립트의 모든 것",
     tags: [
@@ -26,6 +36,7 @@ const LECTURE_DUMMY = [
     thumbnailImageUrl: ThumbnailImage,
   },
   {
+    lectureId: 1,
     title: "자바스크립트 완전 정복",
     subtitle: "기초 문법부터 ES 최신 문법까지 배우는 과정",
     tags: [
@@ -35,6 +46,7 @@ const LECTURE_DUMMY = [
     thumbnailImageUrl: ThumbnailImage,
   },
   {
+    lectureId: 1,
     title: "타입스크립트 실전 마스터",
     subtitle: "현업에서 바로 쓰는 타입 시스템 이해",
     tags: [
@@ -44,6 +56,7 @@ const LECTURE_DUMMY = [
     thumbnailImageUrl: ThumbnailImage,
   },
   {
+    lectureId: 1,
     title: "리액트 컴포넌트 아키텍처",
     subtitle: "재사용성과 확장성을 높이는 컴포넌트 설계",
     tags: [
