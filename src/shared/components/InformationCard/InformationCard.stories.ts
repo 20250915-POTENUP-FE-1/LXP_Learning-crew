@@ -11,6 +11,7 @@ export const Default = {
   args: {
     title: "정보 카드",
     description: "이것은 정보 카드를 나타내는 컴포넌트입니다.",
+    style: "fit",
   },
 };
 

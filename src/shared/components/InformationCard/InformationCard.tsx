@@ -6,7 +6,7 @@ import { informationCardStyle } from "./InformationCard.style";
 const InformationCard = ({
   title,
   description,
-  style,
+  style = "fit",
 }: InformationCardProps) => {
   return (
     <div className={informationCardStyle({ style })}>
