@@ -4,7 +4,7 @@ interface InformationCardProps {
   title: string;
   description: string;
 
-  style: InformationCardStyle;
+  style?: InformationCardStyle;
 }
 
 export type { InformationCardProps };
