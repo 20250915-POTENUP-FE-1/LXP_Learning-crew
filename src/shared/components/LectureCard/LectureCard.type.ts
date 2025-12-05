@@ -5,6 +5,7 @@ import type { BadgeProps } from "../Badge/Badge.type";
 type LectureCardSize = "large";
 
 interface LectureCardProps {
+  lectureId: number;
   title: string;
   subtitle: string;
   thumbnailImageUrl?: string | StaticImageData;

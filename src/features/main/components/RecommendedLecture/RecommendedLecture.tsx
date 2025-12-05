@@ -12,10 +12,11 @@ const RecommendedLecture = ({ name, lectures }: LectureListProps) => {
         </p>
       </div>
 
-      <div className="flex gap-6 overflow-x-scroll py-4">
+      <div className="flex gap-8 overflow-x-scroll py-4">
         {lectures?.map((lecture, index) => (
           <LectureCard
             key={index}
+            lectureId={index} // FIXME: 임시 lectureId
             title={lecture.title}
             subtitle={lecture.subtitle}
             tags={lecture.tags}

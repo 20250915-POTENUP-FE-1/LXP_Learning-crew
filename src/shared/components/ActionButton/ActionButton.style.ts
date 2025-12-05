@@ -1,7 +1,7 @@
 import { tv } from "tailwind-variants";
 
 const actionButtonStyle = tv({
-  base: "flex-1 cursor-pointer font-semibold text-sm px-4 py-2 rounded-lg",
+  base: "flex-1 cursor-pointer select-none rounded-lg px-4 py-2 text-sm font-semibold",
   variants: {
     variant: {
       primary: "bg-[#0066FF] text-white hover:bg-blue-600 active:bg-blue-700",

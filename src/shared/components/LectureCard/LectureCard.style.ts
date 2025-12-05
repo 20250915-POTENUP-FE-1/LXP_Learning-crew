@@ -21,7 +21,7 @@ const titleStyle = tv({
   variants: {
     size: {
       small: "text-md",
-      large: "text-2xl",
+      large: "text-xl",
     },
   },
   defaultVariants: {
@@ -30,7 +30,7 @@ const titleStyle = tv({
 });
 
 const subtitleStyle = tv({
-  base: "line-clamp-2 overflow-hidden text-ellipsis",
+  base: "line-clamp-2 h-12 overflow-hidden text-ellipsis",
   variants: {
     size: {
       // small: "text-xs",

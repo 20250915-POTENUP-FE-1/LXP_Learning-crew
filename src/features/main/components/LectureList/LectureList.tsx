@@ -12,10 +12,11 @@ const LectureList = ({ name, lectures }: LectureListProps) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 py-4">
+      <div className="grid grid-cols-4 gap-8 py-4">
         {lectures?.map((lecture, index) => (
           <LectureCard
             key={index}
+            lectureId={index} // FIXME: 임시 lectureId
             title={lecture.title}
             subtitle={lecture.subtitle}
             tags={lecture.tags}
