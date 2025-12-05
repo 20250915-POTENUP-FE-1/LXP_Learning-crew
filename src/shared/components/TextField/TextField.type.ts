@@ -4,7 +4,7 @@ type TextFieldType = "title" | "heading" | "body" | "caption";
 type TextFieldStyle = "semibold" | "regular";
 
 interface TextFieldProps {
-  children: ReactNode;
+  children: string;
   variant?: TextFieldType;
   style?: TextFieldStyle;
 }

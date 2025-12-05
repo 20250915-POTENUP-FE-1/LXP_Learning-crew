@@ -9,7 +9,7 @@ export default meta;
 
 export const SemiBold_Title = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "title",
     style: "semibold",
   },
@@ -17,7 +17,7 @@ export const SemiBold_Title = {
 
 export const Regular_Title = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "title",
     style: "regular",
   },
@@ -25,7 +25,7 @@ export const Regular_Title = {
 
 export const SemiBold_Heading = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "heading",
     style: "semibold",
   },
@@ -33,7 +33,7 @@ export const SemiBold_Heading = {
 
 export const Regular_Heading = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "heading",
     style: "regular",
   },
@@ -41,7 +41,7 @@ export const Regular_Heading = {
 
 export const SemiBold_Body = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "body",
     style: "semibold",
   },
@@ -49,7 +49,7 @@ export const SemiBold_Body = {
 
 export const Regular_Body = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "body",
     style: "regular",
   },
@@ -57,7 +57,7 @@ export const Regular_Body = {
 
 export const SemiBold_Caption = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "caption",
     style: "semibold",
   },
@@ -65,7 +65,7 @@ export const SemiBold_Caption = {
 
 export const Regular_Caption = {
   args: {
-    label: "TextField Component",
+    children: "TextField Component",
     variant: "caption",
     style: "regular",
   },
