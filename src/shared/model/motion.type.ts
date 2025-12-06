@@ -3,7 +3,7 @@ import { MotionStyle, Transition as MotionTransition } from "motion/react";
 
 type Style = MotionStyle | undefined;
 type Initial = boolean | TargetAndTransition | VariantLabels | undefined;
-type Animate = boolean | TargetAndTransition | VariantLabels | undefined;
+type Animate = TargetAndTransition | VariantLabels | undefined;
 type Exit = TargetAndTransition | VariantLabels | undefined;
 type Transition = MotionTransition<any> | undefined;
 
