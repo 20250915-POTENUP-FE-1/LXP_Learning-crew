@@ -21,10 +21,12 @@ const LectureDetailPage = () => {
             <TextField variant="title" style="semibold">
               안녕하세요 자바와 자바스크립트의 차이를 알려드리겠습니다.
             </TextField>
-            <TextField variant="caption" style="regular">
-              초보자를 위한 리액트 강의입니다. 리액트의 기본 개념부터 심화
-              내용까지 다룹니다.
-            </TextField>
+            <div className="text-neutral-500">
+              <TextField variant="caption" style="regular">
+                초보자를 위한 리액트 강의입니다. 리액트의 기본 개념부터 심화
+                내용까지 다룹니다.
+              </TextField>
+            </div>
           </div>
 
           <TagProvider
