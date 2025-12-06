@@ -1,12 +1,16 @@
 import CourseDetailPage from "@/app/main/[courseId]/page";
 import Modal from "@/shared/components/Modal/Modal";
 
-import React from "react";
+interface ModalPageProps {
+  params: {
+    courseId: string;
+  };
+}
 
-const ModalPage = () => {
+const ModalPage = async ({ params }: ModalPageProps) => {
   return (
     <Modal>
-      <CourseDetailPage />
+      <CourseDetailPage params={await params} />
     </Modal>
   );
 };

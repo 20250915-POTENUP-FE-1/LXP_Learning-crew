@@ -5,12 +5,12 @@ import type { BadgeProps } from "../Badge/Badge.type";
 type CourseCardSize = "large";
 
 interface CourseCardProps {
-  courseId: number;
+  courseId: string;
   title: string;
-  subtitle: string;
-  thumbnailImageUrl?: string | StaticImageData;
+  description: string;
+  thumbnailImageUrl: string | StaticImageData | null;
 
-  tags: Pick<BadgeProps, "content" | "color" | "variant">[];
+  tags?: Pick<BadgeProps, "content" | "color" | "variant">[];
 
   size?: CourseCardSize;
 }

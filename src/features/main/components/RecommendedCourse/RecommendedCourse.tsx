@@ -1,8 +1,7 @@
-import React from "react";
 import { CourseListProps } from "../../model/page.type";
-import LectureCard from "@/shared/components/CourseCard/CourseCard";
+import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
-import APP_ROUTES from "@/shared/constants/routes";
+import APP_ROUTES from "@/shared/constants/appRoutes";
 
 const RecommendedCourse = ({ name, courses }: CourseListProps) => {
   return (
@@ -20,11 +19,11 @@ const RecommendedCourse = ({ name, courses }: CourseListProps) => {
             key={index}
             href={`${APP_ROUTES.MAIN.COURSE_DETAIL}/${course.courseId}`}
           >
-            <LectureCard
+            <CourseCard
               key={index}
-              courseId={index}
+              courseId={course.courseId}
               title={course.title}
-              subtitle={course.subtitle}
+              description={course.description}
               tags={course.tags}
               thumbnailImageUrl={course.thumbnailImageUrl}
             />

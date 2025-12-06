@@ -6,7 +6,7 @@ import { CourseCardProps } from "./CourseCard.type";
 const CourseCard = ({
   courseId,
   title,
-  subtitle,
+  description,
   tags,
   size,
   thumbnailImageUrl,
@@ -17,17 +17,18 @@ const CourseCard = ({
 
       <div className="flex flex-col gap-1 px-2 pb-2">
         <h2 className={titleStyle({ size })}>{title}</h2>
-        <p className={subtitleStyle({ size })}>{subtitle}</p>
+        <p className={subtitleStyle({ size })}>{description}</p>
 
         <div className="flex gap-1 pt-2">
-          {tags.map((tag, index) => (
-            <Badge
-              key={index}
-              content={tag.content}
-              {...(tag.variant && { variant: tag.variant })}
-              {...(tag.color && { color: tag.color })}
-            />
-          ))}
+          {tags &&
+            tags.map((tag, index) => (
+              <Badge
+                key={index}
+                content={tag.content}
+                {...(tag.variant && { variant: tag.variant })}
+                {...(tag.color && { color: tag.color })}
+              />
+            ))}
         </div>
       </div>
     </div>

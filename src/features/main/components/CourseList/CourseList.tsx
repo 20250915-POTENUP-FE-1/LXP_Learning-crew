@@ -2,7 +2,7 @@ import React from "react";
 import { CourseListProps } from "../../model/page.type";
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
-import APP_ROUTES from "@/shared/constants/routes";
+import APP_ROUTES from "@/shared/constants/appRoutes";
 
 const CourseList = ({ name, courses }: CourseListProps) => {
   return (
@@ -22,9 +22,9 @@ const CourseList = ({ name, courses }: CourseListProps) => {
           >
             <CourseCard
               key={index}
-              courseId={index} // FIXME: 임시 lectureId
+              courseId={course.courseId} // FIXME: 임시 lectureId
               title={course.title}
-              subtitle={course.subtitle}
+              description={course.description}
               tags={course.tags}
               thumbnailImageUrl={course.thumbnailImageUrl}
             />

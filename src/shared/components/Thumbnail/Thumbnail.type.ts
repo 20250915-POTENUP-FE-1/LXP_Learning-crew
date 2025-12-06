@@ -5,7 +5,7 @@ type ThumbnailVariant = "image" | "placeholder" | "loading";
 
 interface ThumbnailProps {
   title: string;
-  imageUrl?: string | StaticImageData;
+  imageUrl: string | StaticImageData | null;
   variant?: ThumbnailVariant;
 
   size: ThumbnailSize;
