@@ -1,7 +1,7 @@
 const APP_ROUTES = {
   MAIN: {
     DEFAULT: "/main",
-    LECTURE_DETAIL: "/main", // /[lectureId]
+    COURSE_DETAIL: "/main", // /[courseId]
   },
   LOGIN: "/login",
   MY: "/my",

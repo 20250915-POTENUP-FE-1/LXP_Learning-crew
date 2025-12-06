@@ -1,6 +1,6 @@
-import LectureList from "@/features/main/components/LectureList/LectureList";
-import RecommendedLecture from "@/features/main/components/RecommendedLecture/RecommendedLecture";
-import { LectureCardProps } from "@/shared/components/LectureCard/LectureCard.type";
+import CourseList from "@/features/main/components/CourseList/CourseList";
+import RecommendedCourse from "@/features/main/components/RecommendedCourse/RecommendedCourse";
+import { CourseCardProps } from "@/shared/components/CourseCard/CourseCard.type";
 import ThumbnailImage from "../../../public/thumbnail.png";
 
 const LECTURE_DUMMY = [
@@ -218,13 +218,13 @@ const LECTURE_DUMMY = [
     ],
     thumbnailImageUrl: ThumbnailImage,
   },
-] as LectureCardProps[];
+] as CourseCardProps[];
 
 const MainPage = () => {
   return (
     <div className="flex w-full flex-col gap-20">
-      <RecommendedLecture name="홍길동" lectures={LECTURE_DUMMY} />
-      <LectureList name="홍길동" lectures={LECTURE_DUMMY} />
+      <RecommendedCourse name="홍길동" courses={LECTURE_DUMMY} />
+      <CourseList name="홍길동" courses={LECTURE_DUMMY} />
     </div>
   );
 };

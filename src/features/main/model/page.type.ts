@@ -1,9 +1,9 @@
-import { LectureCardProps } from "@/shared/components/LectureCard/LectureCard.type";
+import { CourseCardProps } from "@/shared/components/CourseCard/CourseCard.type";
 import { ReactNode } from "react";
 
-interface LectureListProps {
+interface CourseListProps {
   name: string;
-  lectures?: LectureCardProps[];
+  courses?: CourseCardProps[];
 }
 
-export type { LectureListProps };
+export type { CourseListProps };

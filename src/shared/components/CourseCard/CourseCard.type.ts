@@ -1,18 +1,18 @@
 import { StaticImageData } from "next/image";
 import type { BadgeProps } from "../Badge/Badge.type";
 
-// type LectureCardSize = "small" | "large";
-type LectureCardSize = "large";
+// type CourseCardSize = "small" | "large";
+type CourseCardSize = "large";
 
-interface LectureCardProps {
-  lectureId: number;
+interface CourseCardProps {
+  courseId: number;
   title: string;
   subtitle: string;
   thumbnailImageUrl?: string | StaticImageData;
 
   tags: Pick<BadgeProps, "content" | "color" | "variant">[];
 
-  size?: LectureCardSize;
+  size?: CourseCardSize;
 }
 
-export type { LectureCardProps };
+export type { CourseCardProps };

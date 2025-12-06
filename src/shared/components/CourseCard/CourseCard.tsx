@@ -1,22 +1,18 @@
 import Badge from "../Badge/Badge";
 import Thumbnail from "../Thumbnail/Thumbnail";
-import {
-  lectureCardStyle,
-  titleStyle,
-  subtitleStyle,
-} from "./LectureCard.style";
-import { LectureCardProps } from "./LectureCard.type";
+import { courseCardStyle, titleStyle, subtitleStyle } from "./CourseCard.style";
+import { CourseCardProps } from "./CourseCard.type";
 
-const LectureCard = ({
-  lectureId,
+const CourseCard = ({
+  courseId,
   title,
   subtitle,
   tags,
   size,
   thumbnailImageUrl,
-}: LectureCardProps) => {
+}: CourseCardProps) => {
   return (
-    <div className={lectureCardStyle({ size })}>
+    <div className={courseCardStyle({ size })}>
       <Thumbnail title={title} imageUrl={thumbnailImageUrl} size="medium" />
 
       <div className="flex flex-col gap-1 px-2 pb-2">
@@ -38,4 +34,4 @@ const LectureCard = ({
   );
 };
 
-export default LectureCard;
+export default CourseCard;

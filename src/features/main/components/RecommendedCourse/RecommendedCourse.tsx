@@ -1,10 +1,10 @@
 import React from "react";
-import { LectureListProps } from "../../model/page.type";
-import LectureCard from "@/shared/components/LectureCard/LectureCard";
+import { CourseListProps } from "../../model/page.type";
+import LectureCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
 import APP_ROUTES from "@/shared/constants/routes";
 
-const RecommendedLecture = ({ name, lectures }: LectureListProps) => {
+const RecommendedCourse = ({ name, courses }: CourseListProps) => {
   return (
     <div className="flex w-full flex-col">
       <div className="flex items-center gap-3">
@@ -15,18 +15,18 @@ const RecommendedLecture = ({ name, lectures }: LectureListProps) => {
       </div>
 
       <div className="flex gap-8 overflow-x-scroll py-4">
-        {lectures?.map((lecture, index) => (
+        {courses?.map((course, index) => (
           <Link
             key={index}
-            href={`${APP_ROUTES.MAIN.LECTURE_DETAIL}/${lecture.lectureId}`}
+            href={`${APP_ROUTES.MAIN.COURSE_DETAIL}/${course.courseId}`}
           >
             <LectureCard
               key={index}
-              lectureId={index} // FIXME: 임시 lectureId
-              title={lecture.title}
-              subtitle={lecture.subtitle}
-              tags={lecture.tags}
-              thumbnailImageUrl={lecture.thumbnailImageUrl}
+              courseId={index}
+              title={course.title}
+              subtitle={course.subtitle}
+              tags={course.tags}
+              thumbnailImageUrl={course.thumbnailImageUrl}
             />
           </Link>
         ))}
@@ -35,4 +35,4 @@ const RecommendedLecture = ({ name, lectures }: LectureListProps) => {
   );
 };
 
-export default RecommendedLecture;
+export default RecommendedCourse;

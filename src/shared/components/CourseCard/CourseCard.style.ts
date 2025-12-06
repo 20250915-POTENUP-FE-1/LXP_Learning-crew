@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { tv } from "tailwind-variants";
 
-const lectureCardStyle = tv({
+const courseCardStyle = tv({
   base: clsx(
     "flex shrink-0 cursor-pointer flex-col gap-2.5 overflow-hidden rounded-2xl border border-[#EDEDED] shadow-sm",
   ),
@@ -42,4 +42,4 @@ const subtitleStyle = tv({
   },
 });
 
-export { lectureCardStyle, titleStyle, subtitleStyle };
+export { courseCardStyle, titleStyle, subtitleStyle };

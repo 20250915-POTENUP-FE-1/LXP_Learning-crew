@@ -1,4 +1,4 @@
-import LectureDetailPage from "@/app/main/[lectureId]/page";
+import CourseDetailPage from "@/app/main/[courseId]/page";
 import Modal from "@/shared/components/Modal/Modal";
 
 import React from "react";
@@ -6,7 +6,7 @@ import React from "react";
 const ModalPage = () => {
   return (
     <Modal>
-      <LectureDetailPage />
+      <CourseDetailPage />
     </Modal>
   );
 };

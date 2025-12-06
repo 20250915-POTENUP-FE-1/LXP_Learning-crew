@@ -6,7 +6,7 @@ import InformationCard from "@/shared/components/InformationCard/InformationCard
 import AccordionView from "@/shared/components/AccordionView/AccordionView";
 import CurriculumProvider from "@/shared/components/CurriculumProvider/CurriculumProvider";
 
-const LectureDetailPage = () => {
+const CourseDetailPage = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-8">
@@ -78,4 +78,4 @@ const LectureDetailPage = () => {
   );
 };
 
-export default LectureDetailPage;
+export default CourseDetailPage;

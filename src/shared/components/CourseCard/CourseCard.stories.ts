@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import LectureCard from "./LectureCard";
+import CourseCard from "./CourseCard";
 import ThumbnailImage from "./assets/thumbnail.png";
 
 const meta = {
-  component: LectureCard,
+  component: CourseCard,
   tags: ["autodocs"],
-} satisfies Meta<typeof LectureCard>;
+} satisfies Meta<typeof CourseCard>;
 export default meta;
 
 type Stroy = StoryObj<typeof meta>;
 
 export const Primary: Stroy = {
   args: {
-    lectureId: 0,
+    courseId: 0,
     size: "large",
-    title: "Lecture Card qfwef qwef",
+    title: "Course Card qfwef qwef",
     subtitle:
-      "Lecture Card Subtitle fqwefqwefq wfeqwf qwefeqw fqewfewq fweqfweqrqwe rweqtgwqhwqwefawefwa fwefqwe fweqf ewqfewrweq rewqfwe",
+      "Course Card Subtitle fqwefqwefq wfeqwf qwefeqw fqewfewq fweqfweqrqwe rweqtgwqhwqwefawefwa fwefqwe fweqf ewqfewrweq rewqfwe",
     thumbnailImageUrl: ThumbnailImage,
     tags: [
       { content: "Tag1", color: "green", variant: "solid" },
