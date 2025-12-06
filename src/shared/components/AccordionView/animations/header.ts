@@ -1,4 +1,4 @@
-import { Animate, Initial, Transition } from "@/shared/model/motion.type";
+import { Animate, Initial, Transition } from "@/shared/types/motion.type";
 
 const headerAnimation = {
   initial: { backgroundColor: "#ffffff" } as Initial,

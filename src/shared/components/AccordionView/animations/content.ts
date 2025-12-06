@@ -3,7 +3,7 @@ import {
   Initial,
   Style,
   Transition,
-} from "@/shared/model/motion.type";
+} from "@/shared/types/motion.type";
 
 const contentAnimation = {
   style: {} as Style,
