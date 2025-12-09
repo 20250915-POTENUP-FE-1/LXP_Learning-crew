@@ -20,8 +20,10 @@ const useLoginForm = () => {
       newErrors.email = "올바른 이메일 형식이 아닙니다.";
     }
 
-    if (password.length < 8 || password.length > 20) {
-      newErrors.password = "비밀번호는 8~20자여야 합니다.";
+    if (password.length < 8) {
+      newErrors.password = "비밀번호가 너무 짧습니다.";
+    } else {
+      if (password.length > 20) newErrors.password = "비밀번호가 너무 깁니다.";
     }
 
     setErrors(newErrors);

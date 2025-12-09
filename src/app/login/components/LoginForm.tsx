@@ -35,7 +35,7 @@ const LoginForm = () => {
         <InputField
           name="password"
           type="password"
-          placeholder="8~20자 비밀번호"
+          placeholder="8~20자로 작성해주세요."
           title="비밀번호"
           variant="primary"
           required
