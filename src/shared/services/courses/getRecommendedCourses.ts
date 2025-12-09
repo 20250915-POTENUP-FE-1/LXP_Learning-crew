@@ -3,7 +3,7 @@ import fetchGetRecommendCourses from "@/shared/apis/courses/fetchGetRecommendCou
 const getRecommendedCourses = async () => {
   const data = await fetchGetRecommendCourses();
 
-  return data.courses;
+  return data.recommendedCourses;
 };
 
 export default getRecommendedCourses;

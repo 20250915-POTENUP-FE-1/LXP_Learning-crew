@@ -25,30 +25,29 @@ const AccordionView = ({
         transition={headerAnimation.transition}
         onClick={() => setIsViewOpen(!isViewOpen)}
       >
-        <div className="flex flex-col">
-          {/* title */}
-          {typeof title === "string" ? (
-            // string
+        {/* title */}
+        {typeof title === "string" ? (
+          // string
+          <div className="flex flex-col">
             <TextField variant="body" style="semibold">
               {title}
             </TextField>
-          ) : (
-            // ReactNode
-            title
-          )}
 
-          {/* description */}
-          {description && (
-            <div className="text-neutral-700">
-              <TextField variant="caption">{description}</TextField>
-            </div>
-          )}
-        </div>
+            {description && (
+              <div className="text-neutral-700">
+                <TextField variant="caption">{description}</TextField>
+              </div>
+            )}
+          </div>
+        ) : (
+          // ReactNode
+          title
+        )}
       </motion.div>
 
       {/* AccordionView Content */}
       <motion.div
-        className="flex items-end overflow-hidden"
+        className="flex overflow-hidden"
         animate={isViewOpen ? contentAnimation.open : contentAnimation.close}
         transition={contentAnimation.transition}
       >

@@ -15,7 +15,7 @@ const fetchGetRecommendCourses =
 
     if (response.status === 204) {
       return {
-        courses: [],
+        recommendedCourses: [],
       };
     }
 
@@ -23,7 +23,7 @@ const fetchGetRecommendCourses =
       FetchFailedMessage(ROUTE);
     }
 
-    return response.json() as Promise<ResponseGetRecommendedCourses>;
+    return response.json();
   };
 
 export default fetchGetRecommendCourses;

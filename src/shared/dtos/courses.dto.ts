@@ -15,7 +15,7 @@ type CoursesDto = {
 };
 
 interface ResponseGetRecommendedCourses {
-  courses: CoursesDto[];
+  recommendedCourses: CoursesDto[];
 }
 
 interface ResponseGetCourses {
