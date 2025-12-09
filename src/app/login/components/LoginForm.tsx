@@ -18,7 +18,6 @@ const LoginForm = () => {
       className="flex flex-col gap-10 pt-6"
       onSubmit={handleSubmit}
       action={action}
-      method="post"
     >
       <div className="flex flex-col items-center gap-6">
         <InputField
