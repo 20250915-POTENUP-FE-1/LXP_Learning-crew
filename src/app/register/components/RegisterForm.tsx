@@ -24,12 +24,7 @@ export default function RegisterForm() {
   } = useRegisterForm();
 
   return (
-    <form
-      className="w-full"
-      action={registerAction}
-      method="post"
-      onSubmit={handleSubmit}
-    >
+    <form className="w-full" action={registerAction} onSubmit={handleSubmit}>
       <div className="mx-auto flex w-full flex-col items-center gap-6">
         <InputField
           name="email"
@@ -90,11 +85,13 @@ export default function RegisterForm() {
         <div className="flex w-full">
           <ActionButton
             size="medium"
-            value={isPending ? "처리중..." : "가입하기"}
             variant="primary"
             type="submit"
+            value="가입하기"
             disabled={isPending}
-          />
+          >
+            {isPending ? "처리중..." : "가입하기"}
+          </ActionButton>
         </div>
       </div>
     </form>
