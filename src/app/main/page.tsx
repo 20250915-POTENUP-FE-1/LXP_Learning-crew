@@ -1,5 +1,5 @@
-import CourseList from "@/features/main/components/CourseList/CourseList";
-import RecommendedCourse from "@/features/main/components/RecommendedCourse/RecommendedCourse";
+import CourseList from "@/features/main/ui/CourseList/CourseList";
+import RecommendedCourse from "@/features/main/ui/RecommendedCourse/RecommendedCourse";
 import getRecommendCourses from "@/shared/services/courses/getRecommendedCourses";
 import getCourses from "@/shared/services/courses/getCourses";
 
