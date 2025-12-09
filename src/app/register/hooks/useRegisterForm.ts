@@ -25,8 +25,11 @@ export default function useRegisterForm() {
 
     if (!EMAIL_REGEX.test(email))
       next.email = "올바른 이메일 형식을 입력해주세요.";
-    if (password.length < 8 || password.length > 20)
-      next.password = "비밀번호는 8~20자여야 합니다.";
+    if (password.length < 8) {
+      next.password = "비밀번호가 너무 짧습니다.";
+    } else {
+      if (password.length > 20) next.password = "비밀번호가 너무 깁니다.";
+    }
     if (password !== passwordConfirm)
       next.passwordConfirm = "비밀번호가 일치하지 않습니다.";
     if (name && name.length > 5)
