@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import loginAction from "@/app/login/hooks/useFormData";
+import loginAction from "@/app/login/hooks/actions";
 
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 
