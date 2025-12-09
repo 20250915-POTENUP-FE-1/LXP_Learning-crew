@@ -1,62 +1,26 @@
-"use client";
+"use server";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { redirect } from "next/navigation";
 
-interface LoginValues {
-  email: string;
-  password: string;
+const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
+
+export default async function loginAction(formData: FormData): Promise<void> {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const errors: { email?: string; password?: string } = {};
+
+  if (!EMAIL_REGEX.test(email)) {
+    errors.email = "올바른 이메일 형식이 아닙니다.";
+  }
+
+  if (password.length < 8 || password.length > 20) {
+    errors.password = "비밀번호는 8~20자여야 합니다.";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    throw new Error(JSON.stringify(errors));
+  }
+
+  redirect("/");
 }
-
-const useLoginForm = () => {
-  const router = useRouter();
-
-  const [values, setValues] = useState<LoginValues>({
-    email: "",
-    password: "",
-  });
-
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (name: keyof LoginValues, value: string) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-
-  const validate = () => {
-    const newErrors = { email: "", password: "" };
-
-    if (!values.email.includes("@")) {
-      newErrors.email = "올바른 이메일 형식이 아닙니다.";
-    }
-
-    if (values.password.length < 8 || values.password.length > 20) {
-      newErrors.password = "비밀번호는 8~20자여야 합니다.";
-    }
-
-    setErrors(newErrors);
-
-    return Object.values(newErrors).every((msg) => msg === "");
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    console.log("로그인 성공!", values);
-
-    router.push("/");
-  };
-
-  return {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-  };
-};
-
-export default useLoginForm;
