@@ -3,51 +3,36 @@
 import InputField from "@/shared/components/InputField/InputField";
 import { ActionButton } from "@/shared/components/ActionButton";
 import JoinTypeSelector from "./JoinTypeSelector";
-import useRegisterForm, { useRegisterValidation } from "../hooks/useFormData";
-import { useState } from "react";
+import registerAction from "@/app/register/hooks/actions";
+import useRegisterForm from "@/app/register/hooks/useRegisterForm";
 
-const RegisterForm = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState(""); //
-
-  const [joinType, setJoinType] = useState<"일반" | "강사">("일반");
-  const handleJoinTypeChange = (value: "일반" | "강사") => setJoinType(value);
-
+export default function RegisterForm() {
   const {
+    email,
     password,
     passwordConfirm,
+    name,
+    joinType,
+    setEmail,
     setPassword,
     setPasswordConfirm,
-    handleSubmit: handleBaseSubmit,
+    setName,
+    setJoinType,
+    errors,
+    isPending,
+    handleSubmit,
   } = useRegisterForm();
 
-  const { errors, validate } = useRegisterValidation();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const isValid = validate({
-      email,
-      password,
-      passwordConfirm,
-    });
-
-    if (!isValid) return;
-
-    if (name.length > 5) {
-      alert("이름은 최대 5글자까지 가능합니다.");
-      return;
-    }
-
-    console.log("폼 최종 제출", { email, password, joinType, name });
-
-    handleBaseSubmit(e);
-  };
-
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
+    <form
+      className="w-full"
+      action={registerAction}
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <div className="mx-auto flex w-full flex-col items-center gap-6">
         <InputField
+          name="email"
           placeholder="example@example.com"
           title="아이디"
           variant="primary"
@@ -58,14 +43,13 @@ const RegisterForm = () => {
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
 
         <InputField
+          name="password"
           placeholder="8~20자 비밀번호"
           title="비밀번호"
           variant="primary"
           type="password"
           required
           value={password}
-          minLength={8}
-          maxLength={20}
           onChange={(e) => setPassword(e.target.value)}
         />
         {errors.password && (
@@ -73,14 +57,13 @@ const RegisterForm = () => {
         )}
 
         <InputField
+          name="passwordConfirm"
           placeholder="비밀번호를 다시 작성해주세요."
           title="비밀번호 확인"
           variant="primary"
           type="password"
           required
           value={passwordConfirm}
-          minLength={8}
-          maxLength={20}
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         {errors.passwordConfirm && (
@@ -88,30 +71,32 @@ const RegisterForm = () => {
         )}
 
         <InputField
+          name="name"
           placeholder="이름을 작성해주세요."
           title="이름"
           variant="primary"
           required
           value={name}
-          maxLength={5}
           onChange={(e) => setName(e.target.value)}
         />
+        {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
 
         <div className="flex w-full">
-          <JoinTypeSelector value={joinType} onChange={handleJoinTypeChange} />
+          <JoinTypeSelector value={joinType} onChange={setJoinType} />
         </div>
+
+        <input type="hidden" name="joinType" value={joinType} />
 
         <div className="flex w-full">
           <ActionButton
             size="medium"
-            value="가입하기"
+            value={isPending ? "처리중..." : "가입하기"}
             variant="primary"
             type="submit"
+            disabled={isPending}
           />
         </div>
       </div>
     </form>
   );
-};
-
-export default RegisterForm;
+}
