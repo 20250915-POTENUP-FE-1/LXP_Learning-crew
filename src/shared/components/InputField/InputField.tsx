@@ -11,7 +11,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         <input
           ref={ref}
           disabled={variant === "disabled"}
-          className={inputStyle({ variant })}
+          className={clsx(inputStyle({ variant }))}
           {...rest}
         />
       </div>

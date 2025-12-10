@@ -33,10 +33,10 @@ export const None: Story = {
 
 export const Width: Story = {
   args: {
-    variant: "none",
+    variant: "primary",
     size: "medium",
-    width: 350,
-    value: "None Style Button",
+    width: 500,
+    value: "Button Width",
   },
 };
 

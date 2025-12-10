@@ -11,6 +11,7 @@ const AccordionView = ({
   title,
   description,
   isOpen = false,
+  isEnabled = true,
   children,
 }: AccordionViewProps) => {
   const [isViewOpen, setIsViewOpen] = useState(isOpen);
@@ -21,13 +22,11 @@ const AccordionView = ({
       <motion.div
         className="flex cursor-pointer items-center justify-between rounded-xl"
         initial={headerAnimation.initial}
-        // whileHover={headerAnimation.whileHover}
         transition={headerAnimation.transition}
-        onClick={() => setIsViewOpen(!isViewOpen)}
+        onClick={() => isEnabled && setIsViewOpen(!isViewOpen)}
       >
         {/* title */}
         {typeof title === "string" ? (
-          // string
           <div className="flex flex-col">
             <TextField variant="body" style="semibold">
               {title}

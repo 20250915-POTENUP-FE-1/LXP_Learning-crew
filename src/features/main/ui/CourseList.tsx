@@ -1,19 +1,20 @@
-import { CourseListProps } from "../../model/page.type";
+import React from "react";
+import { CourseListProps } from "../model/props.type";
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
 import APP_ROUTES from "@/shared/constants/appRoutes";
 
-const RecommendedCourse = ({ name, courses }: CourseListProps) => {
+const CourseList = ({ name, courses }: CourseListProps) => {
   return (
-    <div className="flex w-full flex-col">
+    <div>
       <div className="flex items-center gap-3">
-        <p className="text-2xl font-bold">👍 추천 강의</p>
+        <p className="text-2xl font-bold">📚 강의 목록</p>
         <p className="text-xs text-[#3b3b3b]">
-          요즘 <b>{name}</b>님에게 잘 맞을 것 같은 강의를 모아봤어요
+          <b>{name}</b>님이 관심 있을만한 강의들을 천천히 둘러보세요
         </p>
       </div>
 
-      <div className="flex gap-8 overflow-x-scroll py-4">
+      <div className="grid grid-cols-4 gap-8 py-4">
         {courses?.map((course, index) => (
           <Link
             key={index}
@@ -34,4 +35,4 @@ const RecommendedCourse = ({ name, courses }: CourseListProps) => {
   );
 };
 
-export default RecommendedCourse;
+export default CourseList;

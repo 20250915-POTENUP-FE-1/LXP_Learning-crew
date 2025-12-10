@@ -1,18 +1,19 @@
 import CourseDetailPage from "@/app/main/[courseId]/page";
+import { ActionButton } from "@/shared/components/ActionButton";
 import Modal from "@/shared/components/Modal/Modal";
 
 interface ModalPageProps {
-  params: {
+  params: Promise<{
     courseId: string;
-  };
+  }>;
 }
 
-const ModalPage = async ({ params }: ModalPageProps) => {
+const CourseDetailModal = async ({ params }: ModalPageProps) => {
   return (
     <Modal>
-      <CourseDetailPage params={await params} />
+      <CourseDetailPage params={params} />
     </Modal>
   );
 };
 
-export default ModalPage;
+export default CourseDetailModal;

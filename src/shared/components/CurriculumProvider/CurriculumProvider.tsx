@@ -1,7 +1,10 @@
 import { CurriculumProviderProps } from "./CurriculumProvider.type";
 import Section from "./Section";
 
-const CurriculumProvider = ({ sections }: CurriculumProviderProps) => {
+const CurriculumProvider = ({
+  sections,
+  mode = "view",
+}: CurriculumProviderProps) => {
   return (
     <div className="flex flex-1 flex-col gap-8">
       {sections.map((section, index) => (
@@ -9,6 +12,7 @@ const CurriculumProvider = ({ sections }: CurriculumProviderProps) => {
           key={index}
           index={{ sectionIndex: index }}
           section={section}
+          mode={mode}
         />
       ))}
     </div>
