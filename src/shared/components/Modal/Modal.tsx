@@ -44,18 +44,11 @@ const Modal = ({ children }: ModalProps) => {
         >
           {/* <CloseButton onClick={onHide} /> */}
 
-          <div className="flex h-full w-full flex-col overflow-scroll scroll-auto p-4 px-9 pt-12">
+          <div className="flex flex-col overflow-scroll px-9 pb-4 pt-12">
             {children}
           </div>
-
-          {/* {bottomContainer && (
-              <div className="flex justify-end gap-2 px-9 pt-2 pb-6">
-                {bottomContainer}
-              </div>
-            )} */}
         </motion.div>
       </div>
-      {/* )} */}
     </AnimatePresence>
   );
 };
