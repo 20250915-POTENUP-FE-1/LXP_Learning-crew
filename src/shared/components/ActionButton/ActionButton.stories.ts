@@ -30,3 +30,21 @@ export const None: Story = {
     value: "None Style Button",
   },
 };
+
+export const Width: Story = {
+  args: {
+    variant: "none",
+    size: "medium",
+    width: 350,
+    value: "None Style Button",
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    variant: "primary",
+    size: "medium",
+    isFull: true,
+    value: "Full Width Button",
+  },
+};

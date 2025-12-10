@@ -6,6 +6,7 @@ import clsx from "clsx";
 const ActionButton = ({
   value,
   isFull,
+  width,
   variant,
   size,
   onClick,
@@ -14,6 +15,7 @@ const ActionButton = ({
     <button
       className={clsx(actionButtonStyle({ variant, size }), {
         "flex-1": isFull,
+        [`w-[${width}px]`]: width,
       })}
       onClick={onClick}
     >

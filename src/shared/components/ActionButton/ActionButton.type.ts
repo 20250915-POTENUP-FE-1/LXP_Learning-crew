@@ -14,6 +14,7 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
   variant?: ActionButtonVariant;
   isFull?: boolean;
+  width?: number;
   size?: "medium" | "large";
 }
 
