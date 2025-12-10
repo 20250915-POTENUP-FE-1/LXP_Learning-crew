@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <main className="flex min-h-screen flex-col items-center bg-gray-100">
+        <main className="flex min-h-screen flex-col items-center bg-white">
           <Header />
 
           <div className="flex w-full max-w-[1100px] flex-1">{children}</div>
