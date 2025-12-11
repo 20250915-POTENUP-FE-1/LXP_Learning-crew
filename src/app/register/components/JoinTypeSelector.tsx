@@ -1,17 +1,17 @@
 "use client";
 
-type JoinType = "일반" | "강사";
+type role = "일반" | "강사";
 interface Props {
-  value: JoinType;
-  onChange: (value: JoinType) => void;
+  value: role;
+  onChange: (value: role) => void;
 }
 
-const options: JoinType[] = ["일반", "강사"];
+const options: role[] = ["일반", "강사"];
 
 function JoinTypeSelector({ value, onChange }: Props) {
   return (
     <div
-      className="flex w-[530px] items-center justify-between pb-12"
+      className="flex w-[530px] items-center justify-between pb-8"
       role="radiogroup"
       aria-label="가입 유형"
     >

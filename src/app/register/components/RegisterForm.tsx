@@ -1,30 +1,50 @@
 "use client";
 
 import InputField from "@/shared/components/InputField/InputField";
-import { ActionButton } from "@/shared/components/ActionButton";
 import JoinTypeSelector from "./JoinTypeSelector";
-import registerAction from "@/app/register/hooks/actions";
-import useRegisterForm from "@/app/register/hooks/useRegisterForm";
+import ExperienceSelect from "./ExperienceSelect";
+import { ActionButton } from "@/shared/components/ActionButton";
+import useRegisterForm from "../hooks/useRegisterForm";
 
-export default function RegisterForm() {
+type RegisterFormProps = {
+  onNext?: (formData: FormData) => void;
+};
+
+export default function RegisterForm({ onNext }: RegisterFormProps) {
   const {
     email,
     password,
     passwordConfirm,
     name,
-    joinType,
+    role,
     setEmail,
     setPassword,
     setPasswordConfirm,
     setName,
-    setJoinType,
+    setRole,
     errors,
-    isPending,
     handleSubmit,
+    experiences,
+    handleExperienceChange,
   } = useRegisterForm();
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const ok = await handleSubmit(e);
+    if (ok && onNext) {
+      const formData = new FormData();
+      formData.set("email", email);
+      formData.set("password", password);
+      formData.set("passwordConfirm", passwordConfirm);
+      formData.set("name", name);
+      formData.set("role", role);
+      formData.set("experiences", experiences);
+
+      onNext(formData);
+    }
+  };
+
   return (
-    <form className="w-full" action={registerAction} onSubmit={handleSubmit}>
+    <form className="w-full" onSubmit={onSubmit}>
       <div className="mx-auto flex w-full flex-col items-center gap-6">
         <InputField
           name="email"
@@ -77,21 +97,21 @@ export default function RegisterForm() {
         {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
 
         <div className="flex w-full">
-          <JoinTypeSelector value={joinType} onChange={setJoinType} />
+          <JoinTypeSelector value={role} onChange={setRole} />
         </div>
 
-        <input type="hidden" name="joinType" value={joinType} />
+        <ExperienceSelect
+          value={experiences}
+          onChange={handleExperienceChange}
+        />
 
         <div className="flex w-full">
           <ActionButton
             size="medium"
             variant="primary"
             type="submit"
-            value="가입하기"
-            disabled={isPending}
-          >
-            {isPending ? "처리중..." : "가입하기"}
-          </ActionButton>
+            value="다음"
+          />
         </div>
       </div>
     </form>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -9,44 +9,68 @@ export default function useRegisterForm() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [name, setName] = useState("");
-  const [joinType, setJoinType] = useState<"일반" | "강사">("일반");
+  const [role, setRole] = useState<"일반" | "강사">("일반");
+  const [experiences, setExperiences] = useState("");
 
   const [errors, setErrors] = useState({
     email: "",
     password: "",
     passwordConfirm: "",
     name: "",
+    experiences: "",
   });
 
-  const [isPending, startTransition] = useTransition();
-
   const validate = () => {
-    const next = { email: "", password: "", passwordConfirm: "", name: "" };
+    const newErrors = {
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      name: "",
+      experiences: "",
+    };
 
-    if (!EMAIL_REGEX.test(email))
-      next.email = "올바른 이메일 형식을 입력해주세요.";
-    if (password.length < 8) {
-      next.password = "비밀번호가 너무 짧습니다.";
-    } else {
-      if (password.length > 20) next.password = "비밀번호가 너무 깁니다.";
+    if (!email) {
+      newErrors.email = "이메일을 입력해주세요.";
+    } else if (!EMAIL_REGEX.test(email)) {
+      newErrors.email = "올바른 이메일 형식을 입력해주세요.";
     }
-    if (password !== passwordConfirm)
-      next.passwordConfirm = "비밀번호가 일치하지 않습니다.";
-    if (name && name.length > 5)
-      next.name = "이름은 최대 5글자까지 가능합니다.";
 
-    setErrors(next);
-    return !next.email && !next.password && !next.passwordConfirm && !next.name;
+    if (!password) {
+      newErrors.password = "비밀번호를 입력해주세요.";
+    } else if (password.length < 8 || password.length > 20) {
+      newErrors.password = "비밀번호는 8~20자 사이여야 합니다.";
+    }
+
+    if (!passwordConfirm) {
+      newErrors.passwordConfirm = "비밀번호 확인을 입력해주세요.";
+    } else if (password !== passwordConfirm) {
+      newErrors.passwordConfirm = "비밀번호가 일치하지 않습니다.";
+    }
+
+    if (!name) {
+      newErrors.name = "이름을 입력해주세요.";
+    }
+
+    if (!experiences) {
+      newErrors.experiences = "경력을 선택해주세요.";
+      alert("경력을 선택해주세요.");
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => !error);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    const ok = validate();
-    if (!ok) {
-      e.preventDefault();
-      return;
-    }
+  const handleExperienceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setExperiences(e.target.value);
+  };
 
-    startTransition(() => {});
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<boolean> => {
+    e.preventDefault();
+    if (!validate()) return false;
+
+    return true;
   };
 
   return {
@@ -54,14 +78,16 @@ export default function useRegisterForm() {
     password,
     passwordConfirm,
     name,
-    joinType,
+    role,
+    experiences,
     setEmail,
     setPassword,
     setPasswordConfirm,
     setName,
-    setJoinType,
+    setRole,
+    setExperiences,
     errors,
-    isPending,
     handleSubmit,
+    handleExperienceChange,
   };
 }
