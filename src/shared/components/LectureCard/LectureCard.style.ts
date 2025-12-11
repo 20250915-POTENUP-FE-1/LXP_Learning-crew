@@ -17,7 +17,7 @@ const lectureCardStyle = tv({
 });
 
 const titleStyle = tv({
-  base: "line-clamp-1 overflow-hidden font-semibold text-ellipsis text-black",
+  base: "line-clamp-1 overflow-hidden text-ellipsis font-semibold text-black",
   variants: {
     size: {
       small: "text-md",

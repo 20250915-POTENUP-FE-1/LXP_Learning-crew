@@ -1,41 +1,83 @@
 // src/features/my/api/myApi.ts
-import { EnrollmentSummary, UserProfile } from "../model/my.types";
 
-// 실제 백엔드 주소 (나중에 환경변수로 관리)
-const BASE_URL = "http://localhost:8080/api/v1";
+// ... 상단 import 부분에 EnrollmentApiResponse 추가 필요 ...
+import { EnrollmentSummary, EnrollmentApiResponse } from "../model/my.types";
 
-// 1. 수강 중인 강의 목록 가져오기
-// Endpoint: /enrollments?userId={id}&state=ENROLLED&page=1&size=3
-export const getEnrolledCourses = async (
+const BASE_URL = "/api/mock";
+
+// ==========================================
+// 🔍 [조회] 내 강좌 목록 가져오기 (핵심 기능)
+// ==========================================
+
+// 🟢 에러의 원인: 이 함수가 없어서 난 오류였습니다!
+export const getMyEnrollments = async (
   userId: string,
+  state: "ENROLLED" | "COMPLETED",
+  page: number = 1,
 ): Promise<EnrollmentSummary[]> => {
-  // 실제 연동 시 코드:
-  // const response = await fetch(`${BASE_URL}/enrollments?userId=${userId}&state=ENROLLED&page=1&size=3`);
-  // const data = await response.json();
-  // return data.result;
+  try {
+    // 💡 백엔드 요청대로 쿼리 스트링 구성
+    const query = new URLSearchParams({
+      userId: userId,
+      state: state,
+      page: page.toString(),
+      size: "6", // 한 번에 불러올 카드 개수 (임의 설정)
+    }).toString();
 
-  console.log(`[API] 수강 중인 강의 요청: userId=${userId}`);
-  return []; // 지금은 빈 배열 리턴 (더미 데이터 연결 가능)
+    console.log(`[API 요청] ${BASE_URL}/enrollments?${query}`); // 요청 주소 확인용 로그
+
+    const response = await fetch(`${BASE_URL}/enrollments?${query}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      throw new Error(`목록 조회 실패: ${response.status}`);
+    }
+
+    const data: EnrollmentApiResponse = await response.json();
+    return data.content || [];
+  } catch (error) {
+    console.error("Fetch Enrollments Error:", error);
+    return []; // 에러 나면 빈 배열 반환
+  }
 };
 
-// 2. 완료된 강의 목록 가져오기
-// Endpoint: /enrollments?userId={id}&state=COMPLETED&page=1&size=3
-export const getCompletedCourses = async (
-  userId: string,
-): Promise<EnrollmentSummary[]> => {
-  // 실제 연동 시 코드:
-  // const response = await fetch(`${BASE_URL}/enrollments?userId=${userId}&state=COMPLETED&page=1&size=3`);
+// ==========================================
+// ⚡️ [액션] 등록 및 취소 (문서 기반 구현 완료)
+// ==========================================
 
-  console.log(`[API] 완료된 강의 요청: userId=${userId}`);
-  return [];
+// 1. 수강 신청하기
+export const enrollCourse = async (userId: string, courseId: string) => {
+  const response = await fetch(`${BASE_URL}/enrollments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId, courseId }),
+  });
+  if (!response.ok) throw new Error("수강 신청 실패");
+  return await response.json();
 };
 
-// 3. 내 프로필 정보 가져오기
+// 2. 수강 취소하기
+export const cancelEnrollment = async (
+  enrollmentId: number | string,
+  reason: string = "단순 변심",
+) => {
+  const response = await fetch(
+    `${BASE_URL}/enrollments/${enrollmentId}/cancel`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reason }),
+    },
+  );
+  if (!response.ok) throw new Error("수강 취소 실패");
+  return await response.json();
+};
+
+// 3. 내 프로필 정보 가져오기 (임시)
 export const getUserProfile = async (userId: string): Promise<UserProfile> => {
-  // 예: GET /users/{userId}/profile
-  console.log(`[API] 프로필 요청: userId=${userId}`);
-
-  // 임시 리턴
+  // 임시 더미 데이터 리턴 (나중에 실제 API로 교체)
   return {
     id: userId,
     name: "홍길동",
@@ -45,12 +87,4 @@ export const getUserProfile = async (userId: string): Promise<UserProfile> => {
       { tagId: 2, content: "Figma" },
     ],
   };
-};
-
-// 4. 강사 등록 요청하기 (강사 활동 시작)
-export const registerInstructor = async (userId: string): Promise<boolean> => {
-  // 예: POST /instructors/register
-  // body: { userId: ... }
-  console.log(`[API] 강사 등록 요청: userId=${userId}`);
-  return true; // 성공 가정
 };
