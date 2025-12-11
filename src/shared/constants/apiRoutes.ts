@@ -10,10 +10,10 @@ let API_ROUTES: ApiRoutesType;
 
 if (process.env.NODE_ENV === "development") {
   API_ROUTES = {
-    COURSE: "/mocks/getCourse/", // [courseId]
+    COURSE: "/courses/", // [courseId]
     COURSES: {
-      COURSE: "/mocks/getCourses",
-      RECOMMENDED: "/mocks/getRecommendedCourses/",
+      COURSE: "/courses",
+      RECOMMENDED: "/courses",
     },
   };
 } else {

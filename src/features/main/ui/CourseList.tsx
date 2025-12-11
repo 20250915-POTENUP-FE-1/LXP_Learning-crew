@@ -3,8 +3,13 @@ import { CourseListProps } from "../model/props.type";
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
 import APP_ROUTES from "@/shared/constants/appRoutes";
+import getCourses from "@/shared/services/courses/getCourses";
 
-const CourseList = ({ name, courses }: CourseListProps) => {
+const CourseList = async ({ name }: CourseListProps) => {
+  const courses = await getCourses();
+
+  console.log(courses);
+
   return (
     <div>
       <div className="flex items-center gap-3">

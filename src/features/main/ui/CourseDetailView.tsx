@@ -1,5 +1,3 @@
-"use client";
-
 import AccordionView from "@/shared/components/AccordionView/AccordionView";
 import CurriculumProvider from "@/shared/components/CurriculumProvider/CurriculumProvider";
 import InformationCard from "@/shared/components/InformationCard/InformationCard";
@@ -12,18 +10,15 @@ import { ActionButton } from "@/shared/components/ActionButton";
 import { CourseCardProps } from "@/shared/components/CourseCard/CourseCard.type";
 import { CurriculumProviderProps } from "@/shared/components/CurriculumProvider/CurriculumProvider.type";
 import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const CourseDetailView = ({
-  courseId,
-  title,
-  thumbnailImageUrl,
-  description,
-  tags,
-  sections,
-}: CourseCardProps & CurriculumProviderProps) => {
-  // const { course } = await getCourse(courseId);
-  const router = useRouter();
+interface CourseDetailViewProps {
+  courseId: string;
+}
+
+const CourseDetailView = async ({ courseId }: CourseDetailViewProps) => {
+  const { title, description, thumbnailImageUrl, tags, sections } =
+    await getCourse(courseId);
 
   return (
     <div className="flex flex-col">
@@ -72,15 +67,14 @@ const CourseDetailView = ({
 
         <div className="relative bottom-0 my-4 flex w-full justify-end gap-2">
           {/* Action Button */}
-          <ActionButton
-            width={140}
-            size="large"
-            variant="primaryBorder"
-            value={"수강하기"}
-            onClick={() => {
-              router.push(`/main/${courseId}/edit`);
-            }}
-          />
+          <Link href={`/main/${courseId}/edit`}>
+            <ActionButton
+              width={140}
+              size="large"
+              variant="primaryBorder"
+              value={"수강하기"}
+            />
+          </Link>
         </div>
       </div>
     </div>

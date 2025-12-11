@@ -6,7 +6,7 @@ interface CourseEditPageProps {
 }
 
 const CourseEditPage = async ({ courseId }: CourseEditPageProps) => {
-  const { course } = await getCourse(courseId);
+  const course = await getCourse(courseId);
 
   return <CourseEditView {...course} />;
 };

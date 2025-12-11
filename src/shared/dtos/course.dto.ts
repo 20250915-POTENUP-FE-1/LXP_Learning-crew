@@ -20,4 +20,4 @@ interface ResponseGetCourse {
   course: CourseDto;
 }
 
-export type { ResponseGetCourse };
+export type { ResponseGetCourse, CourseDto };

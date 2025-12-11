@@ -2,8 +2,11 @@ import { CourseListProps } from "../model/props.type";
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
 import APP_ROUTES from "@/shared/constants/appRoutes";
+import getRecommendedCourses from "@/shared/services/courses/getRecommendedCourses";
 
-const RecommendedCourse = ({ name, courses }: CourseListProps) => {
+const RecommendedCourse = async ({ name }: CourseListProps) => {
+  const courses = await getRecommendedCourses();
+
   return (
     <div className="flex w-full flex-col">
       <div className="flex items-center gap-3">

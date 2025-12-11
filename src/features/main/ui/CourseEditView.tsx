@@ -72,9 +72,6 @@ const CourseEditView = ({
             size="large"
             variant="secondaryBorder"
             value={"삭제하기"}
-            onClick={() => {
-              // router.push(`/main/${courseId}/edit`);
-            }}
           />
 
           <ActionButton
@@ -82,9 +79,6 @@ const CourseEditView = ({
             size="large"
             variant="primaryBorder"
             value={"수정완료"}
-            onClick={() => {
-              // router.push(`/main/${courseId}/edit`);
-            }}
           />
         </div>
       </div>

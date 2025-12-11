@@ -10,16 +10,9 @@ interface CourseDetailPageProps {
 const CourseDetailPage = async ({ params }: CourseDetailPageProps) => {
   const { courseId } = await params;
 
-  const { course } = await getCourse(courseId);
+  // const { course } = await getCourse(courseId);
 
-  return (
-    <CourseView
-      instructorName={""}
-      thumbnailUrl={null}
-      level={undefined}
-      {...course}
-    />
-  );
+  return <CourseView courseId={courseId} />;
 };
 
 export default CourseDetailPage;

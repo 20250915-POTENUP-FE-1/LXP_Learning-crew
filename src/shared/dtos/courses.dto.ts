@@ -19,7 +19,7 @@ interface ResponseGetRecommendedCourses {
 }
 
 interface ResponseGetCourses {
-  courses: CoursesDto[];
+  contents: CoursesDto[];
 }
 
 export type { ResponseGetRecommendedCourses, ResponseGetCourses };
