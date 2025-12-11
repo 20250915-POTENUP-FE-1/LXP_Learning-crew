@@ -1,10 +1,10 @@
-import { BadgeColor, BadgeVariant } from "../components/Badge/Badge.type";
+import { BadgeColor, BadgeVariant } from "../../components/Badge/Badge.type";
 
 type CoursesDto = {
   courseId: string;
   title: string;
   description: string;
-  thumbnailImageUrl: string;
+  thumbnailImageUrl: string | null;
 
   tags?: {
     content: string;

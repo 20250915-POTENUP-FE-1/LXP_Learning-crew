@@ -1,9 +1,11 @@
 type Section = {
+  index?: number;
   sectionTitle: string;
   lectures: Lecture[];
 };
 
 type Lecture = {
+  index?: number;
   lectureTitle: string;
   duration: number;
 };

@@ -1,5 +1,5 @@
 import API_ROUTES from "@/shared/constants/apiRoutes";
-import { CourseDto, ResponseGetCourse } from "@/shared/dtos/course.dto";
+import type { CourseDto, ResponseGetCourse } from "@/shared/dtos";
 import { FetchFailedMessage } from "@/shared/errors/status";
 
 const ROUTE = API_ROUTES.COURSE;
@@ -13,7 +13,8 @@ const fetchGetCourse = async (courseId: string): Promise<CourseDto> => {
     FetchFailedMessage(`${ROUTE}${courseId}`);
   }
 
-  return response.json();
+  const json: ResponseGetCourse = await response.json();
+  return json.course;
 };
 
 export default fetchGetCourse;

@@ -1,17 +1,10 @@
-import COURSES_STORE from "./store/courses";
-
+import { COURSES_STORE, type StoreCourse } from "./store/courses";
 type MockStore = {
-  courses: Array<{
-    courseId: string;
-    title: string;
-    description: string;
-    tags: string[];
-    thumbnailImageUrl: string;
-  }>;
+  courses: StoreCourse[];
 };
 
 declare global {
-  var __MOCK_STORE__: MockStore;
+  var __MOCK_STORE__: MockStore | undefined;
 }
 
 const MOCK_STORE: MockStore = globalThis.__MOCK_STORE__ || {

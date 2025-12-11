@@ -1,11 +1,11 @@
-import { BadgeColor, BadgeVariant } from "../components/Badge/Badge.type";
-import { CurriculumProviderProps } from "../components/CurriculumProvider/CurriculumProvider.type";
+import { BadgeColor, BadgeVariant } from "../../components/Badge/Badge.type";
+import { CurriculumProviderProps } from "../../components/CurriculumProvider/CurriculumProvider.type";
 
 type CourseDto = {
   courseId: string;
   title: string;
   description: string;
-  thumbnailImageUrl: string;
+  thumbnailImageUrl: string | null;
   tags?: {
     content: string;
 

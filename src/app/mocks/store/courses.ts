@@ -1,6 +1,34 @@
-import { CourseCardProps } from "@/shared/components/CourseCard/CourseCard.type";
+import { BadgeColor, BadgeVariant } from "@/shared/components/Badge/Badge.type";
+import type { CourseDto } from "@/shared/dtos";
 
-export const COURSES_STORE = [
+export type CourseTag = {
+  content: string;
+  color?: BadgeColor;
+  variant?: BadgeVariant;
+};
+
+export type CourseLecture = {
+  index?: number;
+  lectureTitle: string;
+  duration: number;
+};
+
+export type CourseSection = {
+  index?: number;
+  sectionTitle: string;
+  lectures: CourseLecture[];
+};
+
+export type StoreCourse = {
+  courseId: string;
+  title: string;
+  description: string;
+  tags?: CourseTag[];
+  thumbnailImageUrl: string | null;
+  sections: CourseSection[];
+};
+
+export const COURSES_STORE: CourseDto[] = [
   {
     courseId: "course-1",
     title: "리액트 완전 정복",
@@ -248,8 +276,8 @@ export const COURSES_STORE = [
     title: "파이썬 완전 정복",
     description: "파이썬 완전 정복하려면 이 강의를 들어보세요!",
     tags: [
-      { content: "Python", color: "yellow" },
-      { content: "Programming", color: "red" },
+      { content: "Python", color: "orange" },
+      { content: "Programming", color: "purple" },
     ],
     thumbnailImageUrl: null,
     sections: [

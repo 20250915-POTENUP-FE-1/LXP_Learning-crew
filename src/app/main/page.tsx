@@ -1,17 +1,18 @@
 import CourseList from "@/features/main/ui/CourseList";
 import RecommendedCourse from "@/features/main/ui/RecommendedCourse";
-import getRecommendCourses from "@/shared/services/courses/getRecommendedCourses";
-import getCourses from "@/shared/services/courses/getCourses";
+import { ComboBox } from "@/shared/components/ComboBox";
 
 const MainPage = async () => {
-  const recommendedCoursesData = await getRecommendCourses();
-  // const coursesData = await getCourses();
-
-  // console.log(coursesData);
-
   return (
     <div className="flex w-full flex-col gap-20">
-      <RecommendedCourse name="홍길동" courses={recommendedCoursesData} />
+      <ComboBox
+        options={[
+          { label: "option 1", value: "1" },
+          { label: "option 2", value: "2" },
+          { label: "option 3", value: "3" },
+        ]}
+      />
+      <RecommendedCourse name="홍길동" />
       <CourseList name="홍길동" />
     </div>
   );

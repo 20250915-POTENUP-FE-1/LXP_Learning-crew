@@ -1,5 +1,5 @@
 import API_ROUTES from "@/shared/constants/apiRoutes";
-import { ResponseGetCourses } from "@/shared/dtos/courses.dto";
+import { ResponseGetCourses } from "@/shared/dtos/course/courses.dto";
 
 const fetchGetCourses = async (): Promise<ResponseGetCourses> => {
   const response = await fetch(

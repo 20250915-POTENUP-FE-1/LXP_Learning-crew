@@ -12,10 +12,10 @@ type Stroy = StoryObj<typeof meta>;
 
 export const Primary: Stroy = {
   args: {
-    courseId: 0,
+    courseId: "course-1",
     size: "large",
     title: "Course Card qfwef qwef",
-    subtitle:
+    description:
       "Course Card Subtitle fqwefqwefq wfeqwf qwefeqw fqewfewq fweqfweqrqwe rweqtgwqhwqwefawefwa fwefqwe fweqf ewqfewrweq rewqfwe",
     thumbnailImageUrl: ThumbnailImage,
     tags: [

@@ -1,5 +1,5 @@
 import API_ROUTES, { ApiRoutes } from "@/shared/constants/apiRoutes";
-import { ResponseGetRecommendedCourses } from "@/shared/dtos/courses.dto";
+import { ResponseGetRecommendedCourses } from "@/shared/dtos/course/courses.dto";
 import { FetchFailedMessage } from "@/shared/errors/status";
 
 const ROUTE = API_ROUTES.COURSES.RECOMMENDED;
