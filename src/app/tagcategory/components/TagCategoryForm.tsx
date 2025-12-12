@@ -23,6 +23,8 @@ export default function TagCategoryForm({
     searchQuery,
     setSearchQuery,
     displayGroups,
+    loading,
+    error,
     tabs,
     isButtonEnabled,
     handleSubmit,
@@ -130,36 +132,54 @@ export default function TagCategoryForm({
         </form>
 
         <div className="mb-6 h-[280px] overflow-y-auto">
-          {displayGroups.map((group) => (
-            <div key={group.title} className="mb-6">
-              <h2 className="mb-3 text-lg font-semibold">{group.title}</h2>
-
-              <div className="flex min-h-[38px] flex-wrap gap-2">
-                {group.tags.length > 0
-                  ? group.tags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => handleAddTag(tag)}
-                        disabled={selectedTags.includes(tag)}
-                        className={`flex h-[38px] cursor-pointer items-center rounded-full border px-4 transition-colors ${
-                          selectedTags.includes(tag)
-                            ? "border-blue-300 bg-blue-100 text-blue-600"
-                            : "hover:bg-gray-200"
-                        }`}
-                        aria-label={`${tag} 태그 추가`}
-                      >
-                        {tag}
-                      </button>
-                    ))
-                  : null}
-              </div>
+          {loading && (
+            <div className="flex h-[280px] items-center justify-center text-gray-500">
+              태그를 불러오는 중...
             </div>
-          ))}
+          )}
 
-          {displayGroups.length === 0 && (
-            <div className="flex h-[280px] items-center justify-center gap-3">
-              <p className="text-center text-gray-500">검색 결과가 없습니다.</p>
+          {!loading && error && (
+            <div className="flex h-[280px] items-center justify-center text-red-500">
+              {error}
             </div>
+          )}
+
+          {!loading && !error && (
+            <>
+              {displayGroups.map((group) => (
+                <div key={group.title} className="mb-6">
+                  <h2 className="mb-3 text-lg font-semibold">{group.title}</h2>
+
+                  <div className="flex min-h-[38px] flex-wrap gap-2">
+                    {group.tags.length > 0
+                      ? group.tags.map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => handleAddTag(tag)}
+                            disabled={selectedTags.includes(tag)}
+                            className={`flex h-[38px] items-center rounded-full border px-4 transition-colors ${
+                              selectedTags.includes(tag)
+                                ? "cursor-not-allowed border-blue-300 bg-blue-100 text-blue-600"
+                                : "cursor-pointer hover:bg-gray-200"
+                            }`}
+                            aria-label={`${tag} 태그 추가`}
+                          >
+                            {tag}
+                          </button>
+                        ))
+                      : null}
+                  </div>
+                </div>
+              ))}
+
+              {displayGroups.length === 0 && (
+                <div className="flex h-[280px] items-center justify-center gap-3">
+                  <p className="text-center text-gray-500">
+                    검색 결과가 없습니다.
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
 

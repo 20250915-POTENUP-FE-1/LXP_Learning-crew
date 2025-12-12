@@ -2,15 +2,9 @@
 
 import { ActionButton } from "@/shared/components/ActionButton";
 import LoginForm from "./components/LoginForm";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const LoginPage = () => {
-  const router = useRouter();
-
-  const handleRegisterClick = () => {
-    router.push("/register");
-  };
-
   return (
     <div className="flex w-full flex-col items-center py-16">
       <h1 className="mb-2 text-2xl font-bold text-gray-900">로그인</h1>
@@ -20,13 +14,11 @@ const LoginPage = () => {
 
       <div className="flex w-full max-w-md flex-col gap-4">
         <LoginForm />
-
-        <ActionButton
-          size="medium"
-          value="회원가입"
-          variant="secondary"
-          onClick={handleRegisterClick}
-        />
+        <Link href="/register">
+          <div className="flex w-full max-w-md flex-col gap-4">
+            <ActionButton size="medium" value="회원가입" variant="secondary" />
+          </div>
+        </Link>
       </div>
     </div>
   );

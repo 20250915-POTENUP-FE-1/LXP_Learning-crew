@@ -5,7 +5,11 @@ import {
   findUserByEmail,
   getUserStore,
 } from "../shared/userStore";
-import type { RegisterDto, ValidationError } from "../shared/types";
+import type {
+  RegisterDto,
+  ValidationError,
+  ApiResponse,
+} from "../shared/types";
 import { validateRegisterDto } from "../shared/validation";
 
 function repoFindByEmail(email: string): User | undefined {
@@ -36,7 +40,7 @@ function registerUser(registerDto: RegisterDto) {
   const existingUser = repoFindByEmail(email);
   if (existingUser) {
     console.error("이메일 중복:", email);
-    throw { code: "AUTH_DUP", message: "이미 사용 중인 이메일 주소 입니다." };
+    throw { code: "AUTH_004", message: "이미 사용 중인 이메일 주소 입니다." };
   }
 
   const user: User = {
@@ -44,24 +48,24 @@ function registerUser(registerDto: RegisterDto) {
     password: registerDto.password.trim(),
     name: registerDto.name,
     role: registerDto.role,
-    tags: registerDto.tags || [],
-    learnerLevel: registerDto.learnerLevel || "JUNIOR",
+    tagIds: registerDto.tagIds || [],
+    level: registerDto.level || "JUNIOR",
   };
 
   repoSave(user);
 
-  return { success: true };
+  return user;
 }
 
 function findAllUsers() {
   const store = getUserStore();
   return store.map((user: User) => ({
     email: user.email,
-    password: user.password,
+    passworfd: user.password,
     name: user.name,
     role: user.role,
-    tags: user.tags,
-    learnerLevel: user.learnerLevel,
+    tagIds: user.tagIds,
+    level: user.level,
   }));
 }
 
@@ -69,31 +73,59 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const result = registerUser(body as RegisterDto);
+    const user = registerUser(body as RegisterDto);
 
-    return NextResponse.json(result, { status: 201 });
+    const response: ApiResponse = {
+      data: {
+        content: [
+          {
+            email: user.email,
+            password: user.password,
+            name: user.name,
+            role: user.role,
+            tagIds: user.tagIds,
+            level: user.level,
+          },
+        ],
+      },
+      error: null,
+      success: true,
+      timestamp: new Date().toISOString(),
+    };
+
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
     console.error("회원가입 실패!");
 
     if (error && typeof error === "object" && "code" in error) {
       const err = error as ValidationError;
+      const response: ApiResponse = {
+        data: null,
+        error: err,
+        success: false,
+        timestamp: new Date().toISOString(),
+      };
 
-      if (err.code === "AUTH_DUP") {
-        return NextResponse.json(err, { status: 409 });
+      if (err.code === "AUTH_004") {
+        return NextResponse.json(response, { status: 409 });
       }
 
-      if (err.code === "AUTH_BAD" || err.code === "TAG_SIZE_VIOLATION") {
-        return NextResponse.json(err, { status: 400 });
+      if (err.code === "AUTH_005") {
+        return NextResponse.json(response, { status: 400 });
       }
     }
 
-    return NextResponse.json(
-      {
-        code: "SERVER_ERROR",
+    const response: ApiResponse = {
+      data: null,
+      error: {
+        code: "AUTH_001",
         message: "서버 오류가 발생했습니다.",
       },
-      { status: 500 },
-    );
+      success: false,
+      timestamp: new Date().toISOString(),
+    };
+
+    return NextResponse.json(response, { status: 500 });
   }
 }
 
@@ -101,6 +133,6 @@ export async function GET() {
   const users = findAllUsers();
   return NextResponse.json({
     totalCount: users.length,
-    users: users,
+    users,
   });
 }

@@ -32,6 +32,12 @@ export default async function registerAction(
   formData: FormData,
   tags?: string[],
 ): Promise<{ success: boolean; userId?: string; message?: string }> {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXTAUTH_URL ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const passwordConfirm = formData.get("passwordConfirm") as string;
@@ -69,7 +75,38 @@ export default async function registerAction(
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/auth/register", {
+    let tagIds: number[] = [];
+    if (tags && tags.length > 0) {
+      try {
+        const tagRes = await fetch(`${baseUrl}/api/auth/tag`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+        });
+        const tagJson = await tagRes.json();
+        const categories: Array<{
+          tags: Array<{ tagId: number; content: string }>;
+        }> = tagJson?.data?.content || [];
+
+        const contentToId = new Map<string, number>();
+        categories.forEach((cat) => {
+          cat.tags?.forEach((t) => {
+            if (t?.content && typeof t.tagId === "number") {
+              contentToId.set(t.content, t.tagId);
+            }
+          });
+        });
+
+        tagIds = tags
+          .map((label) => contentToId.get(label))
+          .filter((v): v is number => typeof v === "number");
+      } catch (e) {
+        console.error("태그 매핑 실패, 빈 배열로 진행:", e);
+        tagIds = [];
+      }
+    }
+
+    const response = await fetch(`${baseUrl}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,23 +116,22 @@ export default async function registerAction(
         password,
         name,
         role: mapRoleToAPI(role as "일반" | "강사"),
-        tags: tags || [],
-        learnerLevel: mapExperienceToAPI(experiences),
+        tagIds,
+        level: mapExperienceToAPI(experiences),
       }),
     });
 
     const data = await response.json();
 
-    if (!response.ok) {
+    if (!response.ok || !data.success) {
       return {
         success: false,
-        message: data.message || "회원가입 실패",
+        message: data.error?.message || "회원가입 실패",
       };
     }
 
     return {
       success: true,
-      userId: data.userId,
       message: "회원가입이 완료되었습니다.",
     };
   } catch (error) {

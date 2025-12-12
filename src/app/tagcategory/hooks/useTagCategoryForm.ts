@@ -7,6 +7,8 @@ import registerAction from "@/app/register/hooks/action";
 
 const tabs = ["AI", "개발", "디자인", "서비스"];
 
+type TagGroup = { title: string; tags: string[] };
+
 export function useTagCategoryForm(formData?: FormData) {
   const router = useRouter();
   const {
@@ -20,37 +22,30 @@ export function useTagCategoryForm(formData?: FormData) {
     isButtonEnabled,
   } = useTabs("AI");
 
-  const { groups: currentTabGroups } = useCategoryTags(active);
+  const {
+    groups: currentTabGroups,
+    allGroups,
+    loading,
+    error,
+  } = useCategoryTags(active);
   const { searchQuery, setSearchQuery } = useTagSearch();
 
-  const aiGroups = useCategoryTags("AI").groups;
-  const devGroups = useCategoryTags("개발").groups;
-  const designGroups = useCategoryTags("디자인").groups;
-  const serviceGroups = useCategoryTags("서비스").groups;
-
-  const allTabsGroups = [
-    ...aiGroups,
-    ...devGroups,
-    ...designGroups,
-    ...serviceGroups,
-  ];
-
   const filteredGroups = searchQuery
-    ? allTabsGroups
-        .map((group) => ({
+    ? allGroups
+        .map((group: TagGroup) => ({
           ...group,
           tags: group.tags.filter((tag) =>
             tag.toLowerCase().includes(searchQuery.toLowerCase()),
           ),
         }))
-        .filter((group) => group.tags.length > 0)
+        .filter((group: TagGroup) => group.tags.length > 0)
     : [];
 
   const displayGroups = searchQuery
     ? [
         {
           title: "검색 결과",
-          tags: filteredGroups.flatMap((group) => group.tags),
+          tags: filteredGroups.flatMap((group: TagGroup) => group.tags),
         },
       ]
     : currentTabGroups;
@@ -98,6 +93,8 @@ export function useTagCategoryForm(formData?: FormData) {
     searchQuery,
     setSearchQuery,
     displayGroups,
+    loading,
+    error,
     tabs,
     isButtonEnabled,
     handleSubmit,

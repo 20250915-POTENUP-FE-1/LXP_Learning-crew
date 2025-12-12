@@ -3,42 +3,18 @@ export interface User {
   password: string;
   name: string;
   role: string;
-  tags: string[];
-  learnerLevel: string;
+  tagIds: number[];
+  level: string;
 }
 
 import fs from "node:fs";
 import path from "node:path";
+import { getContentToIdMap } from "./tagCatalog";
 
 const DATA_DIR = path.join(process.cwd(), ".data");
 const DATA_FILE = path.join(DATA_DIR, "users.json");
 
-const initialUsers: User[] = [
-  {
-    email: "user@example.com",
-    password: "password123",
-    name: "김길동",
-    role: "LEARNER",
-    tags: ["JavaScript", "React", "Node.js"],
-    learnerLevel: "JUNIOR",
-  },
-  {
-    email: "instructor@example.com",
-    password: "instructor123",
-    name: "이강사",
-    role: "INSTRUCTOR",
-    tags: ["Java", "Spring Boot", "Docker"],
-    learnerLevel: "EXPERT",
-  },
-  {
-    email: "test@example.com",
-    password: "test1234",
-    name: "김테스트",
-    role: "LEARNER",
-    tags: ["Python", "Django", "PostgreSQL"],
-    learnerLevel: "MIDDLE",
-  },
-];
+const initialUsers: User[] = [];
 
 function ensureDataFile() {
   try {
@@ -55,12 +31,69 @@ function ensureDataFile() {
   }
 }
 
+function isStringArray(v: unknown): v is string[] {
+  return Array.isArray(v) && v.every((x) => typeof x === "string");
+}
+
+function isNumberArray(v: unknown): v is number[] {
+  return Array.isArray(v) && v.every((x) => typeof x === "number");
+}
+
+type LegacyUser = {
+  email?: unknown;
+  password?: unknown;
+  name?: unknown;
+  role?: unknown;
+  tagIds?: unknown;
+  tags?: unknown;
+  level?: unknown;
+  learnerLevel?: unknown;
+};
+
+function normalizeUsers(anyArr: unknown[]): User[] {
+  const map = getContentToIdMap();
+  return anyArr
+    .filter((u): u is LegacyUser => !!u && typeof u === "object")
+    .map((u) => {
+      let tagIds: number[] = isNumberArray(u.tagIds) ? u.tagIds : [];
+
+      if (tagIds.length === 0 && isStringArray(u.tags)) {
+        tagIds = u.tags
+          .map((label) => map.get(label))
+          .filter((n): n is number => typeof n === "number");
+      }
+
+      const level =
+        typeof u.level === "string"
+          ? u.level
+          : (typeof u.learnerLevel === "string" ? u.learnerLevel : undefined) ||
+            "JUNIOR";
+
+      const user: User = {
+        email: typeof u.email === "string" ? u.email : "",
+        password: typeof u.password === "string" ? u.password : "",
+        name: typeof u.name === "string" ? u.name : "",
+        role: typeof u.role === "string" ? u.role : "LEARNER",
+        tagIds,
+        level,
+      };
+
+      return user;
+    });
+}
+
 function readUsers(): User[] {
   ensureDataFile();
   try {
     const raw = fs.readFileSync(DATA_FILE, "utf-8");
-    const arr = JSON.parse(raw) as User[];
-    return Array.isArray(arr) ? arr : [];
+    const arr = JSON.parse(raw) as unknown[];
+    if (!Array.isArray(arr)) return [];
+    const normalized = normalizeUsers(arr);
+    const needPersist = JSON.stringify(arr) !== JSON.stringify(normalized);
+    if (needPersist) {
+      writeUsers(normalized);
+    }
+    return normalized;
   } catch (e) {
     console.error("유저 데이터 읽기 실패", e);
     return [];

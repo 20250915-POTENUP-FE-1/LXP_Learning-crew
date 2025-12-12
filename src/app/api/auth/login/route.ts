@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { User, findUserByEmail, getUserStore } from "../shared/userStore";
-import { maskPassword } from "../shared/log";
+
 import { createSession } from "../shared/sessionStore";
 import type { LoginDto, LoginResponse, ValidationError } from "../shared/types";
 import { validateLoginDto } from "../shared/validation";
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(err, { status: 401 });
       }
 
-      if (err.code === "VALIDATION_001") {
+      if (err.code === "AUTH_002" || err.code === "AUTH_003") {
         return NextResponse.json(err, { status: 400 });
       }
     }
@@ -102,7 +102,7 @@ export async function GET() {
     totalCount: users.length,
     testAccounts: users.map((user) => ({
       email: user.email,
-      password: maskPassword(user.password),
+      password: user.password,
     })),
   });
 }

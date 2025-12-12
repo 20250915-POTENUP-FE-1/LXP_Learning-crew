@@ -1,5 +1,5 @@
 export interface ValidationError {
-  code: string;
+  code: "AUTH_001" | "AUTH_002" | "AUTH_003" | "AUTH_004" | "AUTH_005";
   message: string;
 }
 
@@ -18,6 +18,13 @@ export interface RegisterDto {
   password: string;
   name: string;
   role: string;
-  tags?: string[];
-  learnerLevel?: string;
+  tagIds: number[];
+  level: string;
+}
+
+export interface ApiResponse<T = unknown> {
+  data: T | null;
+  error: ValidationError | null;
+  success: boolean;
+  timestamp: string;
 }
