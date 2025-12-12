@@ -178,7 +178,7 @@ export default function TagCategoryForm({
           </button>
           <ActionButton
             value="이전"
-            variant="primary"
+            variant="secondary"
             size="medium"
             type="button"
             onClick={onPrevious}
