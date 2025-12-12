@@ -13,6 +13,7 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
   variant?: ActionButtonVariant;
+  type?: "button" | "submit" | "reset";
   isFull?: boolean;
   width?: number;
   size?: "medium" | "large";
