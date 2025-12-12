@@ -1,0 +1,64 @@
+[
+  {
+    "email": "tla17200@gmail.com",
+    "password": "qweqweqwe",
+    "name": "홍길동",
+    "role": "INSTRUCTOR",
+    "tagIds": [],
+    "level": "JUNIOR"
+  },
+  {
+    "email": "wdawdw@dwad.com",
+    "password": "qweqweqwe",
+    "name": "김지환",
+    "role": "LEARNER",
+    "tagIds": [
+      4,
+      3,
+      3011,
+      2009,
+      1021
+    ],
+    "level": "JUNIOR"
+  },
+  {
+    "email": "rla4833681@gmail.com",
+    "password": "qweqweqwe",
+    "name": "김지환",
+    "role": "INSTRUCTOR",
+    "tagIds": [
+      1,
+      1001,
+      2001,
+      3001
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "test@test.com",
+    "password": "qweqweqwe",
+    "name": "김지환",
+    "role": "INSTRUCTOR",
+    "tagIds": [
+      2,
+      1028,
+      2017,
+      3004
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "user@example.com",
+    "password": "qweqweqwe",
+    "name": "김지환",
+    "role": "LEARNER",
+    "tagIds": [
+      1,
+      2,
+      9,
+      3021,
+      2011
+    ],
+    "level": "MIDDLE"
+  }
+]
