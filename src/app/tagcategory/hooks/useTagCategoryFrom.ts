@@ -3,7 +3,7 @@
 import { useTabs, useTagSearch } from "./useFormData";
 import { useCategoryTags } from "./useCategoryTags";
 import { useRouter } from "next/navigation";
-import registerAction from "../../hooks/actions";
+import registerAction from "@/app/register/hooks/actions";
 
 const tabs = ["AI", "개발", "디자인", "서비스"];
 

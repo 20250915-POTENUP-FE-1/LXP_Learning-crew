@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import RegisterForm from "./components/RegisterForm";
-import TagCategoryForm from "./tagcategory/components/TagCategoryForm";
+
 import StepperInline from "./Step/Stepby";
+import TagCategoryForm from "../tagcategory/components/TagCategoryForm";
 
 const RegisterPage = () => {
   const [step, setStep] = useState<"register" | "tags">("register");
