@@ -1,11 +1,11 @@
 import { tv } from "tailwind-variants";
 
 const badgeStyle = tv({
-  base: "text-xs rounded-sm px-2 py-1 inline-block",
+  base: "h-fit w-fit rounded-sm px-2 py-1 text-xs",
   variants: {
     variant: {
       solid: "bg-gray-200 text-gray-800",
-      border: "ring ring-gray-400 text-gray-800",
+      border: "text-gray-800 ring ring-gray-400",
     },
     color: {
       green: "",
@@ -33,22 +33,22 @@ const badgeStyle = tv({
     {
       variant: "border",
       color: "green",
-      class: "ring-1 ring-green-500 ring-inset text-green-500",
+      class: "text-green-500 ring-1 ring-inset ring-green-500",
     },
     {
       variant: "border",
       color: "blue",
-      class: "ring-1 ring-blue-500 ring-inset text-blue-500",
+      class: "text-blue-500 ring-1 ring-inset ring-blue-500",
     },
     {
       variant: "border",
       color: "purple",
-      class: "ring-1 ring-purple-500 ring-inset text-purple-500",
+      class: "text-purple-500 ring-1 ring-inset ring-purple-500",
     },
     {
       variant: "border",
       color: "orange",
-      class: "ring-1 ring-orange-500 ring-inset text-orange-500",
+      class: "text-orange-500 ring-1 ring-inset ring-orange-500",
     },
   ],
   defaultVariants: {

@@ -2,6 +2,7 @@ import React from "react";
 import { ThumbnailProps } from "./Thumbnail.type";
 import Image from "next/image";
 import { thumbnailStyle } from "./Thumbnail.style";
+import ThumbnailPlaceholder from "./assets/thumbnail.png";
 
 const Thumbnail = ({
   title,
@@ -19,7 +20,7 @@ const Thumbnail = ({
         <Image
           className={thumbnailStyle({ size })}
           alt={title}
-          src={imageUrl}
+          src={imageUrl ? imageUrl : ThumbnailPlaceholder}
         />
       )}
     </>

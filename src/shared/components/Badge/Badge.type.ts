@@ -8,4 +8,4 @@ interface BadgeProps {
   color?: BadgeColor;
 }
 
-export type { BadgeProps };
+export type { BadgeProps, BadgeColor, BadgeVariant };

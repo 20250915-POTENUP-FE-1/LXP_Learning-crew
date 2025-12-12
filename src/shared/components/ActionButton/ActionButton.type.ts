@@ -1,6 +1,11 @@
 import type { ButtonHTMLAttributes } from "react";
 
-type ActionButtonVariant = "primary" | "secondary" | "none";
+type ActionButtonVariant =
+  | "primary"
+  | "primaryBorder"
+  | "secondary"
+  | "secondaryBorder"
+  | "none";
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -8,6 +13,8 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
   variant?: ActionButtonVariant;
+  isFull?: boolean;
+  width?: number;
   size?: "medium" | "large";
 }
 

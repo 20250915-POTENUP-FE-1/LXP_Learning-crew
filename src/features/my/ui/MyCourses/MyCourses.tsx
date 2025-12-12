@@ -4,8 +4,8 @@
 
 import React from "react";
 import { useMyPage } from "@/features/my/hooks"; // 훅 경로 확인
+import CourseCard from "@/shared/components/CourseCard/CourseCard";
 // import { LectureCard } from "@/shared/components/LectureCard/LectureCard"; // LectureCard 경로 확인
-import LectureCard from "@/shared/components/LectureCard/LectureCard";
 
 export const MyCourses = () => {
   const { inProgressCourses, completedCourses, loading } = useMyPage();
@@ -42,7 +42,7 @@ export const MyCourses = () => {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {inCourses.map((course: any) => (
-            <LectureCard
+            <CourseCard
               key={course.id || course.enrollmentId}
               {...course}
               // 🟢 수정됨: 여기는 컴포넌트 영역이므로 tags={...} 형태가 맞습니다.
@@ -62,7 +62,7 @@ export const MyCourses = () => {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {doneCourses.map((course: any) => (
-            <LectureCard
+            <CourseCard
               key={course.id || course.enrollmentId}
               {...course}
               // 🟢 수정됨: 안전장치 추가

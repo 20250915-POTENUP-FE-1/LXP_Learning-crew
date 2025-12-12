@@ -1,18 +1,17 @@
 import React, { forwardRef, useRef } from "react";
 import type { InputFieldProps } from "./InputField.type";
 import { inputStyle } from "./InputField.style";
+import clsx from "clsx";
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  ({ title, defaultValue, placeholder, variant, ...rest }, ref) => {
+  ({ title, variant, ...rest }, ref) => {
     return (
-      <div className="">
+      <div className="flex flex-col gap-2">
         {title && <p className="">{title}</p>}
         <input
           ref={ref}
-          placeholder={placeholder}
-          defaultValue={defaultValue}
           disabled={variant === "disabled"}
-          className={inputStyle({ variant })}
+          className={clsx(inputStyle({ variant }))}
           {...rest}
         />
       </div>

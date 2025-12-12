@@ -19,7 +19,7 @@ const Header = () => {
 
         <div>
           <Link href="/login">
-            <ActionButton variant="secondary" value={"로그인"} />
+            <ActionButton variant="secondaryBorder" value={"로그인"} />
           </Link>
         </div>
       </header>

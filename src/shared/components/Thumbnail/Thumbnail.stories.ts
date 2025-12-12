@@ -29,6 +29,7 @@ export const Image_Large: Story = {
 export const Placeholder_Medium: Story = {
   args: {
     title: "Thumbnail Image",
+    imageUrl: ThumbnailImage,
     size: "medium",
   },
 };
@@ -36,6 +37,7 @@ export const Placeholder_Medium: Story = {
 export const Placeholder_Large: Story = {
   args: {
     title: "Thumbnail Image",
+    imageUrl: ThumbnailImage,
     size: "large",
   },
 };
@@ -45,6 +47,7 @@ export const Loading_Medium: Story = {
     title: "Thumbnail Image",
     size: "medium",
     variant: "loading",
+    imageUrl: ThumbnailImage,
   },
 };
 
@@ -53,5 +56,6 @@ export const Loading_large: Story = {
     title: "Thumbnail Image",
     size: "large",
     variant: "loading",
+    imageUrl: ThumbnailImage,
   },
 };
