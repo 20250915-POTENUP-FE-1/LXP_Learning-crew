@@ -7,18 +7,14 @@ const LoginForm = () => {
     email,
     password,
     errors,
+    isLoading,
     setEmail,
     setPassword,
     handleSubmit,
-    action,
   } = useLoginForm();
 
   return (
-    <form
-      className="flex flex-col gap-10 pt-6"
-      onSubmit={handleSubmit}
-      action={action}
-    >
+    <form className="flex flex-col gap-10 pt-6" onSubmit={handleSubmit}>
       <div className="flex flex-col items-center gap-6">
         <InputField
           name="email"
@@ -29,6 +25,7 @@ const LoginForm = () => {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
         />
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
 
@@ -41,6 +38,7 @@ const LoginForm = () => {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoading}
         />
         {errors.password && (
           <p className="text-sm text-red-500">{errors.password}</p>
@@ -49,9 +47,10 @@ const LoginForm = () => {
 
       <ActionButton
         size="medium"
-        value="로그인"
+        value={isLoading ? "로그인 중..." : "로그인"}
         variant="primary"
         type="submit"
+        disabled={isLoading}
       />
     </form>
   );

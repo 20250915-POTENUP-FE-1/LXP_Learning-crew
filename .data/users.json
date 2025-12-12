@@ -1,0 +1,51 @@
+[
+  {
+    "email": "user@example.com",
+    "password": "password123",
+    "name": "김길동",
+    "role": "LEARNER",
+    "tags": [
+      "JavaScript",
+      "React",
+      "Node.js"
+    ],
+    "learnerLevel": "JUNIOR"
+  },
+  {
+    "email": "instructor@example.com",
+    "password": "instructor123",
+    "name": "이강사",
+    "role": "INSTRUCTOR",
+    "tags": [
+      "Java",
+      "Spring Boot",
+      "Docker"
+    ],
+    "learnerLevel": "EXPERT"
+  },
+  {
+    "email": "test@example.com",
+    "password": "test1234",
+    "name": "김테스트",
+    "role": "LEARNER",
+    "tags": [
+      "Python",
+      "Django",
+      "PostgreSQL"
+    ],
+    "learnerLevel": "MIDDLE"
+  },
+  {
+    "email": "tla17200@gmail.com",
+    "password": "qweqweqwe",
+    "name": "홍길동",
+    "role": "INSTRUCTOR",
+    "tags": [
+      "Midjourney",
+      "컴퓨터비전",
+      "자율주행",
+      "Python"
+    ],
+    "learnerLevel": "MIDDLE"
+  }
+]
