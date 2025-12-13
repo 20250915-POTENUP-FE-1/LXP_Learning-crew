@@ -3,13 +3,9 @@ import CurriculumProvider from "@/shared/components/CurriculumProvider/Curriculu
 import InformationCard from "@/shared/components/InformationCard/InformationCard";
 import TextField from "@/shared/components/TextField/TextField";
 import Thumbnail from "@/shared/components/Thumbnail/Thumbnail";
-import { CourseViewProps } from "../model/props.type";
 import TagList from "@/shared/components/TagList/TagList";
 import getCourse from "@/shared/services/course/getCourse";
 import { ActionButton } from "@/shared/components/ActionButton";
-import { CourseCardProps } from "@/shared/components/CourseCard/CourseCard.type";
-import { CurriculumProviderProps } from "@/shared/components/CurriculumProvider/CurriculumProvider.type";
-import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 
 interface CourseDetailViewProps {
