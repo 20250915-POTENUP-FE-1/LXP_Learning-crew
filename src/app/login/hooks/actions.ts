@@ -26,9 +26,11 @@ export default async function loginAction(
 
   try {
     const baseUrl =
-      process.env.NEXT_PUBLIC_API_URL ||
-      process.env.API_BASE_URL ||
-      "http://localhost:3000";
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      process.env.NEXTAUTH_URL ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000");
 
     const response = await fetch(`${baseUrl}/api/auth/login`, {
       method: "POST",
@@ -48,13 +50,18 @@ export default async function loginAction(
       };
     }
 
-    const cookieStore = await cookies();
-    cookieStore.set("accessToken", data.accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: data.expiresIn,
-    });
+    const accessToken = data.accessToken;
+    if (accessToken) {
+      const cookieStore = await cookies();
+      cookieStore.set("access_token", accessToken, {
+        httpOnly: false,
+        secure: false,
+        sameSite: "lax",
+        path: "/",
+        maxAge: data.expiresIn || 3600,
+      });
+      console.log("[토큰 저장] accessToken이 쿠키에 저장되었습니다.");
+    }
 
     return {
       success: true,

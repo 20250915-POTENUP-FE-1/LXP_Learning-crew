@@ -50,6 +50,7 @@ const useLoginForm = () => {
       const result = await loginAction(formData);
 
       if (result.success) {
+        window.dispatchEvent(new Event("login"));
         router.push("/");
       } else {
         setErrors({

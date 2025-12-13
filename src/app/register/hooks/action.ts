@@ -47,7 +47,6 @@ export default async function registerAction(
 
   const errors: string[] = [];
 
-  // 유효성 검사
   if (!EMAIL_REGEX.test(email)) {
     errors.push("올바른 이메일 형식을 입력해주세요.");
   }
@@ -130,8 +129,10 @@ export default async function registerAction(
       };
     }
 
+    const user = data.data?.content?.[0];
     return {
       success: true,
+      userId: user?.email,
       message: "회원가입이 완료되었습니다.",
     };
   } catch (error) {

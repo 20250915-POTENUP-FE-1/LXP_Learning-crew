@@ -1,13 +1,5 @@
 [
   {
-    "email": "tla17200@gmail.com",
-    "password": "qweqweqwe",
-    "name": "홍길동",
-    "role": "INSTRUCTOR",
-    "tagIds": [],
-    "level": "JUNIOR"
-  },
-  {
     "email": "wdawdw@dwad.com",
     "password": "qweqweqwe",
     "name": "김지환",
@@ -60,5 +52,90 @@
       2011
     ],
     "level": "MIDDLE"
+  },
+  {
+    "email": "tla17200@gmail.comq",
+    "password": "qweqweqwe",
+    "name": "qwe",
+    "role": "LEARNER",
+    "tagIds": [
+      16,
+      10,
+      4
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "wdawdw@dwad.comq",
+    "password": "qweqweqwe",
+    "name": "qwe",
+    "role": "LEARNER",
+    "tagIds": [
+      18,
+      10,
+      1012
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "test@test.comb",
+    "password": "qweqweqwe",
+    "name": "qwe",
+    "role": "LEARNER",
+    "tagIds": [
+      5,
+      1012,
+      12
+    ],
+    "level": "JUNIOR"
+  },
+  {
+    "email": "rla4833681@gmail.comq",
+    "password": "qweqweqwe",
+    "name": "qwe",
+    "role": "LEARNER",
+    "tagIds": [
+      5,
+      4,
+      3,
+      9
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "test@test.comw",
+    "password": "qweqweqwe",
+    "name": "qwe",
+    "role": "LEARNER",
+    "tagIds": [
+      5,
+      4,
+      3
+    ],
+    "level": "SENIOR"
+  },
+  {
+    "email": "tla17200@gmail.com",
+    "password": "qweqweqwe",
+    "name": "qew",
+    "role": "LEARNER",
+    "tagIds": [
+      4,
+      5,
+      1012
+    ],
+    "level": "MIDDLE"
+  },
+  {
+    "email": "tla17200@gmail.coma",
+    "password": "qweqweqwe",
+    "name": "홍길동",
+    "role": "LEARNER",
+    "tagIds": [
+      18,
+      1012,
+      5
+    ],
+    "level": "JUNIOR"
   }
 ]

@@ -1,19 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { User, findUserByEmail, getUserStore } from "../shared/userStore";
 
 import { createSession } from "../shared/sessionStore";
+import { saveLoginLog } from "../shared/log";
 import type { LoginDto, LoginResponse, ValidationError } from "../shared/types";
 import { validateLoginDto } from "../shared/validation";
 
 function findUser(email: string): User | undefined {
   const found = findUserByEmail(email);
   return found;
-}
-
-function listUsers(): User[] {
-  const store = getUserStore();
-  return store;
 }
 
 function validateLoginRequest(dto: LoginDto): ValidationError | null {
@@ -45,6 +40,11 @@ function authenticate(loginDto: LoginDto): LoginResponse {
 
   const session = createSession(user);
 
+  console.log("[인증] 세션 생성:", {
+    sessionId: session.id,
+    email: user.email,
+  });
+
   return { accessToken: session.id, expiresIn: 3600 };
 }
 
@@ -52,42 +52,72 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    console.log("[로그인 요청] 이메일:", body.email);
+
     const result = authenticate(body as LoginDto);
 
-    const cookieStore = await cookies();
-    cookieStore.set("accessToken", result.accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: result.expiresIn,
-    });
+    console.log("[로그인 성공] 토큰:", result.accessToken);
 
-    return NextResponse.json(
+    const nextResponse = NextResponse.json(
       {
         accessToken: result.accessToken,
         expiresIn: result.expiresIn,
       },
       { status: 200 },
     );
+
+    nextResponse.cookies.set("access_token", result.accessToken, {
+      httpOnly: false,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge: result.expiresIn,
+    });
+
+    console.log("[쿠키 설정] access_token:", result.accessToken);
+
+    // 로그인 성공 기록
+    const email = body.email?.toString().toLowerCase() || "unknown";
+    const ip =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+    saveLoginLog(email, true, ip);
+
+    return nextResponse;
   } catch (error) {
+    const email = "unknown";
+    saveLoginLog(email, false);
+
     console.error("로그인 실패!");
 
     if (error && typeof error === "object" && "code" in error) {
       const err = error as ValidationError;
 
       if (err.code === "AUTH_001") {
-        return NextResponse.json(err, { status: 401 });
+        return NextResponse.json(
+          {
+            code: err.code,
+            message: err.message,
+          },
+          { status: 401 },
+        );
       }
 
-      if (err.code === "AUTH_002" || err.code === "AUTH_003") {
-        return NextResponse.json(err, { status: 400 });
+      if (err.code === "AUTH_005") {
+        return NextResponse.json(
+          {
+            code: err.code,
+            message: err.message,
+          },
+          { status: 400 },
+        );
       }
     }
 
     return NextResponse.json(
       {
-        code: "SERVER_ERROR",
+        code: "AUTH_001",
         message: "서버 오류가 발생했습니다.",
       },
       { status: 500 },
@@ -96,13 +126,16 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const users = listUsers();
+  const users = getUserStore();
 
-  return NextResponse.json({
-    totalCount: users.length,
-    testAccounts: users.map((user) => ({
-      email: user.email,
-      password: user.password,
-    })),
-  });
+  return NextResponse.json(
+    {
+      totalCount: users.length,
+      users: users.map((user) => ({
+        email: user.email,
+        password: user.password,
+      })),
+    },
+    { status: 200 },
+  );
 }
