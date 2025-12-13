@@ -9,6 +9,7 @@ const ActionButton = ({
   width,
   variant,
   size,
+  type = "button",
   onClick,
 }: ActionButtonProps) => {
   return (
@@ -18,6 +19,7 @@ const ActionButton = ({
         [`w-[${width}px]`]: width,
       })}
       onClick={onClick}
+      type={type}
     >
       {value}
     </button>

@@ -10,48 +10,51 @@ import InputField from "@/shared/components/InputField/InputField";
 import TagList from "@/shared/components/TagList/TagList";
 import TextAreaField from "@/shared/components/TextAreaField/TextAreaField";
 import Thumbnail from "@/shared/components/Thumbnail/Thumbnail";
-import { editCourseAction } from "../action/editFormAction";
+import { writeCourseAction } from "../action/writeFormAction";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-const CourseEditView = ({
-  courseId,
-  title,
-  thumbnailImageUrl,
-  description,
-  tags,
-  sections,
-}: CourseCardProps & CurriculumProviderProps) => {
+const CourseWriteView = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const courseData = await writeCourseAction(formData);
+
+      // POST 완료 후 해당 course의 modal로 이동
+      router.push(`/main/${courseData.courseId}`);
+    } catch (error) {
+      console.error("강의 등록 실패:", error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex max-w-full flex-col">
-      <form action={editCourseAction}>
-        <input type="hidden" name="courseId" value={courseId} />
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           {/* Header */}
           <div className="flex gap-4">
-            <Thumbnail
-              title={title}
-              size={"large"}
-              imageUrl={thumbnailImageUrl}
-            />
+            <Thumbnail title={""} size={"large"} imageUrl={null} />
 
             <div className="flex min-w-0 flex-1 flex-col justify-between py-5">
               <div className="flex flex-col gap-2">
-                <InputField
-                  name="title"
-                  variant="edit"
-                  defaultValue={title}
-                  placeholder="제목"
-                />
+                <InputField name="title" variant="edit" placeholder="제목" />
 
                 <TextAreaField
                   name="description"
                   variant="edit"
                   rows={5}
                   placeholder="설명"
-                  defaultValue={description}
                 />
               </div>
 
-              <TagList tags={tags} />
+              <TagList tags={[]} />
             </div>
           </div>
 
@@ -76,7 +79,7 @@ const CourseEditView = ({
               description="인기 강좌의 내용을 확인해보세요."
               isOpen
             >
-              <CurriculumProvider sections={sections} mode="edit" />
+              <CurriculumProvider sections={[]} mode="edit" />
             </AccordionView>
           </div>
 
@@ -86,7 +89,8 @@ const CourseEditView = ({
               size="large"
               variant="primaryBorder"
               type="submit"
-              value={"수정완료"}
+              value={isLoading ? "등록 중..." : "강의등록"}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -95,4 +99,4 @@ const CourseEditView = ({
   );
 };
 
-export default CourseEditView;
+export default CourseWriteView;

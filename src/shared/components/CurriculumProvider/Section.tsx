@@ -22,6 +22,7 @@ const Section = ({ section, index, mode = "view" }: SectionProps) => {
       </TextField>
 
       <input
+        name={`section-${sectionIndex}-title`}
         className="flex-1 outline-none"
         defaultValue={sectionTitle}
         placeholder="섹션 제목"
