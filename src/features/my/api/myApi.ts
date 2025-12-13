@@ -1,6 +1,5 @@
 // src/features/my/api/myApi.ts
 
-// ... 상단 import 부분에 EnrollmentApiResponse 추가 필요 ...
 import { EnrollmentSummary, EnrollmentApiResponse } from "../model/my.types";
 
 const BASE_URL = "/api/mock";
@@ -75,16 +74,21 @@ export const cancelEnrollment = async (
   return await response.json();
 };
 
-// 3. 내 프로필 정보 가져오기 (임시)
+// 3. 내 프로필 정보 가져오기
 export const getUserProfile = async (userId: string): Promise<UserProfile> => {
-  // 임시 더미 데이터 리턴 (나중에 실제 API로 교체)
-  return {
-    id: userId,
-    name: "홍길동",
-    role: "STUDENT",
-    tags: [
-      { tagId: 1, content: "PM" },
-      { tagId: 2, content: "Figma" },
-    ],
-  };
+  // userId는 Mock이라 안 쓰지만, 나중을 위해 받아둡니다.
+  const response = await fetch(`${BASE_URL}/user/me`);
+  if (!response.ok) throw new Error("프로필 조회 실패");
+  return await response.json();
+};
+
+// 4. 관심 태그 업데이트하기 (저장)
+export const updateUserTags = async (newTags: Tag[]) => {
+  const response = await fetch(`${BASE_URL}/user/me`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tags: newTags }),
+  });
+  if (!response.ok) throw new Error("태그 수정 실패");
+  return await response.json();
 };

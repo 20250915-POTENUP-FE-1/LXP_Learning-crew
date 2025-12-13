@@ -29,3 +29,14 @@ export interface EnrollmentApiResponse {
   totalPage: number;
   size: number;
 }
+
+//4. 사용자 프로필 정보 (백엔드 UserProfileResponse) --- IGNORE ---
+export interface UserProfile {
+  id: string;
+  name: string;
+  email?: string;
+  role: string;
+  // 🆕 추가된 항목 (스웨거 스펙 반영)
+  learnerLevel?: string; // 레벨 (예: "JUNIOR")
+  tags: Tag[];
+}

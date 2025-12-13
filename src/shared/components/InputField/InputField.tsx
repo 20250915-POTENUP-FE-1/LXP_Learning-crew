@@ -5,7 +5,7 @@ import { inputStyle } from "./InputField.style";
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   ({ title, defaultValue, placeholder, variant, ...rest }, ref) => {
     return (
-      <div className="">
+      <div className="flex w-full flex-col gap-2">
         {title && <p className="">{title}</p>}
         <input
           ref={ref}

@@ -1,16 +1,20 @@
 // src/features/my/hooks/useMyPage.ts
 import { useState, useEffect } from "react";
-import { getMyEnrollments } from "../api/myApi";
-import { EnrollmentSummary } from "../model/my.types";
+import { getMyEnrollments, getUserProfile } from "../api/myApi"; // getUserProfile 추가
+import { EnrollmentSummary, UserProfile } from "../model/my.types";
 
 export const useMyPage = () => {
-  // 상태 관리: 수강중, 완료, 로딩중, 에러
+  // 강의 목록 상태
   const [inProgressCourses, setInProgressCourses] = useState<
     EnrollmentSummary[]
   >([]);
   const [completedCourses, setCompletedCourses] = useState<EnrollmentSummary[]>(
     [],
   );
+
+  // 🆕 프로필 상태 추가
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,18 +22,22 @@ export const useMyPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // 1. 수강중인 강의 가져오기 (API 호출)
-        const enrolled = await getMyEnrollments("test1234", "ENROLLED");
-        setInProgressCourses(enrolled);
 
-        // 2. 완료된 강의 가져오기 (API 호출)
-        const completed = await getMyEnrollments("test1234", "COMPLETED");
+        // 병렬로 동시에 요청 (속도 향상)
+        const [enrolled, completed, userProfile] = await Promise.all([
+          getMyEnrollments("test1234", "ENROLLED"),
+          getMyEnrollments("test1234", "COMPLETED"),
+          getUserProfile("test1234"), // 프로필 요청
+        ]);
+
+        setInProgressCourses(enrolled);
         setCompletedCourses(completed);
+        setProfile(userProfile); // 프로필 저장
       } catch (err) {
         console.error("데이터 로딩 실패:", err);
-        setError("강의 목록을 불러오지 못했습니다.");
+        setError("데이터를 불러오지 못했습니다.");
       } finally {
-        setLoading(false); // 로딩 끝
+        setLoading(false);
       }
     };
 
@@ -39,6 +47,7 @@ export const useMyPage = () => {
   return {
     inProgressCourses,
     completedCourses,
+    profile, // 리턴에 추가
     loading,
     error,
   };
