@@ -10,9 +10,22 @@ interface CourseParams {
 export const GET = async (request: NextRequest, { params }: CourseParams) => {
   const { courseId } = await params;
 
+  console.log("요청된 courseId:", courseId);
+  console.log(
+    "MOCK_STORE courses:",
+    MOCK_STORE.courses.map((c) => c.courseId),
+  );
+
   const response = MOCK_STORE.courses.find(
     (course: StoreCourse) => course.courseId === courseId,
   );
+
+  if (!response) {
+    return NextResponse.json(
+      { error: `Course with ID ${courseId} not found` },
+      { status: 404 },
+    );
+  }
 
   const body: ResponseGetCourse = {
     course: response as StoreCourse,

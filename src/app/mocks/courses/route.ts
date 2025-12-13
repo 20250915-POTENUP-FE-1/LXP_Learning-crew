@@ -9,14 +9,16 @@ export const GET = async (request: NextRequest) => {
 
   const keyword = searchParams.get("keyword") || "";
   const page = parseInt(searchParams.get("page") || "0", 10);
-  const size = parseInt(searchParams.get("size") || "10", 10);
+  const size = parseInt(searchParams.get("size") || "10", 35);
   const sort = (searchParams.get("sort") || "LATEST") as SortOrder;
 
-  const filtered = MOCK_STORE.courses.filter(
-    (course: StoreCourse) =>
-      course.title.includes(decodeURI(keyword)) ||
-      course.description.includes(decodeURI(keyword)),
-  );
+  const filtered = MOCK_STORE.courses
+    .filter(
+      (course: StoreCourse) =>
+        course.title.includes(decodeURI(keyword)) ||
+        course.description.includes(decodeURI(keyword)),
+    )
+    .reverse();
 
   const body: ResponseGetCourses = {
     contents: filtered.slice(page * size, page * size + size),
@@ -36,11 +38,14 @@ export const GET = async (request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
-  MOCK_STORE.courses.push(body);
+  // courseId 생성
+  const courseId = `course-${MOCK_STORE.courses.length + 1}`;
+  const courseData: StoreCourse = {
+    ...body,
+    courseId,
+  };
 
-  const response = MOCK_STORE.courses.find(
-    (course: StoreCourse) => course.courseId === body.courseId,
-  );
+  MOCK_STORE.courses.push(courseData);
 
-  return NextResponse.json({ ...response }, { status: 201 });
+  return NextResponse.json(courseData, { status: 201 });
 };

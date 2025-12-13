@@ -14,10 +14,4 @@ export interface OnBoardingMessageProps {
    * @default () => {}
    */
   onClick?: () => void;
-
-  /**
-   * 메시지에서 {name} 변수를 대체할 사용자 이름
-   * @default "사용자"
-   */
-  userName?: string;
 }

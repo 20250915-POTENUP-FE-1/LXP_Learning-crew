@@ -10,12 +10,33 @@ import InputField from "@/shared/components/InputField/InputField";
 import TagList from "@/shared/components/TagList/TagList";
 import TextAreaField from "@/shared/components/TextAreaField/TextAreaField";
 import Thumbnail from "@/shared/components/Thumbnail/Thumbnail";
-import { editCourseAction } from "../action/editFormAction";
+import { writeCourseAction } from "../action/writeFormAction";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const CourseWriteView = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const courseData = await writeCourseAction(formData);
+
+      // POST 완료 후 해당 course의 modal로 이동
+      router.push(`/main/${courseData.courseId}`);
+    } catch (error) {
+      console.error("강의 등록 실패:", error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex max-w-full flex-col">
-      <form action={editCourseAction}>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           {/* Header */}
           <div className="flex gap-4">
@@ -68,7 +89,8 @@ const CourseWriteView = () => {
               size="large"
               variant="primaryBorder"
               type="submit"
-              value={"강의등록"}
+              value={isLoading ? "등록 중..." : "강의등록"}
+              disabled={isLoading}
             />
           </div>
         </div>

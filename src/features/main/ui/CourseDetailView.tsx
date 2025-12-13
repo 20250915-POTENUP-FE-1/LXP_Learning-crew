@@ -13,8 +13,15 @@ interface CourseDetailViewProps {
 }
 
 const CourseDetailView = async ({ courseId }: CourseDetailViewProps) => {
-  const { title, description, thumbnailImageUrl, tags, sections } =
-    await getCourse(courseId);
+  console.log("CourseDetailView 받은 courseId:", courseId);
+
+  const course = await getCourse(courseId);
+
+  if (!course) {
+    return <div>강의를 찾을 수 없습니다.</div>;
+  }
+
+  const { title, description, thumbnailImageUrl, tags, sections } = course;
 
   return (
     <div className="flex flex-col">

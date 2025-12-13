@@ -3,21 +3,6 @@
 import React from "react";
 import type { OnBoardingMessageProps } from "../model/OnBoardingMessage.type";
 
-/**
- * OnBoardingMessage 컴포넌트
- *
- * 신규 사용자에게 환영 메시지를 표시하는 배너 형 컴포넌트
- * TailwindCSS를 사용한 반응형 디자인을 지원합니다.
- *
- * @example
- * ```tsx
- * <OnBoardingMessage
- *   message="환영합니다! {name}님"
- *   userName="김준호"
- *   onClick={() => console.log('clicked')}
- * />
- * ```
- */
 const OnBoardingMessage: React.FC<OnBoardingMessageProps> = ({
   message,
   onClick = () => {},
