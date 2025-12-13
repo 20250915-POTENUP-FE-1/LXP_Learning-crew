@@ -125,5 +125,17 @@
       1012
     ],
     "level": "MIDDLE"
+  },
+  {
+    "email": "tla17200@gmail.coma",
+    "password": "qweqweqwe",
+    "name": "홍길동",
+    "role": "LEARNER",
+    "tagIds": [
+      18,
+      1012,
+      5
+    ],
+    "level": "JUNIOR"
   }
 ]
