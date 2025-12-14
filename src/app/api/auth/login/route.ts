@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     );
 
     nextResponse.cookies.set("access_token", result.accessToken, {
-      httpOnly: false,
+      httpOnly: true,
       secure: false,
       sameSite: "lax",
       path: "/",

@@ -3,40 +3,68 @@
 "use client";
 
 import InputField from "@/shared/components/InputField/InputField";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useAuth from "@/hooks/service/useAuth";
 
-// 💡 1. 더미 데이터: 카테고리별 추천 태그 목록
-const TAG_DATA: Record<string, string[]> = {
-  AI: ["ChatGPT", "LLM", "Midjourney", "Stable Diffusion", "Prompt", "AI 윤리"],
-  개발: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Node.js",
-    "Frontend",
-    "Backend",
-    "DevOps",
-  ],
-  디자인: ["Figma", "UI/UX", "BX", "3D", "ProtoPie", "Design System"],
-  서비스: [
-    "프로덕트매니저",
-    "PM",
-    "PO",
-    "서비스기획",
-    "데이터분석",
-    "GA4",
-    "SQL",
-  ],
-};
+// 💡 1. 태그 데이터 타입
+interface Tag {
+  tagId: number;
+  content: string;
+  color: string;
+  variant: string;
+  state: string;
+}
 
-const CATEGORIES = ["AI", "개발", "디자인", "서비스"];
+interface TagCategory {
+  tagCategoryId: number;
+  name: string;
+  state: string;
+  tags: Tag[];
+}
 
 export const Profile = () => {
   // 💡 2. 상태 관리 (State)
-  // myTags: 회원이 선택한 관심 주제 (초기값: 가입 시 선택했던 태그들)
-  const [myTags, setMyTags] = useState<string[]>(["프로덕트매니저", "PM"]);
-  // activeTab: 현재 보고 있는 카테고리 탭
-  const [activeTab, setActiveTab] = useState("개발");
+  const { user, isLoading, refreshAuth } = useAuth();
+  const [tagCategories, setTagCategories] = useState<TagCategory[]>([]);
+  const [myTags, setMyTags] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState("AI");
+  const [loadingTags, setLoadingTags] = useState(true);
+  const [updatingRole, setUpdatingRole] = useState(false);
+
+  // 💡 3. 태그 API에서 전체 태그 목록 가져오기
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/auth/tag");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data?.content) {
+            setTagCategories(data.data.content);
+          }
+        }
+      } catch (error) {
+        console.error("태그 목록 불러오기 실패:", error);
+      } finally {
+        setLoadingTags(false);
+      }
+    };
+    fetchTags();
+  }, []);
+
+  // 💡 4. 사용자의 tagIds를 실제 태그 내용으로 변환
+  useEffect(() => {
+    if (user?.tagIds && tagCategories.length > 0) {
+      const userTagContents: string[] = [];
+      tagCategories.forEach((category) => {
+        category.tags.forEach((tag) => {
+          if (user.tagIds.includes(tag.tagId)) {
+            userTagContents.push(tag.content);
+          }
+        });
+      });
+      setMyTags(userTagContents);
+    }
+  }, [user, tagCategories]);
 
   // ✅ 기능: 태그 삭제 (X 버튼 클릭 시)
   const removeTag = (tagToRemove: string) => {
@@ -56,6 +84,56 @@ export const Profile = () => {
 
     setMyTags([...myTags, newTag]);
   };
+
+  // ✅ 기능: 강사 등록 (role을 INSTRUCTOR로 변경)
+  const handleBecomeInstructor = async () => {
+    if (updatingRole) return;
+
+    const confirmed = window.confirm("강사로 등록하시겠습니까?");
+    if (!confirmed) return;
+
+    setUpdatingRole(true);
+    try {
+      const response = await fetch("/api/auth/role", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ role: "INSTRUCTOR" }),
+      });
+
+      if (response.ok) {
+        alert("강사로 등록되었습니다!");
+        // 사용자 정보 새로고침
+        await refreshAuth();
+      } else {
+        const error = await response.json();
+        alert(error.message || "강사 등록에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("강사 등록 오류:", error);
+      alert("강사 등록 중 오류가 발생했습니다.");
+    } finally {
+      setUpdatingRole(false);
+    }
+  };
+
+  if (isLoading || loadingTags) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center">
+        <p className="text-gray-500">로딩 중...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center">
+        <p className="text-gray-500">사용자 정보를 불러올 수 없습니다.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">
@@ -81,7 +159,7 @@ export const Profile = () => {
             <InputField
               title="이름"
               type="text"
-              defaultValue="홍길동"
+              defaultValue={user.name || ""}
               readOnly
             />
           </div>
@@ -89,7 +167,7 @@ export const Profile = () => {
             <InputField
               title="이메일"
               type="email"
-              defaultValue="hong@example.com"
+              defaultValue={user.email || ""}
               disabled
             />
             <p className="mt-1 text-sm text-gray-400">
@@ -134,19 +212,19 @@ export const Profile = () => {
 
         {/* --- [B] 카테고리 탭 --- */}
         <div className="mb-6 flex border-b border-gray-200">
-          {CATEGORIES.map((tab) => (
+          {tagCategories.map((category) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
+              key={category.tagCategoryId}
+              onClick={() => setActiveTab(category.name)}
               className={`relative px-4 py-2 text-sm font-medium transition-colors ${
-                activeTab === tab
+                activeTab === category.name
                   ? "font-bold text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >
-              {tab}
+              {category.name}
               {/* 활성화된 탭 하단 파란색 바 */}
-              {activeTab === tab && (
+              {activeTab === category.name && (
                 <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-[1px] bg-blue-600"></div>
               )}
             </button>
@@ -155,51 +233,63 @@ export const Profile = () => {
 
         {/* --- [C] 선택 가능한 태그 목록 (탭에 따라 변경됨) --- */}
         <div className="flex flex-wrap gap-2">
-          {TAG_DATA[activeTab]?.map((topic, index) => {
-            // 이미 선택된 태그인지 확인
-            const isSelected = myTags.includes(topic);
+          {tagCategories
+            .find((cat) => cat.name === activeTab)
+            ?.tags.map((tag) => {
+              // 이미 선택된 태그인지 확인
+              const isSelected = myTags.includes(tag.content);
 
-            return (
-              <button
-                key={index}
-                onClick={() => (isSelected ? removeTag(topic) : addTag(topic))}
-                className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm transition ${
-                  isSelected
-                    ? "border-blue-500 bg-blue-50 font-medium text-blue-600" // 이미 선택됨
-                    : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50" // 선택 안됨
-                }`}
-              >
-                {topic}
-                {isSelected ? (
-                  // 선택된 상태면 파란색 체크 표시 등으로 변경 가능하나,
-                  // 시안 통일성을 위해 X 표시 유지하되 색상만 다르게 처리
-                  <span className="text-blue-500">✕</span>
-                ) : (
-                  // 선택 안 된 상태면 + 기호나 그냥 텍스트만 보여줘도 됨.
-                  // 시안에 X가 있으므로 유지하되 회색 처리
-                  <span className="rotate-45 transform text-gray-300">+</span>
-                )}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={tag.tagId}
+                  onClick={() =>
+                    isSelected ? removeTag(tag.content) : addTag(tag.content)
+                  }
+                  className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm transition ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-50 font-medium text-blue-600" // 이미 선택됨
+                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50" // 선택 안됨
+                  }`}
+                >
+                  {tag.content}
+                  {isSelected ? (
+                    // 선택된 상태면 파란색 체크 표시 등으로 변경 가능하나,
+                    // 시안 통일성을 위해 X 표시 유지하되 색상만 다르게 처리
+                    <span className="text-blue-500">✕</span>
+                  ) : (
+                    // 선택 안 된 상태면 + 기호나 그냥 텍스트만 보여줘도 됨.
+                    // 시안에 X가 있으므로 유지하되 회색 처리
+                    <span className="rotate-45 transform text-gray-300">+</span>
+                  )}
+                </button>
+              );
+            })}
         </div>
       </section>
 
-      {/* 3. 강사 활동 카드 */}
-      <section className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-        <div className="flex items-center gap-4">
-          <span className="text-2xl">📖</span>
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">강사 활동 하기</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              지금 강사로 등록하고 당신의 지식을 공유하세요!
-            </p>
+      {/* 3. 강사 활동 카드 - role이 INSTRUCTOR가 아닐 때만 표시 */}
+      {user.role !== "INSTRUCTOR" && (
+        <section className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+          <div className="flex items-center gap-4">
+            <span className="text-2xl">📖</span>
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">
+                강사 활동 하기
+              </h2>
+              <p className="mt-1 text-sm text-gray-500">
+                지금 강사로 등록하고 당신의 지식을 공유하세요!
+              </p>
+            </div>
           </div>
-        </div>
-        <button className="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
-          강사 등록 하러가기
-        </button>
-      </section>
+          <button
+            onClick={handleBecomeInstructor}
+            disabled={updatingRole}
+            className="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {updatingRole ? "처리 중..." : "강사 등록 하러가기"}
+          </button>
+        </section>
+      )}
     </div>
   );
 };

@@ -1,6 +1,9 @@
 import { COURSES_STORE, type StoreCourse } from "./store/courses";
+import { ENROLLMENTS_STORE, type StoreEnrollment } from "./store/enrollments";
+
 type MockStore = {
   courses: StoreCourse[];
+  enrollments: StoreEnrollment[];
 };
 
 declare global {
@@ -10,6 +13,7 @@ declare global {
 if (!globalThis.__MOCK_STORE__) {
   globalThis.__MOCK_STORE__ = {
     courses: [...COURSES_STORE], // 복사본 사용
+    enrollments: [...ENROLLMENTS_STORE], // 복사본 사용
   };
 }
 

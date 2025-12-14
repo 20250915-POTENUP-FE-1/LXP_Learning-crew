@@ -2,11 +2,30 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import API_ROUTES from "@/shared/constants/apiRoutes";
 import type { CourseDto } from "@/shared/dtos";
+import { getSession } from "@/app/api/auth/shared/sessionStore";
+import getCourse from "@/shared/services/course/getCourse";
 
 export async function editCourseAction(formData: FormData) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+
+  const session = getSession(accessToken);
+
+  if (!session) {
+    throw new Error("로그인이 필요합니다.");
+  }
+
   const courseId = formData.get("courseId") as string;
+
+  // 권한 확인: 코스 소유자인지 검증
+  const course = await getCourse(courseId);
+  if (course.instructorUserId !== session.user.userId) {
+    throw new Error("수정 권한이 없습니다.");
+  }
+
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
 

@@ -51,13 +51,13 @@ const CourseEditView = ({
                 />
               </div>
 
-              <TagList tags={tags} />
+              {/* <TagList tags={tags} /> */}
             </div>
           </div>
 
           {/* Information */}
           <div className="grid grid-cols-4 gap-4">
-            <InformationCard
+            {/* <InformationCard
               title="2시간"
               description="강의시간"
               style="fill"
@@ -66,7 +66,7 @@ const CourseEditView = ({
               title="2시간"
               description="강의시간"
               style="fill"
-            />
+            /> */}
           </div>
 
           {/* Curriculum */}

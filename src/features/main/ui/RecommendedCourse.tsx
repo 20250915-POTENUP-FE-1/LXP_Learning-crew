@@ -2,10 +2,20 @@ import { CourseListProps } from "../model/props.type";
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
 import Link from "next/link";
 import APP_ROUTES from "@/shared/constants/appRoutes";
-import getRecommendedCourses from "@/shared/services/courses/getRecommendedCourses";
+import getCourses from "@/shared/services/courses/getCourses";
+
+const shuffleAndPick = <T,>(arr: T[], count: number) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, count);
+};
 
 const RecommendedCourse = async ({ name }: CourseListProps) => {
-  const courses = await getRecommendedCourses();
+  const courses = await getCourses();
+  const randomized = shuffleAndPick(courses ?? [], 4);
 
   return (
     <div className="flex w-full flex-col">
@@ -17,7 +27,7 @@ const RecommendedCourse = async ({ name }: CourseListProps) => {
       </div>
 
       <div className="flex gap-8 overflow-x-scroll py-4">
-        {courses?.map((course, index) => (
+        {randomized.map((course, index) => (
           <Link
             key={index}
             href={`${APP_ROUTES.MAIN.COURSE_DETAIL}/${course.courseId}`}

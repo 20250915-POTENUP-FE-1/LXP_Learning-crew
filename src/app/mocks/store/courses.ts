@@ -20,6 +20,7 @@ export type CourseSection = {
 };
 
 export type StoreCourse = {
+  instructorUserId: any;
   courseId: string;
   title: string;
   description: string;
@@ -134,6 +135,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-2",
@@ -198,6 +200,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-3",
@@ -242,6 +245,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-4",
@@ -270,6 +274,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-5",
@@ -319,11 +324,13 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-6",
     title: "알고리즘 완전 정복",
     description: "알고리즘 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Algorithm", color: "purple" },
       { content: "Data Structure", color: "blue" },
@@ -384,6 +391,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-7",
     title: "컴퓨터 구조 완전 정복",
     description: "컴퓨터 구조 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Computer Architecture", color: "green" },
       { content: "Hardware", color: "orange" },
@@ -443,6 +451,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-8",
     title: "운영체제 완전 정복",
     description: "운영체제 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Operating System", color: "blue" },
       { content: "System", color: "green" },
@@ -511,6 +520,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-9",
     title: "데이터 사이언스 완전 정복",
     description: "데이터 사이언스 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Data Science", color: "orange" },
       { content: "Machine Learning", color: "blue" },
@@ -569,6 +579,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-10",
     title: "DevOps 완전 정복",
     description: "DevOps 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "DevOps", color: "green" },
       { content: "CI/CD", color: "blue" },
@@ -627,6 +638,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-11",
     title: "클라우드 완전 정복",
     description: "클라우드 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Cloud", color: "blue" },
       { content: "Infrastructure", color: "green" },
@@ -685,6 +697,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-12",
     title: "Docker 완전 정복",
     description: "Docker 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Docker", color: "orange" },
       { content: "Container", color: "blue" },
@@ -743,6 +756,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-13",
     title: "쿠버네티스 완전 정복",
     description: "쿠버네티스 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Kubernetes", color: "blue" },
       { content: "Orchestration", color: "green" },
@@ -810,6 +824,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-14",
     title: "Git 완전 정복",
     description: "Git 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Git", color: "orange" },
       { content: "Version Control", color: "blue" },
@@ -868,6 +883,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-15",
     title: "테스팅 완전 정복",
     description: "테스팅 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Testing", color: "purple" },
       { content: "QA", color: "green" },
@@ -925,6 +941,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-16",
     title: "리액트 네이티브 완전 정복",
     description: "리액트 네이티브 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "React Native", color: "blue" },
       { content: "Mobile", color: "green" },
@@ -982,6 +999,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-17",
     title: "SwiftUI 완전 정복",
     description: "SwiftUI 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "SwiftUI", color: "blue" },
       { content: "iOS", color: "purple" },
@@ -1039,6 +1057,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-18",
     title: "안드로이드 완전 정복",
     description: "안드로이드 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Android", color: "green" },
       { content: "Kotlin", color: "orange" },
@@ -1097,6 +1116,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-19",
     title: "Go 언어 완전 정복",
     description: "Go 언어 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Go", color: "blue" },
       { content: "Backend", color: "green" },
@@ -1155,6 +1175,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-20",
     title: "Rust 완전 정복",
     description: "Rust 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "Rust", color: "orange" },
       { content: "Systems", color: "purple" },
@@ -1212,6 +1233,7 @@ export const COURSES_STORE: CourseDto[] = [
     courseId: "course-21",
     title: "C++ 완전 정복",
     description: "C++ 완전 정복하려면 이 강의를 들어보세요!",
+    instructorUserId: "instructor@example.com",
     tags: [
       { content: "C++", color: "blue" },
       { content: "Systems", color: "green" },
@@ -1323,6 +1345,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-23",
@@ -1380,6 +1403,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-24",
@@ -1437,6 +1461,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
   {
     courseId: "course-25",
@@ -1498,6 +1523,7 @@ export const COURSES_STORE: CourseDto[] = [
         ],
       },
     ],
+    instructorUserId: "",
   },
 ];
 

@@ -3,8 +3,13 @@ import React from "react";
 import LogoImage from "../../../../public/logo.png";
 import Link from "next/link";
 import { ActionButton } from "../ActionButton";
+import { cookies } from "next/headers";
+import HeaderClient from "./HeaderClient";
 
-const Header = () => {
+const Header = async () => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+
   return (
     <div className="flex h-16 w-full items-center justify-center">
       <header className="flex w-full max-w-[1100px] items-center justify-between">
@@ -17,11 +22,7 @@ const Header = () => {
           />
         </Link>
 
-        <div>
-          <Link href="/login">
-            <ActionButton variant="secondaryBorder" value={"로그인"} />
-          </Link>
-        </div>
+        <HeaderClient isLoggedIn={!!accessToken} />
       </header>
     </div>
   );

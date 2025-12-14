@@ -60,7 +60,7 @@ const CourseWriteView = () => {
 
           {/* Information */}
           <div className="grid grid-cols-4 gap-4">
-            <InformationCard
+            {/* <InformationCard
               title="2시간"
               description="강의시간"
               style="fill"
@@ -69,7 +69,7 @@ const CourseWriteView = () => {
               title="2시간"
               description="강의시간"
               style="fill"
-            />
+            /> */}
           </div>
 
           {/* Curriculum */}

@@ -1,14 +1,31 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import API_ROUTES from "@/shared/constants/apiRoutes";
 import type { CourseDto } from "@/shared/dtos";
+import { getSession } from "@/app/api/auth/shared/sessionStore";
 
 export async function writeCourseAction(
   formData: FormData,
 ): Promise<CourseDto> {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+
+  console.log("[writeCourseAction] accessToken:", accessToken);
+
+  const session = getSession(accessToken);
+
+  console.log("[writeCourseAction] session:", session);
+
+  if (!session) {
+    throw new Error("로그인이 필요합니다.");
+  }
+
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
+  const instructorId = session.user.userId || session.user.email;
+  const instructorUserId = session.user.userId;
 
   // sections 데이터 수집
   const sections: CourseDto["sections"] = [];
@@ -49,6 +66,7 @@ export async function writeCourseAction(
   const body: Partial<CourseDto> = {
     title,
     description,
+    instructorUserId,
     sections,
   };
 
@@ -59,8 +77,10 @@ export async function writeCourseAction(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Cookie: `access_token=${accessToken}`,
         },
         body: JSON.stringify(body),
+        credentials: "include",
       },
     );
 

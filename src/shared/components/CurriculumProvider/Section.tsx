@@ -3,7 +3,12 @@ import { SectionProps } from "./CurriculumProvider.type";
 import TextField from "../TextField/TextField";
 import AccordionView from "../AccordionView/AccordionView";
 
-const Section = ({ section, index, mode = "view" }: SectionProps) => {
+const Section = ({
+  section,
+  index,
+  mode = "view",
+  onAddLecture,
+}: SectionProps) => {
   const { sectionTitle, lectures } = section;
   const { sectionIndex } = index;
 
@@ -51,6 +56,17 @@ const Section = ({ section, index, mode = "view" }: SectionProps) => {
             mode={mode}
           />
         ))}
+        {mode === "edit" && (
+          <div className="flex justify-end py-2">
+            <button
+              type="button"
+              className="rounded-md border border-neutral-900 px-3 py-1 text-xs"
+              onClick={() => onAddLecture?.(sectionIndex)}
+            >
+              강의 추가
+            </button>
+          </div>
+        )}
       </div>
     </AccordionView>
   );

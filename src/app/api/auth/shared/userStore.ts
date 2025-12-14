@@ -1,4 +1,10 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { getContentToIdMap } from "./tagCatalog";
+
 export interface User {
+  userId: string;
   email: string;
   password: string;
   name: string;
@@ -7,14 +13,14 @@ export interface User {
   level: string;
 }
 
-import fs from "node:fs";
-import path from "node:path";
-import { getContentToIdMap } from "./tagCatalog";
-
 const DATA_DIR = path.join(process.cwd(), ".data");
 const DATA_FILE = path.join(DATA_DIR, "users.json");
 
 const initialUsers: User[] = [];
+
+function generateUserId(): string {
+  return crypto.randomUUID();
+}
 
 function ensureDataFile() {
   try {
@@ -40,6 +46,7 @@ function isNumberArray(v: unknown): v is number[] {
 }
 
 type LegacyUser = {
+  userId?: unknown;
   email?: unknown;
   password?: unknown;
   name?: unknown;
@@ -70,6 +77,10 @@ function normalizeUsers(anyArr: unknown[]): User[] {
             "JUNIOR";
 
       const user: User = {
+        userId:
+          typeof u.userId === "string" && u.userId.length > 0
+            ? u.userId
+            : generateUserId(),
         email: typeof u.email === "string" ? u.email : "",
         password: typeof u.password === "string" ? u.password : "",
         name: typeof u.name === "string" ? u.name : "",
@@ -117,11 +128,30 @@ export function getUserStore(): User[] {
 
 export function addUserToStore(user: User): void {
   const users = readUsers();
-  users.push(user);
+  const normalizedUser: User = {
+    ...user,
+    userId: user.userId || generateUserId(),
+  };
+
+  users.push(normalizedUser);
   writeUsers(users);
 }
 
 export function findUserByEmail(email: string): User | undefined {
   const users = readUsers();
   return users.find((user) => user.email === email);
+}
+
+export function updateUserRole(userId: string, newRole: string): User | null {
+  const users = readUsers();
+  const userIndex = users.findIndex((user) => user.userId === userId);
+
+  if (userIndex === -1) {
+    return null;
+  }
+
+  users[userIndex].role = newRole;
+  writeUsers(users);
+
+  return users[userIndex];
 }
