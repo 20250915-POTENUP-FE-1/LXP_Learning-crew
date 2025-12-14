@@ -6,6 +6,7 @@ type CourseDto = {
   title: string;
   description: string;
   thumbnailImageUrl: string | null;
+  instructorUserId: string; // 강의를 등록한 강사의 userId (필수)
   tags?: {
     content: string;
 

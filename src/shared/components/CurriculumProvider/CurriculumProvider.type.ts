@@ -27,9 +27,9 @@ type Section = {
 
 /** CurriculumProvider 컴포넌트 Props */
 interface CurriculumProviderProps {
-  /** 강의 섹션 배열 */
+  /** 섹션 리스트 */
   sections: Section[];
-  /** 표시 모드 (기본값: "view") */
+  /** 표시 모드 (보기/편집) */
   mode?: Mode;
 }
 
@@ -41,6 +41,8 @@ interface SectionProps {
   section: Section;
   /** 표시 모드 (기본값: "view") */
   mode?: Mode;
+  /** 강의 추가 핸들러 */
+  onAddLecture?: (sectionIndex: number) => void;
 }
 
 /** Lecture 렌더링 컴포넌트 Props */

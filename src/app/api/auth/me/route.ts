@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         user: {
+          userId: session.user.userId,
           email: session.user.email,
           name: session.user.name,
           role: session.user.role,

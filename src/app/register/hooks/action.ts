@@ -132,7 +132,7 @@ export default async function registerAction(
     const user = data.data?.content?.[0];
     return {
       success: true,
-      userId: user?.email,
+      userId: user?.userId || user?.email,
       message: "회원가입이 완료되었습니다.",
     };
   } catch (error) {

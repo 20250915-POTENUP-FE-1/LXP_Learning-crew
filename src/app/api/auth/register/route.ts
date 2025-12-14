@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import {
   User,
@@ -44,6 +45,7 @@ function registerUser(registerDto: RegisterDto) {
   }
 
   const user: User = {
+    userId: crypto.randomUUID(),
     email,
     password: registerDto.password.trim(),
     name: registerDto.name,
@@ -60,8 +62,9 @@ function registerUser(registerDto: RegisterDto) {
 function findAllUsers() {
   const store = getUserStore();
   return store.map((user: User) => ({
+    userId: user.userId,
     email: user.email,
-    passworfd: user.password,
+    password: user.password,
     name: user.name,
     role: user.role,
     tagIds: user.tagIds,
@@ -79,6 +82,7 @@ export async function POST(request: NextRequest) {
       data: {
         content: [
           {
+            userId: user.userId,
             email: user.email,
             password: user.password,
             name: user.name,

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 interface User {
+  userId: string;
   email: string;
   name: string;
   role: string;
@@ -40,7 +41,14 @@ export default function useAuth() {
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data.user);
+        setUser({
+          userId: data.user.userId ?? "",
+          email: data.user.email,
+          name: data.user.name,
+          role: data.user.role,
+          tagIds: data.user.tagIds,
+          level: data.user.level,
+        });
         setIsLoggedIn(true);
       } else {
         setUser(null);

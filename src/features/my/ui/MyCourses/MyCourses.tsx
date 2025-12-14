@@ -5,31 +5,20 @@
 import React from "react";
 import { useMyPage } from "@/features/my/hooks"; // 훅 경로 확인
 import CourseCard from "@/shared/components/CourseCard/CourseCard";
-// import { LectureCard } from "@/shared/components/LectureCard/LectureCard"; // LectureCard 경로 확인
 
 export const MyCourses = () => {
-  const { inProgressCourses, completedCourses, loading } = useMyPage();
+  const { inProgressCourses, completedCourses, loading, error } = useMyPage();
 
-  // 1. 데모 데이터 정의 (여기는 '데이터'니까 : 콜론을 씁니다)
-  const demo = [1, 2, 3].map((i) => ({
-    id: i,
-    title: `실무 Next.js 프로젝트 ${i}`,
-    description: "상세한 강의 설명이 들어갑니다.",
-    thumbnailUrl: "/images/sample-course.jpg",
-    level: "MIDDLE",
-    // 🟢 수정됨: 여기는 데이터 영역이므로 tags: [...] 형태여야 합니다.
-    // LectureCard가 content 속성을 원하므로 content로 넣어줍니다.
-    tags: [
-      { id: 1, content: "Next.js" },
-      { id: 2, content: "FrontEnd" },
-    ],
-  }));
+  if (loading) return <div className="py-8 text-center">로딩 중...</div>;
 
-  if (loading) return <div>로딩 중...</div>;
+  if (error) {
+    console.warn("MyCourses: Error occurred:", error);
+  }
 
-  // 데이터가 있으면 쓰고, 없으면 데모 데이터를 씁니다.
-  const inCourses = inProgressCourses?.length ? inProgressCourses : demo;
-  const doneCourses = completedCourses?.length ? completedCourses : [demo[0]];
+  // 수강중인 강의가 없으면 빈 상태 표시
+  const hasInProgressCourses =
+    inProgressCourses && inProgressCourses.length > 0;
+  const hasCompletedCourses = completedCourses && completedCourses.length > 0;
 
   return (
     <div className="w-full">
@@ -40,17 +29,24 @@ export const MyCourses = () => {
           내 학습 현황과 활동 내역을 확인하세요.
         </p>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {inCourses.map((course: any) => (
-            <CourseCard
-              key={course.id || course.enrollmentId}
-              {...course}
-              // 🟢 수정됨: 여기는 컴포넌트 영역이므로 tags={...} 형태가 맞습니다.
-              // 데이터가 없을 때를 대비해 빈 배열([])을 넣어줍니다.
-              tags={course.tags || []}
-            />
-          ))}
-        </div>
+        {hasInProgressCourses ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {inProgressCourses.map((course) => (
+              <CourseCard
+                key={course.enrollmentId}
+                courseId={course.courseId || ""}
+                title={course.title}
+                description={course.description ?? ""}
+                thumbnailImageUrl={course.thumbnail ?? ""}
+                tags={[]}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="py-8 text-center text-gray-400">
+            수강중인 강의가 없습니다.
+          </div>
+        )}
       </section>
 
       {/* -------------------- 2. 완료된 강의 -------------------- */}
@@ -60,16 +56,24 @@ export const MyCourses = () => {
           지난 강의 내역을 확인 할 수 있습니다.
         </p>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {doneCourses.map((course: any) => (
-            <CourseCard
-              key={course.id || course.enrollmentId}
-              {...course}
-              // 🟢 수정됨: 안전장치 추가
-              tags={course.tags || []}
-            />
-          ))}
-        </div>
+        {hasCompletedCourses ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {completedCourses.map((course) => (
+              <CourseCard
+                key={course.enrollmentId}
+                courseId={course.courseId || ""}
+                title={course.title}
+                description={course.description ?? ""}
+                thumbnailImageUrl={course.thumbnail ?? ""}
+                tags={[]}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="py-8 text-center text-gray-400">
+            완료된 강의가 없습니다.
+          </div>
+        )}
       </section>
     </div>
   );

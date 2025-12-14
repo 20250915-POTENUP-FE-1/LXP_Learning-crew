@@ -4,6 +4,7 @@ interface ApiRoutesType {
     COURSE: string;
     RECOMMENDED: string;
   };
+  ENROLLMENT: string;
 }
 
 let API_ROUTES: ApiRoutesType;
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV === "development") {
       COURSE: "/courses",
       RECOMMENDED: "/courses",
     },
+    ENROLLMENT: "/api-v1/enrollments",
   };
 } else {
   API_ROUTES = {
@@ -23,6 +25,7 @@ if (process.env.NODE_ENV === "development") {
       COURSE: "https://api.example.com/courses",
       RECOMMENDED: "https://api.example.com/courses/recommended",
     },
+    ENROLLMENT: "https://api.example.com/api-v1/enrollments",
   };
 }
 

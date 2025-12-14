@@ -5,8 +5,7 @@ import TextField from "@/shared/components/TextField/TextField";
 import Thumbnail from "@/shared/components/Thumbnail/Thumbnail";
 import TagList from "@/shared/components/TagList/TagList";
 import getCourse from "@/shared/services/course/getCourse";
-import { ActionButton } from "@/shared/components/ActionButton";
-import Link from "next/link";
+import CourseActionButton from "./CourseActionButton";
 
 interface CourseDetailViewProps {
   courseId: string;
@@ -21,7 +20,17 @@ const CourseDetailView = async ({ courseId }: CourseDetailViewProps) => {
     return <div>강의를 찾을 수 없습니다.</div>;
   }
 
-  const { title, description, thumbnailImageUrl, tags, sections } = course;
+  const {
+    title,
+    description,
+    thumbnailImageUrl,
+    tags,
+    sections,
+    instructorUserId,
+  } = course;
+
+  console.log("Course 전체 데이터:", course);
+  console.log("instructorUserId:", instructorUserId);
 
   return (
     <div className="flex flex-col">
@@ -52,9 +61,9 @@ const CourseDetailView = async ({ courseId }: CourseDetailViewProps) => {
 
         {/* Information */}
         <div className="grid grid-cols-4 gap-4">
+          {/* <InformationCard title="2시간" description="강의시간" style="fill" />
           <InformationCard title="2시간" description="강의시간" style="fill" />
-          <InformationCard title="2시간" description="강의시간" style="fill" />
-          <InformationCard title="0/20" description="시청 강의" style="fill" />
+          <InformationCard title="0/20" description="시청 강의" style="fill" /> */}
         </div>
 
         {/* Curriculum */}
@@ -70,14 +79,7 @@ const CourseDetailView = async ({ courseId }: CourseDetailViewProps) => {
 
         <div className="relative bottom-0 my-4 flex w-full justify-end gap-2">
           {/* Action Button */}
-          <Link href={`/main/${courseId}/edit`}>
-            <ActionButton
-              width={140}
-              size="large"
-              variant="primaryBorder"
-              value={"수강하기"}
-            />
-          </Link>
+          <CourseActionButton courseId={courseId} userId={instructorUserId} />
         </div>
       </div>
     </div>

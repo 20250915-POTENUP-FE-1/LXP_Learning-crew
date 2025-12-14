@@ -1,6 +1,15 @@
 import type { User } from "./userStore";
 
-const sessions = new Map<string, { user: User; exp: number }>();
+// Share sessions across route/server-action module instances during dev.
+type SessionStore = Map<string, { user: User; exp: number }>;
+const globalStore = globalThis as typeof globalThis & {
+  __sessionStore?: SessionStore;
+};
+const sessions: SessionStore =
+  globalStore.__sessionStore ?? new Map<string, { user: User; exp: number }>();
+if (!globalStore.__sessionStore) {
+  globalStore.__sessionStore = sessions;
+}
 
 function generateSessionId(): string {
   return `sess_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
@@ -27,4 +36,16 @@ export function getSession(id: string | undefined | null) {
 export function destroySession(id: string | undefined | null) {
   if (!id) return false;
   return sessions.delete(id);
+}
+
+export function updateSession(id: string, updatedUser: User) {
+  const session = getSession(id);
+  if (!session) return false;
+
+  sessions.set(id, {
+    user: updatedUser,
+    exp: session.exp,
+  });
+
+  return true;
 }
