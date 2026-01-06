@@ -1,3 +1,5 @@
+"use client";
+
 import InputField from "@/shared/components/InputField/InputField";
 import { ActionButton } from "@/shared/components/ActionButton";
 import useLoginForm from "../hooks/useLoginForm";

@@ -1,8 +1,14 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { validateCredentials } from "@/app/login/hooks/validation";
 
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  process.env.NEXTAUTH_URL ||
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
 
 export default async function loginAction(
   formData: FormData,
@@ -10,28 +16,16 @@ export default async function loginAction(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  if (!EMAIL_REGEX.test(email)) {
-    return {
-      success: false,
-      message: "올바른 이메일 형식이 아닙니다.",
-    };
-  }
+  const { isValid, errors } = validateCredentials(email, password);
 
-  if (password.length < 8 || password.length > 20) {
+  if (!isValid) {
     return {
       success: false,
-      message: "비밀번호는 8~20자여야 합니다.",
+      message: errors.email || errors.password || "입력값을 확인해주세요.",
     };
   }
 
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      process.env.NEXTAUTH_URL ||
-      (process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000");
-
     const response = await fetch(`${baseUrl}/api/auth/login`, {
       method: "POST",
       headers: {

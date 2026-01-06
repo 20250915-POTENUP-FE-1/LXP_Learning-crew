@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import loginAction from "@/app/login/hooks/actions";
-
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
+import { validateCredentials } from "@/app/login/hooks/validation";
 
 const useLoginForm = () => {
   const router = useRouter();
@@ -16,29 +15,17 @@ const useLoginForm = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const validate = () => {
-    const newErrors = { email: "", password: "" };
-
-    if (!EMAIL_REGEX.test(email)) {
-      newErrors.email = "올바른 이메일 형식이 아닙니다.";
-    }
-
-    if (password.length < 8) {
-      newErrors.password = "비밀번호가 너무 짧습니다.";
-    } else if (password.length > 20) {
-      newErrors.password = "비밀번호가 너무 깁니다.";
-    }
-
-    setErrors(newErrors);
-    return Object.values(newErrors).every((v) => v === "");
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validate()) {
-      return;
-    }
+    const { isValid, errors: validationErrors } = validateCredentials(
+      email,
+      password,
+    );
+
+    setErrors(validationErrors);
+
+    if (!isValid) return;
 
     setIsLoading(true);
 
